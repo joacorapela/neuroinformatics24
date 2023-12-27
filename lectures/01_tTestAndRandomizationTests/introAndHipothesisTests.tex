@@ -1,0 +1,447 @@
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+% remove title and author from left panel
+ \makeatletter
+  \setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
+  {
+    \beamer@tempdim=\beamer@sidebarwidth%
+    \advance\beamer@tempdim by -6pt%
+    \insertverticalnavigation{\beamer@sidebarwidth}%
+    \vfill
+    \ifx\beamer@sidebarside\beamer@lefttext%
+    \else%
+      \usebeamercolor{normal text}%
+      \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+      \vskip2pt%
+    \fi%
+  }%
+\makeatother
+% done remove title and author from left panel 
+
+\hypersetup{colorlinks,citecolor=}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{comment}
+% \usepackage{enumitem}
+% \setlist[itemize]{topsep=0pt,before=\leavevmode\vspace{-1.5em}}
+% \setlist[description]{style=nextline}
+\usepackage{amsthm}
+\usepackage{media9}
+% \usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{tikz}
+\tikzset{
+     arrow/.style={-{Stealth[]}}
+     }
+\usetikzlibrary{positioning,arrows.meta}
+\usetikzlibrary{shapes.geometric}
+
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+
+\usepackage{setspace}
+
+% \newtheorem{example}{Example}
+% \setbeamertemplate{theorems}[numbered]
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\newcommand{\keepi}{\addtocounter{saveenumi}{-1}\setcounter{enumi}{\value{saveenumi}}}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Foundations of probability theory}
+
+\author{Joaqu\'{i}n Rapela} % Your name
+\institute[GCNU, UCL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Gatsby Computational Neuroscience Unit\\University College London % Your institution for the title page
+}
+\date{\today} % Date, can be changed to a custom date
+
+\AtBeginSection[]
+  {
+     \begin{frame}<beamer>
+     \frametitle{Contents}
+         \tableofcontents[currentsection,hideallsubsections]
+     \end{frame}
+  }
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Contents} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+\section{Course logistics}
+
+\begin{frame}
+\frametitle{Course logistics}
+\end{frame}
+
+\section{Statistical remarks}
+
+\begin{frame}
+    \frametitle{}
+
+    \begin{example}
+
+        Is the average height of male from New Zeland larger than six feet?
+
+    \end{example}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Statistical remarks}
+
+    \begin{enumerate}
+
+        \item It is frequent in statistics to assume that observed data follows
+            a given probability distribution. For example a:
+
+            \begin{itemize}
+
+                \item normal distribution with parameters mean $\mu$ and variance
+                    $\sigma^2$, $\mathcal{N}(\mu,\sigma^2)$,
+
+                \item Poisson distribution with expected rate parameter $\lambda$,
+                    $\mathcal{P}(\lambda)$,
+
+                \item Binomial distribution with number of observation parameter $n$
+                    and with a success probability parameter $p$,
+                    $\mathcal{B}(n,p)$.
+
+            \end{itemize}
+
+            \onslide<2-> {
+            \begin{example}
+
+                Assume that the height of males from New Zeland follows of
+                normal distribution with mean $\mu$ and variance
+                $\sigma^2=0.25$ (i.e., $h\sim\mathcal{N}(\mu,0.25$).
+
+            \end{example}
+            }
+            \seti
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Statistical remarks}
+
+    \begin{enumerate}
+
+        \conti
+
+        \item One branch of statistics, \textbf{estimation theory}, provides
+            tools to estimate these parameters from observations.
+
+        \item Another branch of statistics, \textbf{hypothesis testing},
+            provides tools to make statistically-informed decisions about the
+            value of these parameters.
+
+            \seti
+
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Statistical remarks}
+
+    \begin{enumerate}[<+->]
+
+        \conti
+
+        \item To estimate parameters, or to make decisions about them, we use
+            \textbf{observations}, $x_1,\ldots,x_N$.
+
+            \begin{example}
+
+                We will measure the height of a sample of $N=10$ males from New
+                Zeland, $h_1,\ldots,h_N$.
+
+                To avoid flying to New Zeland, we will simulate
+                $h_i,\ldots,h_N$ as random samples from a normal distribution
+                with mean $\mu=6\,\text{feet}$ and variance
+                $\sigma^2=0.25\,\text{feet}^2$ .
+
+            \end{example}
+
+            \seti
+
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Statistical remarks}
+
+    \begin{enumerate}
+
+        \conti
+
+        \item A goal of statistics is to \textbf{infer properties of the
+            population} (e.g., the mean height of all males in New Zeland) from
+            \textbf{properties of the sample} (e.g., the heights of the sample
+            of 10 individuals).
+
+    \end{enumerate}
+
+\end{frame}
+
+\section{Hypothesis testing}
+
+\begin{frame}
+\frametitle{Null and alternative hypothesis}
+
+    \begin{itemize}
+
+        \item In hypothesis testing we work with a \textbf{null hypothesis},
+            $\mathcal{H}_0$, and an \textbf{alternative hypothesis},
+            $\mathcal{H}_a$, collect a sample of data $x_1,\ldots,x_N$, and
+            test if this data provides sufficient statistical evidence in favor
+            of the alternative hypothesis. If this happens we reject the null
+            hypothesis.
+
+        \item However, if the collected data does not provide sufficient
+            statistical evicence in favor of the aternative hypothesis, we do
+            not accept the null hypothesis, but we say that we failed to reject
+            it.  \textbf{Hypothesis tests do not prove null hypothesis, they
+            only provide statistical evidence to reject it, or fail to reject it.}
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Null and alternative hypothesis}
+
+    \begin{example}
+
+        Is the average height of males from New Zeland larger than six feet?
+
+        \begin{description}
+
+            \item[$\mathcal{H}_0$]: the average height of males from New Zeland
+                is six feet (i.e., $\mu=6\,\text{feet}$).
+
+            \item[$\mathcal{H}_a$]: the average height of males from New Zeland
+                is larger than six feet (i.e., $\mu>6\,\text{feet}$).
+
+        \end{description}
+
+    \end{example}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Test statistic and its sampling distribution}
+
+    \begin{itemize}
+
+        \item To perform a hypothesis test we propose a \textbf{test statistic}, a
+    function of the sample data, like the sample mean:
+
+            \begin{align}
+                \bar{x}=\frac{1}{N}\sum_{i=1}^Nx_i\label{eq:sampleMean}
+            \end{align}
+
+        \item Because the sample data is random, the test statistic is also
+            random. To perform hypothesis tests we need to know the
+            distribution of the test statistic, which is called the
+            \textbf{sampling distribution}.
+
+        \item If the observed test statistic is highly unprobable under
+            $\mathcal{H}_0$ (based on the sampling distribution), we reject the
+            null hypothesis.
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Test statistic and its sampling distribution}
+
+    \begin{example}
+        \begin{itemize}
+
+            \item to summarize the information in the sample of 10 heights we
+                will use the sample mean of heights, $\bar{h}$,
+                Eq.~\ref{eq:sampleMean}.
+
+            \item from probability theory we know that, if
+                $x_i\sim\mathcal{N}(\mu,\sigma^2)$, then the mean of the
+                independent random variables $x_1,\ldots,x_N$ is
+                $\bar{x}\sim\mathcal{N}(\mu, \frac{\sigma^2}{N})$. Thus, under
+                $\mathcal{H}_0$ $\bar{h}\sim\mathcal{N}(6, \frac{0.25}{10})$.
+
+        \end{itemize}
+    \end{example}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Rejection and non-rejection regions}
+
+    Having calculated the sampling distribution under the null hypothesis, we
+    partition the space of all possible values that the test statistic can take
+    into a reject and a non-reject region. The \textbf{reject region} is a
+    region of low probability under the null hypohesis, which is consitent with
+    alternative hypothesis. The \textbf{non-reject region}, is a region of
+    large probability under the null hypothesis, that is inconsistent with the
+    alternative hypothesis.
+
+    \begin{center}
+        \includegraphics[width=3in]{figures/lectureEx_pdf_xbar.png.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Two types of errors, confidence leval and p-value}
+
+    \begin{description}
+
+        \item[Type I error]: reject the null hypothesis when it is true.
+
+        \item[Type II error]: not reject the null hypothesis when the
+            alternative one is true.
+
+    \end{description}
+
+    Some statistical tests are designed to constrain the probability of type I
+    error, called the \emph{confidence level, $\alpha$} of the test. Most
+    commonly $\alpha=0.05$.
+
+    Other tests compute the observed value of the test statistic,
+    $t_\text{obs}$ and calculate the probability that the test statistic is
+    larger or equal than its observed value.  This probability is called the
+    \textbf{p-value} of the test.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Steps to perform a hypothesis test}
+
+    We start assuming that we know the distribution of the experimental samples
+    and we agree on a sample size $N$ (in
+    Section~\ref{sec:selectionOfSamleSize} we discuss how to select and optimal
+    sample size). We set the confidence level $\alpha$ of the test (i.e., the
+    probability that the test statistic falls in the reject region given that
+    the null hypothesis is valid).
+
+    \begin{enumerate}
+
+        \item collect an experimental sample $x_1,\ldots,x_N$.
+
+        \item compute the value of the test statistic corresponding to the
+    collected experimental sample (e.g., sample mean, Eq.~\ref{eq:sampleMean})
+
+        \item calculate the sample statistic, $t_\text{obs}$.
+
+        \item for testing based on confidence level:
+
+            \begin{enumerate}[a]
+
+                \item divide the space of all possible values of the test statistic
+            on a reject and a non-reject regons at a confidence level $\alpha$.
+
+                \item if the value of the test statistic falls in the reject
+            region, reject the null hypothesis at a confidence $\alpha$. If it
+            does not, do not reject the null hypothesis at this confidence.
+
+            \end{enumerate}
+
+        \item for testing based on p-value:
+
+            \begin{enumerate}[a]
+
+                \item calculate the p-value (i.e., the probability that the test
+            statistic is larger than the observed one.
+
+                \item reject the null hypothesis if the p-value is lower than the
+            agreed confidence level $\alpha$, and do not reject it otherwise.
+
+            \end{enumerate}
+
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Central limit theorem}
+
+\end{frame}
+
+\end{document}
