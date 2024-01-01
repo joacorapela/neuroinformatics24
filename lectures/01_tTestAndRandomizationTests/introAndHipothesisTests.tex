@@ -105,6 +105,13 @@
 % \newtheorem{example}{Example}
 % \setbeamertemplate{theorems}[numbered]
 
+\newenvironment<>{example1}[1][Example 1]{%
+  \setbeamercolor{block title}{fg=white,bg=blue!75!black}%
+  \begin{block}{#1}}{\end{block}}
+\newenvironment<>{example2}[1][Example 2]{%
+  \setbeamercolor{block title}{fg=white,bg=blue!75!black}%
+  \begin{block}{#1}}{\end{block}}
+
 \newcounter{saveenumi}
 \newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
 \newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
@@ -151,13 +158,34 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \section{Statistical remarks}
 
 \begin{frame}
-    \frametitle{}
+    \frametitle{Working examples}
 
-    \begin{example}
+    \begin{example1}
 
-        Is the average height of male from New Zeland larger than six feet?
+		The average running speed of control mice is 1~cm/sec (cohort size 100
+mice). The sample average running speed of an equally-sized cohort of
+transgenic mice is $\bar{x}=2.7\,\text{cm/sec}$ and the sample standard
+deviation is $s=10~\text{cm/sec}$. Is the average
+running speed of the transgenic cohort larger than that of control mice?
 
-    \end{example}
+    \end{example1}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Working examples}
+
+    \begin{example2}
+
+		We want to study the effect of a new drug on visual electrophysiology
+in humans. In a control condition we observe that the mean peak (averaged
+across a cohort of 50 partcipants) evoked response potential (ERP) over V1
+during the first 200~ms after stimuli presentation is 2~mV. The sample mean
+peak ERP for medicated subjects is $\bar{x}=1.3\,\text{mV}$ and the sample
+standar deviation is $s=2.6~\text{mV}$. We want to know if taking the new
+drug changes the mean evoked ERP over V1.
+
+    \end{example2}
 
 \end{frame}
 
@@ -182,18 +210,9 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
                     $\mathcal{B}(n,p)$.
 
             \end{itemize}
-
-            \onslide<2-> {
-            \begin{example}
-
-                Assume that the height of males from New Zeland follows of
-                normal distribution with mean $\mu$ and variance
-                $\sigma^2=0.25$ (i.e., $h\sim\mathcal{N}(\mu,0.25$).
-
-            \end{example}
-            }
             \seti
     \end{enumerate}
+
 
 \end{frame}
 
@@ -205,11 +224,11 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
         \conti
 
         \item One branch of statistics, \textbf{estimation theory}, provides
-            tools to estimate these parameters from observations.
+            tools to estimate parameters of distributions from observations.
 
         \item Another branch of statistics, \textbf{hypothesis testing},
-            provides tools to make statistically-informed decisions about the
-            value of these parameters.
+            provides tools to make statistically-informed decisions about
+            values of parameters of distributions.
 
             \seti
 
@@ -224,20 +243,27 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
         \conti
 
-        \item To estimate parameters, or to make decisions about them, we use
-            \textbf{observations}, $x_1,\ldots,x_N$.
+		\item To estimate parameters, or to make decisions about them, we use
+observations, $x_1,\ldots,x_N$, that are \textbf{independent and identically
+distributed}.
 
-            \begin{example}
+            \begin{example1}
 
-                We will measure the height of a sample of $N=10$ males from New
-                Zeland, $h_1,\ldots,h_N$.
+				An observation will be the average speed of a transgentic mouse
+during an experimetal session. We assume that the average speeds of all
+mice are samples from a common probability density function (identically
+distributed) and that average speeds are independent across mice (independent).
 
-                To avoid flying to New Zeland, we will simulate
-                $h_i,\ldots,h_N$ as random samples from a normal distribution
-                with mean $\mu=6\,\text{feet}$ and variance
-                $\sigma^2=0.25\,\text{feet}^2$ .
+            \end{example1}
 
-            \end{example}
+            \begin{example2}
+
+				An observation will be the peak ERP of a medicated cohort
+subject. We assume tha these ERPs are samples from the same probability density
+function (identically distributed) and that these ERPs are independent across
+subjects (independent).
+
+            \end{example2}
 
             \seti
 
@@ -252,12 +278,31 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
         \conti
 
-        \item A goal of statistics is to \textbf{infer properties of the
-            population} (e.g., the mean height of all males in New Zeland) from
-            \textbf{properties of the sample} (e.g., the heights of the sample
-            of 10 individuals).
+		\item A goal of statistics is to \textbf{infer properties of the
+population} (e.g., the effect of the genetic manipulation on the running speed
+of mice) from \textbf{properties of the sample} (e.g., the effect of the
+manipulation on the running speed of the 100 sampled mice).
+
+		\seti
 
     \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Statistical remarks}
+
+	\begin{theorem}[Central Limit Theorem]
+
+		Let $X_1,\ldots,X_N$ be independent and identically distributed
+random variables with mean $\mu$ and variance $\sigma^2$. Let $N$ be
+sufficiently large. Then $\bar{X}\sim\mathcal{N}(\mu,\frac{\sigma^2}{N})$.
+
+	\end{theorem}
+
+	Note: if $\sigma^2$ is unknown, for large $N$, we can estimate $\sigma^2$
+with the sample variance $s^2=\frac{1}{N-1}\sum_{i=1}^N(x_i-\bar{x})^2$. Then
+$\bar{X}$ is approximately distributed as $\mathcal{N}(\mu,\frac{s^2}{N})$.
 
 \end{frame}
 
@@ -283,26 +328,84 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
     \end{itemize}
 
+	\onslide<2->{
+	\begin{alertblock}
+
+		The hypothesis that we aim to prove should be the alternative one.
+
+	\end{alertblock}
+	}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Null and alternative hypothesis}
 
-    \begin{example}
+    \begin{example1}
 
-        Is the average height of males from New Zeland larger than six feet?
+        Is the average running speed of the transgenic cohort larger than that of the control cohort (i.e., 2~cm/sec)?
 
         \begin{description}
 
-            \item[$\mathcal{H}_0$]: the average height of males from New Zeland
-                is six feet (i.e., $\mu=6\,\text{feet}$).
+            \item[$\mathcal{H}_0$]: the average running speed of the trangenic cohort is 2~cm/sec.
 
-            \item[$\mathcal{H}_a$]: the average height of males from New Zeland
-                is larger than six feet (i.e., $\mu>6\,\text{feet}$).
+            \item[$\mathcal{H}_a$]: the average running speed of the transgenic cohort is lager than 2~cm/sec.
 
         \end{description}
 
-    \end{example}
+    \end{example1}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Null and alternative hypothesis}
+
+    \begin{example2}
+
+		Is the mean peak visual ERP in the first 200~ms post stimuli different
+in medicated than in control subjects (i.e., 2~mV)?
+
+        \begin{description}
+
+            \item[$\mathcal{H}_0$]: the mean peak visual ERP in medicated subjects is 2~mV.
+
+            \item[$\mathcal{H}_a$]: the mean peak visual ERP in medicated subjects is different from 2~mV.
+
+        \end{description}
+
+    \end{example2}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{One- and two-tailed tests of hypothesis}
+
+	\begin{description}
+
+		\item[One-tailed test of hypothesis] directionality is suggested by the
+alternative hypothesis. 
+
+			\begin{example1}
+
+				Is is a one-tailed hypothesis test because the alternative
+hypothesis requires that the mean speed of the transgenic mice be larger
+(directionality) than that of the control mice.
+
+			\end{example1}
+
+		\onslide<2->{
+		\item[Two-tailed test of hypothesis] directionality is not suggested by
+the alterntive hypothesis.
+
+			\begin{example2}
+
+				 It is a two-tailed hypothesis test because the alternative
+hypothesis requires that the visual ERP of the medicated subjects be different
+(no directionality) than that of the control subjects.
+
+			\end{example2}
+		}
+	\end{description}
 
 \end{frame}
 
@@ -323,9 +426,9 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
             distribution of the test statistic, which is called the
             \textbf{sampling distribution}.
 
-        \item If the observed test statistic is highly unprobable under
-            $\mathcal{H}_0$ (based on the sampling distribution), we reject the
-            null hypothesis.
+		\item If the observed test statistic is highly unprobable under
+$\mathcal{H}_0$ (based on the sampling distribution), and consistent with
+$\mathcal{H}_a$, we reject the null hypothesis.
 
     \end{itemize}
 
@@ -334,42 +437,67 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \begin{frame}
 \frametitle{Test statistic and its sampling distribution}
 
-    \begin{example}
-        \begin{itemize}
+	Because both examples are tests for the population mean, $\mu$, because the
+sample mean, $\bar{x}$, is a good estimator of the population mean, and because
+both examples use a large number of samples, we will use the standardized
+sample mean as our test statistic:
 
-            \item to summarize the information in the sample of 10 heights we
-                will use the sample mean of heights, $\bar{h}$,
-                Eq.~\ref{eq:sampleMean}.
+	\begin{align*}
+		Z = \frac{\bar{X}-\mu_0}{s/\sqrt{N}}
+	\end{align*}
 
-            \item from probability theory we know that, if
-                $x_i\sim\mathcal{N}(\mu,\sigma^2)$, then the mean of the
-                independent random variables $x_1,\ldots,x_N$ is
-                $\bar{x}\sim\mathcal{N}(\mu, \frac{\sigma^2}{N})$. Thus, under
-                $\mathcal{H}_0$ $\bar{h}\sim\mathcal{N}(6, \frac{0.25}{10})$.
+	From the central limit theorem, we know the sampling distribution of this test statistic:
 
-        \end{itemize}
-    \end{example}
+	\begin{align*}
+		 Z\sim\mathcal{N}(0, 1)
+	\end{align*}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Rejection and non-rejection regions}
 
-    Having calculated the sampling distribution under the null hypothesis, we
-    partition the space of all possible values that the test statistic can take
-    into a reject and a non-reject region. The \textbf{reject region} is a
-    region of low probability under the null hypohesis, which is consitent with
-    alternative hypothesis. The \textbf{non-reject region}, is a region of
-    large probability under the null hypothesis, that is inconsistent with the
-    alternative hypothesis.
+    The \textbf{reject region} is a region of low probability under the null
+    hypohesis, which is consitent with alternative hypothesis. The
+    \textbf{non-reject region}, is a region of large probability under the null
+    hypothesis, that is inconsistent with the alternative hypothesis.
 
-    \begin{center}
-        \includegraphics[width=3in]{figures/lectureEx_pdf_xbar.png.png}
-    \end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Rejection and non-rejection regions}
+
+	\begin{example1}
+
+		We want to reject the null hypothesis if the sample mean velocity is
+larger than 2~cm/sec (the population mean under the null hypothesis). That is,
+we want to reject the null hypothesis if $z$ is large and positive. How large
+is large?
+
+\vspace{0.1in}
+
+		To answer this question we define the \textbf{Type I error} of a test,
+as the error of rejecting the null hypothesis when it is valid. We also
+define the \textbf{significance level of the hypothesis test}, $\alpha$, as the
+probability of Type I error admitted by the test.
+
+\vspace{0.1in}
+
+		When designing a test we first decide on its significane level
+$\alpha$.  We then reject the null hypothesis if $z$ is larger than the value
+$z_\alpha$ that leaves $\alpha$ probability to its right, We call this value
+the \textbf{critical value} of the test (see figure on next slide).
+
+	\end{example1}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Two types of errors, confidence leval and p-value}
+
+    	\begin{center}
+        	\includegraphics[width=3in]{figures/lectureEx_pdf_xbar.png.png}
+    	\end{center}
 
     \begin{description}
 
