@@ -106,10 +106,10 @@
 % \setbeamertemplate{theorems}[numbered]
 
 \newenvironment<>{example1}[1][Example 1]{%
-  \setbeamercolor{block title}{fg=white,bg=blue!75!black}%
+  \setbeamercolor{block title}{fg=white,bg=cyan!75!black}%
   \begin{block}{#1}}{\end{block}}
 \newenvironment<>{example2}[1][Example 2]{%
-  \setbeamercolor{block title}{fg=white,bg=blue!75!black}%
+  \setbeamercolor{block title}{fg=white,bg=magenta!75!black}%
   \begin{block}{#1}}{\end{block}}
 
 \newcounter{saveenumi}
@@ -121,7 +121,7 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title{Foundations of probability theory}
+\title{Introduction and hypothesis testing}
 
 \author{Joaqu\'{i}n Rapela} % Your name
 \institute[GCNU, UCL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
@@ -162,11 +162,12 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
     \begin{example1}
 
-		The average running speed of control mice is 1~cm/sec (cohort size 100
-mice). The sample average running speed of an equally-sized cohort of
-transgenic mice is $\bar{x}=2.7\,\text{cm/sec}$ and the sample standard
-deviation is $s=10~\text{cm/sec}$. Is the average
-running speed of the transgenic cohort larger than that of control mice?
+        We know that the average running speed of control mice is 1~cm/sec. The
+        sample average running speed of a cohort (N=100) of transgenic mice is
+        $\bar{x}=2.7\,\text{cm/sec}$ and the sample standard deviation is
+        $s=10~\text{cm/sec}$. Is the average running speed of mice in the
+        transgenic cohort larger than that of control mice? Test with a
+        confidence level $\alpha=0.01$.
 
     \end{example1}
 
@@ -177,13 +178,13 @@ running speed of the transgenic cohort larger than that of control mice?
 
     \begin{example2}
 
-		We want to study the effect of a new drug on visual electrophysiology
-in humans. In a control condition we observe that the mean peak (averaged
-across a cohort of 50 partcipants) evoked response potential (ERP) over V1
-during the first 200~ms after stimuli presentation is 2~mV. The sample mean
-peak ERP for medicated subjects is $\bar{x}=1.3\,\text{mV}$ and the sample
-standar deviation is $s=2.6~\text{mV}$. We want to know if taking the new
-drug changes the mean evoked ERP over V1.
+        We want to study the effect of a new drug on visual electrophysiology
+        in humans. We know that the mean peak evoked response potential (ERP)
+        over V1 during the first 200~ms after stimuli presentation is 2~mV. The
+        sample mean peak ERP for a group of 50 medicated subjects is
+        $\bar{x}=1.3\,\text{mV}$ and the sample standard deviation is
+        $s=2.6~\text{mV}$. Does taking the new drug change the mean evoked ERP
+        over V1? Provide your test p-value.
 
     \end{example2}
 
@@ -249,7 +250,7 @@ distributed}.
 
             \begin{example1}
 
-				An observation will be the average speed of a transgentic mouse
+				An observation is the average speed of a transgentic mouse
 during an experimetal session. We assume that the average speeds of all
 mice are samples from a common probability density function (identically
 distributed) and that average speeds are independent across mice (independent).
@@ -258,7 +259,7 @@ distributed) and that average speeds are independent across mice (independent).
 
             \begin{example2}
 
-				An observation will be the peak ERP of a medicated cohort
+				An observation is the peak ERP of a medicated cohort
 subject. We assume tha these ERPs are samples from the same probability density
 function (identically distributed) and that these ERPs are independent across
 subjects (independent).
@@ -293,20 +294,35 @@ manipulation on the running speed of the 100 sampled mice).
 \frametitle{Statistical remarks}
 
 	\begin{theorem}[Central Limit Theorem]
-
-		Let $X_1,\ldots,X_N$ be independent and identically distributed
-random variables with mean $\mu$ and variance $\sigma^2$. Let $N$ be
-sufficiently large. Then $\bar{X}\sim\mathcal{N}(\mu,\frac{\sigma^2}{N})$.
-
+        Let $X_1,\ldots,X_N$ be independent and identically distributed random
+        variables with mean $\mu$ and variance $\sigma^2$. Let $N$ be
+        large. Then the sample mean
+        \begin{align}
+            \bar{X}=\frac{1}{N}\sum_{n=1}^NX_n\label{eq:sampleMean}
+        \end{align}
+        is distributed as $\bar{X}\sim\mathcal{N}(\mu,\frac{\sigma^2}{N})$.
 	\end{theorem}
 
-	Note: if $\sigma^2$ is unknown, for large $N$, we can estimate $\sigma^2$
-with the sample variance $s^2=\frac{1}{N-1}\sum_{i=1}^N(x_i-\bar{x})^2$. Then
-$\bar{X}$ is approximately distributed as $\mathcal{N}(\mu,\frac{s^2}{N})$.
+    Note: if $\sigma^2$ is unknown, we can estimate $\sigma^2$ with the sample
+    variance $s^2=\frac{1}{N-1}\sum_{i=1}^N(x_i-\bar{x})^2$.  Then, for large
+    $N$, $\bar{X}$ is approximately distributed as
+    $\mathcal{N}(\mu,\frac{s^2}{N})$.
 
 \end{frame}
 
 \section{Hypothesis testing}
+
+\begin{frame}
+\frametitle{Main source}
+
+    Chapter 9 ``Large-sample test of hypothesis'' and chapter 10 ``Inference from
+    small samples'' from 
+
+    \begin{center}
+        \includegraphics[height=2.5in]{figures/mendenhall09-introductionToProbabilityAndStatistics-13edition_cover.pdf}
+    \end{center}
+
+\end{frame}
 
 \begin{frame}
 \frametitle{Null and alternative hypothesis}
@@ -387,7 +403,7 @@ alternative hypothesis.
 
 			\begin{example1}
 
-				Is is a one-tailed hypothesis test because the alternative
+				It is a one-tailed hypothesis test because the alternative
 hypothesis requires that the mean speed of the transgenic mice be larger
 (directionality) than that of the control mice.
 
@@ -415,27 +431,21 @@ hypothesis requires that the visual ERP of the medicated subjects be different
     \begin{itemize}
 
         \item To perform a hypothesis test we propose a \textbf{test statistic}, a
-    function of the sample data, like the sample mean:
-
-            \begin{align}
-                \bar{x}=\frac{1}{N}\sum_{i=1}^Nx_i\label{eq:sampleMean}
-            \end{align}
+            function of the sample data, like the sample mean in
+            Eq.~\ref{eq:sampleMean}.
 
         \item Because the sample data is random, the test statistic is also
             random. To perform hypothesis tests we need to know the
             distribution of the test statistic, which is called the
             \textbf{sampling distribution}.
 
-		\item If the observed test statistic is highly unprobable under
-$\mathcal{H}_0$ (based on the sampling distribution), and consistent with
-$\mathcal{H}_a$, we reject the null hypothesis.
-
     \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Test statistic and its sampling distribution}
+\frametitle{Test statistic and its sampling distribution for the working
+    examples}
 
 	Because both examples are tests for the population mean, $\mu$, because the
 sample mean, $\bar{x}$, is a good estimator of the population mean, and because
@@ -455,7 +465,7 @@ sample mean as our test statistic:
 \end{frame}
 
 \begin{frame}
-\frametitle{Rejection and non-rejection regions}
+\frametitle{Rejection region}
 
     The \textbf{reject region} is a region of low probability under the null
     hypohesis, which is consitent with alternative hypothesis. The
@@ -465,39 +475,178 @@ sample mean as our test statistic:
 \end{frame}
 
 \begin{frame}
-\frametitle{Rejection and non-rejection regions}
+\frametitle{Rejection region}
 
 	\begin{example1}
 
-		We want to reject the null hypothesis if the sample mean velocity is
-larger than 2~cm/sec (the population mean under the null hypothesis). That is,
-we want to reject the null hypothesis if $z$ is large and positive. How large
-is large?
+        We want to reject the null hypothesis that the average running speed of
+        the tranenic mice equals 2~cm/sec if their sample mean speed is much
+        larger than 2~cm/sec.  That is, we want to reject the null hypothesis
+        if $z$ is large and positive. How large is large?
 
-\vspace{0.1in}
+        \vspace{0.1in}
 
-		To answer this question we define the \textbf{Type I error} of a test,
-as the error of rejecting the null hypothesis when it is valid. We also
-define the \textbf{significance level of the hypothesis test}, $\alpha$, as the
-probability of Type I error admitted by the test.
+        To answer this question we define the \textbf{Type I error} of a test,
+        as the error of rejecting the null hypothesis when it is valid. We also
+        define the \textbf{significance level of the hypothesis test},
+        $\alpha$, as the probability of Type I error admitted by the test.
 
-\vspace{0.1in}
+        \vspace{0.1in}
 
-		When designing a test we first decide on its significane level
-$\alpha$.  We then reject the null hypothesis if $z$ is larger than the value
-$z_\alpha$ that leaves $\alpha$ probability to its right, We call this value
-the \textbf{critical value} of the test (see figure on next slide).
+        When designing a test we first decide on its significane level
+        $\alpha$.  We then reject the null hypothesis if $z$ is larger than the
+        value $z_\alpha$ that leaves $\alpha$ probability to its right, We call
+        this value the \textbf{critical value} of the test (see figure on next
+        slide).
 
 	\end{example1}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Two types of errors, confidence leval and p-value}
+\frametitle{Rejection region}
+
+	\begin{example1}
 
     	\begin{center}
-        	\includegraphics[width=3in]{figures/lectureEx_pdf_xbar.png.png}
+        	\includegraphics[width=4in]{figures/right_tailed_test.png}
     	\end{center}
+        \hfill Mendenhall et al., 2009
+
+	\end{example1}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Rejection region}
+
+	\begin{example2}
+
+        We want to reject the null hypothesis that the drug has not effect on
+        the average visually evoked ERP if the sample mean visually evoked ERP
+        of medicated subjects is much smaller or much larger than the mean
+        visually evoked ERP of control subjects (2~mV).
+        How small is small and how large is large?
+
+        \vspace{0.1in}
+
+        We will reject the null hypothesis if the standarized mean, $z$, is
+        larger than the value $z_{\alpha/2}$ that leaves $\alpha/2$ probability
+        to its right or smaller than the value $-z_{\alpha/2}$ that leaves
+        $\alpha/2$ probability to its left (see figure on next slide).
+
+	\end{example2}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Rejection region}
+
+	\begin{example1}
+
+    	\begin{center}
+        	\includegraphics[width=4in]{figures/two_tailed_test.png}
+    	\end{center}
+        \hfill Mendenhall et al., 2009
+
+	\end{example1}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Complete hypothesis test for example 1}
+
+    \begin{example1}
+
+        We know that the average running speed of control mice is 1~cm/sec. The
+        sample average running speed of a cohort (N=100) of transgenic mice is
+        $\bar{x}=2.7\,\text{cm/sec}$ and the sample standard deviation is
+        $s=10~\text{cm/sec}$. Is the average running speed of mice in the
+        transgenic cohort larger than that of control mice? Test with a
+        confidence level $\alpha=0.01$.
+
+        Relevant quantities: $\mu_0=1$, $N=100$, $\bar{x}=2.7$, $s=10$,
+        $\alpha=0.01$.
+
+        \begin{enumerate}
+
+            \item identify the null hypothesis $H_0$: \textcolor{cyan}{the average running speed of the trangenic cohort is 2 cm/sec.}
+
+            \item identify the alternative hypothesis $H_a$: \textcolor{cyan}{the average running speed of the trangenic cohort is larger than 2 cm/sec}.
+
+            \item select a test statistic: \textcolor{cyan}{standarized sample mean $Z$}.
+
+            \seti
+
+        \end{enumerate}
+
+	\end{example1}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Complete hypothesis test for example 1}
+
+    \begin{example1}
+
+        \begin{enumerate}
+
+            \conti
+
+            \item set the rejection region: \textcolor{cyan}{right-tailed hypothesis test, with critical value $z_{0.01}=2.3263$}.
+
+            \item calculate the observed value of the test statistic.
+
+                \begin{align*}
+                    \color{cyan}
+                    z_\text{obs}=\frac{\bar{x}-\mu_0}{s/\sqrt{N}}=\frac{2.7-1}{10/\sqrt{100}}=1.7
+                \end{align*}
+
+            \item draw your conclusion: \textcolor{cyan}{$z_\text{obs}=1.7<2.3263=z_{0.01}$. Thus, there is not enough statistical evidence to reject the null hypothesis with a confidence level $\alpha=0.01$.}
+
+        \end{enumerate}
+
+        Would you reject the null hypothesis with  confidence level
+        $\alpha=0.05$?
+
+    \end{example1}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{p-value}
+
+    We should not only report the conclusion ``reject/not reject'' of our
+    hypothesis test. We should provide a measure of how much our data disagrees
+    with the null hypothesis. One such measure is the p-value:
+
+    \begin{definition}[p-value]
+
+        The p-value (or observed significance level of a statistical test) is
+        the probability that the test statistic is larger than the observed
+        test statistic under the null hypothesis.
+
+    \end{definition}
+
+    \begin{small}
+    Notes:
+
+    \begin{itemize}
+
+        \item small p-values indicate that the probability of obtaining a
+            test statistic equal or larger than the observed one is small,
+            indicating that our data support for the alternative hypothesis.
+
+        \item large p-values suggest that our data does not support the
+            alternative hypothesis.
+
+    \end{itemize}
+    \end{small}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Rejection region}
 
     \begin{description}
 
