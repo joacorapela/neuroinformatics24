@@ -585,6 +585,16 @@ sample mean as our test statistic:
 \end{frame}
 
 \begin{frame}
+    \frametitle{Large-sample hypothesis test for the mean}
+
+    \begin{center}
+        \includegraphics[width=3.5in]{figures/large_sample_hypothesis_test.png}
+    \end{center}
+    \hfill \scriptsize{Mendenhall et al., 2009}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Complete hypothesis test for example 1}
 
     \begin{example1}
@@ -624,7 +634,7 @@ sample mean as our test statistic:
 
         The p-value (or observed significance level of a statistical test) is
         the probability that the test statistic is larger than the observed
-        test statistic under the null hypothesis.
+        test statistic value under the null hypothesis.
 
     \end{definition}
 
@@ -633,15 +643,55 @@ sample mean as our test statistic:
 
     \begin{itemize}
 
-        \item small p-values indicate that the probability of obtaining a
-            test statistic equal or larger than the observed one is small,
-            indicating that our data support for the alternative hypothesis.
+        \item small p-values indicate that the probability of obtaining a test
+            statistic equal or larger than the observed test statistic value
+            is small, showing that our data support the alternative hypothesis.
 
-        \item large p-values suggest that our data does not support the
+        \item large p-values show that our data does not support the
             alternative hypothesis.
 
     \end{itemize}
     \end{small}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Taxonomy of hypothesis tests for the the mean}
+
+    \begin{itemize}
+        \item The previous tests worked well because the sample statistic for
+            the sample mean was approximately normal since
+
+            \begin{enumerate}
+
+                \item samples were Gaussian, with known variance, with any
+                    sample size.
+
+                \item the number of samples was sufficiently large (e.g.,
+                    $n>30$) and samples were iid from any distribution
+                    with mean $\mu$ and finite variance $\sigma^2$, known or
+                    estimated by the sample variance $s^2$ (central limit
+                    theorem).
+
+            \end{enumerate}
+
+        \item but what if samples are Gaussian, with unknown variance, and a
+            small number $N$ of samples?
+
+            Then the sample distribution of the mean follows a student-t
+            distribution with N-1 degrees of freedom.
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Small-sample hypothesis test for the mean (t-test)}
+
+    \begin{center}
+        \includegraphics[width=2.5in]{figures/small_sample_hypothesis_test.png}
+    \end{center}
+    \hfill \scriptsize{Mendenhall et al., 2009}
 
 \end{frame}
 
