@@ -24,11 +24,11 @@
 %\usetheme{Ilmenau}
 %\usetheme{JuanLesPins}
 %\usetheme{Luebeck}
-%\usetheme{Madrid}
+\usetheme{Madrid}
 %\usetheme{Malmoe}
 %\usetheme{Marburg}
 %\usetheme{Montpellier}
-\usetheme{PaloAlto}
+%\usetheme{PaloAlto}
 %\usetheme{Pittsburgh}
 %\usetheme{Rochester}
 %\usetheme{Singapore}
@@ -61,21 +61,21 @@
 }
 
 % remove title and author from left panel
- \makeatletter
-  \setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
-  {
-    \beamer@tempdim=\beamer@sidebarwidth%
-    \advance\beamer@tempdim by -6pt%
-    \insertverticalnavigation{\beamer@sidebarwidth}%
-    \vfill
-    \ifx\beamer@sidebarside\beamer@lefttext%
-    \else%
-      \usebeamercolor{normal text}%
-      \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
-      \vskip2pt%
-    \fi%
-  }%
-\makeatother
+%  \makeatletter
+%   \setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
+%   {
+%     \beamer@tempdim=\beamer@sidebarwidth%
+%     \advance\beamer@tempdim by -6pt%
+%     \insertverticalnavigation{\beamer@sidebarwidth}%
+%     \vfill
+%     \ifx\beamer@sidebarside\beamer@lefttext%
+%     \else%
+%       \usebeamercolor{normal text}%
+%       \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+%       \vskip2pt%
+%     \fi%
+%   }%
+% \makeatother
 % done remove title and author from left panel 
 
 \hypersetup{colorlinks,citecolor=}
@@ -163,7 +163,7 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     \begin{example1}
 
         We know that the average running speed of control mice is 1~cm/sec. The
-        sample average running speed of a cohort (N=100) of transgenic mice is
+        sample average running speed of a cohort (n=100) of transgenic mice is
         $\bar{x}=2.7\,\text{cm/sec}$ and the sample standard deviation is
         $s=10~\text{cm/sec}$. Is the average running speed of mice in the
         transgenic cohort larger than that of control mice? Test with a
@@ -294,19 +294,19 @@ manipulation on the running speed of the 100 sampled mice).
 \frametitle{Statistical remarks}
 
 	\begin{theorem}[Central Limit Theorem]
-        Let $X_1,\ldots,X_N$ be independent and identically distributed random
-        variables with mean $\mu$ and variance $\sigma^2$. Let $N$ be
+        Let $X_1,\ldots,X_n$ be independent and identically distributed random
+        variables with mean $\mu$ and variance $\sigma^2$. Let $n$ be
         large. Then the sample mean
         \begin{align}
-            \bar{X}=\frac{1}{N}\sum_{n=1}^NX_n\label{eq:sampleMean}
+            \bar{X}=\frac{1}{n}\sum_{i=1}^NX_i\label{eq:sampleMean}
         \end{align}
-        is distributed as $\bar{X}\sim\mathcal{N}(\mu,\frac{\sigma^2}{N})$.
+        is distributed as $\bar{X}\sim\mathcal{N}(\mu,\frac{\sigma^2}{n})$.
 	\end{theorem}
 
     Note: if $\sigma^2$ is unknown, we can estimate $\sigma^2$ with the sample
-    variance $s^2=\frac{1}{N-1}\sum_{i=1}^N(x_i-\bar{x})^2$.  Then, for large
-    $N$, $\bar{X}$ is approximately distributed as
-    $\mathcal{N}(\mu,\frac{s^2}{N})$.
+    variance $s^2=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})^2$.  Then, for large
+    $n$, $\bar{X}$ is approximately distributed as
+    $\mathcal{N}(\mu,\frac{s^2}{n})$.
 
 \end{frame}
 
@@ -453,10 +453,11 @@ both examples use a large number of samples, we will use the standardized
 sample mean as our test statistic:
 
 	\begin{align*}
-		Z = \frac{\bar{X}-\mu_0}{s/\sqrt{N}}
+		Z = \frac{\bar{X}-\mu_0}{s/\sqrt{n}}
 	\end{align*}
 
-	From the central limit theorem, we know the sampling distribution of this test statistic:
+	From the central limit theorem, we know the sampling distribution of this
+    test statistic under the null hypothesis:
 
 	\begin{align*}
 		 Z\sim\mathcal{N}(0, 1)
@@ -480,7 +481,7 @@ sample mean as our test statistic:
 	\begin{example1}
 
         We want to reject the null hypothesis that the average running speed of
-        the tranenic mice equals 2~cm/sec if their sample mean speed is much
+        the trasgenic mice equals 2~cm/sec if their sample mean speed is much
         larger than 2~cm/sec.  That is, we want to reject the null hypothesis
         if $z$ is large and positive. How large is large?
 
@@ -554,18 +555,28 @@ sample mean as our test statistic:
 \end{frame}
 
 \begin{frame}
+    \frametitle{Large-sample hypothesis test for the mean}
+
+    \begin{center}
+        \includegraphics[width=3.5in]{figures/large_sample_hypothesis_test.png}
+    \end{center}
+    \hfill \scriptsize{Mendenhall et al., 2009}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Complete hypothesis test for example 1}
 
     \begin{example1}
 
         We know that the average running speed of control mice is 1~cm/sec. The
-        sample average running speed of a cohort (N=100) of transgenic mice is
+        sample average running speed of a cohort (n=100) of transgenic mice is
         $\bar{x}=2.7\,\text{cm/sec}$ and the sample standard deviation is
         $s=10~\text{cm/sec}$. Is the average running speed of mice in the
         transgenic cohort larger than that of control mice? Test with a
         confidence level $\alpha=0.01$.
 
-        Relevant quantities: $\mu_0=1$, $N=100$, $\bar{x}=2.7$, $s=10$,
+        Relevant quantities: $\mu_0=1$, $n=100$, $\bar{x}=2.7$, $s=10$,
         $\alpha=0.01$.
 
         \begin{enumerate}
@@ -585,16 +596,6 @@ sample mean as our test statistic:
 \end{frame}
 
 \begin{frame}
-    \frametitle{Large-sample hypothesis test for the mean}
-
-    \begin{center}
-        \includegraphics[width=3.5in]{figures/large_sample_hypothesis_test.png}
-    \end{center}
-    \hfill \scriptsize{Mendenhall et al., 2009}
-
-\end{frame}
-
-\begin{frame}
 \frametitle{Complete hypothesis test for example 1}
 
     \begin{example1}
@@ -609,7 +610,7 @@ sample mean as our test statistic:
 
                 \begin{align*}
                     \color{cyan}
-                    z_\text{obs}=\frac{\bar{x}-\mu_0}{s/\sqrt{N}}=\frac{2.7-1}{10/\sqrt{100}}=1.7
+                    z_\text{obs}=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{2.7-1}{10/\sqrt{100}}=1.7
                 \end{align*}
 
             \item draw your conclusion: \textcolor{cyan}{$z_\text{obs}=1.7<2.3263=z_{0.01}$. Thus, there is not enough statistical evidence to reject the null hypothesis with a confidence level $\alpha=0.01$.}
@@ -676,10 +677,10 @@ sample mean as our test statistic:
             \end{enumerate}
 
         \item but what if samples are Gaussian, with unknown variance, and a
-            small number $N$ of samples?
+            small number $n$ of samples?
 
             Then the sample distribution of the mean follows a student-t
-            distribution with N-1 degrees of freedom.
+            distribution with n-1 degrees of freedom.
 
     \end{itemize}
 
@@ -722,7 +723,7 @@ sample mean as our test statistic:
 \frametitle{Steps to perform a hypothesis test}
 
     We start assuming that we know the distribution of the experimental samples
-    and we agree on a sample size $N$ (in
+    and we agree on a sample size $n$ (in
     Section~\ref{sec:selectionOfSamleSize} we discuss how to select and optimal
     sample size). We set the confidence level $\alpha$ of the test (i.e., the
     probability that the test statistic falls in the reject region given that
