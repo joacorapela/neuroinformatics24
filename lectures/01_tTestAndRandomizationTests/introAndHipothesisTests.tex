@@ -634,17 +634,24 @@ sample mean as our test statistic:
 \begin{frame}
 \frametitle{p-value}
 
-    We should not only report the conclusion ``reject/not reject'' of our
-    hypothesis test. We should provide a measure of how much our data disagrees
-    with the null hypothesis. One such measure is the p-value:
-
     \begin{definition}[p-value]
 
         The p-value (or observed significance level of a statistical test) is
-        the probability that the test statistic is larger than the observed
-        test statistic value under the null hypothesis.
+        the probability that the test statistic is as extreme or mre than the observed
+        test statistic value, when the null hypothesis is true (see figures
+        below)..
 
     \end{definition}
+
+    \begin{center}
+    \includegraphics[width=2in]{figures/right_sided_pvalue_colored.png}
+    \includegraphics[width=2in]{figures/two_sided_pvalue_colored.png}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{p-value}
 
     \begin{small}
     Notes:
@@ -652,8 +659,8 @@ sample mean as our test statistic:
     \begin{itemize}
 
         \item small p-values indicate that the probability of obtaining a test
-            statistic equal or larger than the observed test statistic value
-            is small, showing that our data support the alternative hypothesis.
+            statistic as extreme or more extreme as the observed test statistic value
+            is small, showing that our data supports the alternative hypothesis.
 
         \item large p-values show that our data does not support the
             alternative hypothesis.
