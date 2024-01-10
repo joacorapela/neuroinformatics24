@@ -90,6 +90,8 @@
 \usepackage{amsthm}
 \usepackage{media9}
 % \usepackage{multimedia}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{hyperref}
 \usepackage{tikz}
 \tikzset{
@@ -121,10 +123,10 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title{Introduction and hypothesis testing}
+\title{Introduction to hypothesis testing}
 
 \author{Joaqu\'{i}n Rapela} % Your name
-\institute[GCNU, UCL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+\institute[Gatsby Unit, UCL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
 Gatsby Computational Neuroscience Unit\\University College London % Your institution for the title page
 }
@@ -149,10 +151,75 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
 \end{frame}
 
-\section{Course logistics}
+\section{Course topics}
 
 \begin{frame}
-\frametitle{Course logistics}
+    \frametitle{Background}
+
+    \begin{itemize}
+        \item Last Spring 2023 I helped in the discussion sessions of this
+            course.
+
+        \item Suggested to Klara Olofsdotter (SWC PhD program coordinator) and Sonja Hofer (SWC PhD program faculty coordinator) to ask SWC PhD students to take this course. They liked the idea.
+
+        \item I volunteered to lead discussions and do grading with Gatsby Unit
+            PhD students and postdoctoral scholars.
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{A few motivations to run this course}
+
+    \begin{enumerate}
+        \item Gain more teaching experience.
+        \item Provide SWC PhD students with essential neural data-analysis tools.
+        \item Contribute to better interactions between the SWC and the Gatsby Unit.
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Course structure}
+
+    \tiny
+    \begin{center}
+        \begin{tabular} { | l | l | l | l | l | }\hline
+            Week 01 & Jan 11 & The t-test and randomisation tests & Joaquin Rapela &  tutorial \\\hline
+            Week 02 & Jan 18 & Power spectra & Joaquin Rapela & tutorial \\
+                    &        &               & Yousef Mohammadi & \\
+                    &        &               & Joe Zimminski & \\\hline
+            Week 03 & Jan 25 & Spectrograms  & Joaquin Rapela & tutorial \\
+                    &        & and coherence & Yousef Mohammadi & \\
+                    &        &               & Joe Zimminski & \\\hline
+            Week 04 & Feb 01 & Circular statistics & Joaquin Rapela & tutorial \\\hline
+            Week 05 & Feb 08 & Singular value decomposition & Will Dorrell & tutorial \\\hline\hline
+            Week 06 & Feb 15 & Linear regression & Lior Fox & lecture\\
+                    & Feb 16 &                   &          & tutorial\\\hline
+            Week 07 & Feb 22 & Linear dynamical systems & Aniruddh Galgali & lecture \\
+                    &        &                          & Joaquin Rapela & \\
+                    & Feb 23 &                          &                  & tutorial\\\hline
+            Week 08 & Feb 29 & no class (CoSyNe)        &                  & \\\hline
+            Week 09 & Mar 07 & Artificial neural networks & Erin Grant & lecture\\
+                    & Mar 08 &                            &            & tutorial\\\hline
+            Week 10 & Mar 14 & Experimental control with Bonsai & Goncalo Lopes & lecture\\
+                    &        &                                  & Joaquin Rapela & \\
+                    & Mar 15 &                                  & & tutorial\\\hline
+            Week 11 & Mar 21 & Reinforcement learning           & & lecture\\
+                    & Mar 22 &                                  & & tutorial\\\hline
+            Week 12 & Mar 28 & Project development & & \\
+            Week 15 & Apr 25 &                     & & \\\hline 
+            Week 16 & May 02 & Project presentations & & \\\hline
+        \end{tabular}
+    \end {center}
+    Teaching assistants: Kira Dusterwald, Sihao (Daniel) Liu
+    \normalsize
+
+
+
+
+
 \end{frame}
 
 \section{Statistical remarks}
@@ -195,7 +262,7 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
     \begin{enumerate}
 
-        \item Random data (e.g., observed data) is characterized using
+        \item Random data (e.g., observed data) is characterised using
             probability distributions. For example a:
 
             \begin{itemize}
@@ -257,8 +324,8 @@ distributed}.
 
             \begin{example1}
 
-				An observation is the average speed of a transgentic mouse
-during an experimetal session. We assume that the average speeds of all
+				An observation is the average speed of a transgenic mouse
+during an experimental session. We assume that the average speeds of all
 mice are samples from a common probability density function (identically
 distributed) and that average speeds are independent across mice (independent).
 
@@ -267,7 +334,7 @@ distributed) and that average speeds are independent across mice (independent).
             \begin{example2}
 
 				An observation is the peak ERP of a medicated cohort
-subject. We assume tha these ERPs are samples from the same probability density
+subject. We assume that these ERPs are samples from the same probability density
 function (identically distributed) and that these ERPs are independent across
 subjects (independent).
 
@@ -302,7 +369,7 @@ manipulation on the running speed of the 100 sampled mice).
 
 	\begin{theorem}[Central Limit Theorem]
         Let $X_1,\ldots,X_n$ be independent and identically distributed random
-        variables with mean $\mu$ and variance $\sigma^2$. Let $n$ be
+        variables with mean $\mu$ and finite variance $\sigma^2$. Let $n$ be
         large. Then the sample mean
         \begin{align}
             \bar{X}=\frac{1}{n}\sum_{i=1}^NX_i\label{eq:sampleMean}
@@ -339,12 +406,12 @@ manipulation on the running speed of the 100 sampled mice).
         \item In hypothesis testing we work with a \textbf{null hypothesis},
             $\mathcal{H}_0$, and an \textbf{alternative hypothesis},
             $\mathcal{H}_a$, collect a sample of data $x_1,\ldots,x_N$, and
-            test if this data provides sufficient statistical evidence in favor
+            test if this data provides sufficient statistical evidence in favour
             of the alternative hypothesis. If this happens we reject the null
             hypothesis.
 
         \item However, if the collected data does not provide sufficient
-            statistical evicence in favor of the aternative hypothesis, we do
+            statistical evidence in favour of the alternative hypothesis, we do
             not accept the null hypothesis, but we say that we failed to reject
             it.  \textbf{Hypothesis tests do not prove null hypothesis, they
             only provide statistical evidence to reject it, or fail to reject it.}
@@ -370,7 +437,7 @@ manipulation on the running speed of the 100 sampled mice).
 
         \begin{description}
 
-            \item[$\mathcal{H}_0$]: the average running speed of the trangenic cohort is 2~cm/sec.
+            \item[$\mathcal{H}_0$]: the average running speed of the transgenic cohort is 2~cm/sec.
 
             \item[$\mathcal{H}_a$]: the average running speed of the transgenic cohort is lager than 2~cm/sec.
 
@@ -418,7 +485,7 @@ hypothesis requires that the mean speed of the transgenic mice be larger
 
 		\onslide<2->{
 		\item[Two-tailed test of hypothesis] directionality is not suggested by
-the alterntive hypothesis.
+the alternative hypothesis.
 
 			\begin{example2}
 
@@ -456,7 +523,7 @@ hypothesis requires that the visual ERP of the medicated subjects be different
 
 	Because both examples are tests for the population mean, $\mu$, because the
 sample mean, $\bar{x}$, is a good estimator of the population mean, and because
-both examples use a large number of samples, we will use the standardized
+both examples use a large number of samples, we will use the standardised
 sample mean as our test statistic:
 
 	\begin{align*}
@@ -476,7 +543,7 @@ sample mean as our test statistic:
 \frametitle{Rejection region}
 
     The \textbf{reject region} is a region of low probability under the null
-    hypohesis, which is consitent with alternative hypothesis. The
+    hypothesis, which is consistent with alternative hypothesis. The
     \textbf{non-reject region}, is a region of large probability under the null
     hypothesis, that is inconsistent with the alternative hypothesis.
 
@@ -488,7 +555,7 @@ sample mean as our test statistic:
 	\begin{example1}
 
         We want to reject the null hypothesis that the average running speed of
-        the trasgenic mice equals 2~cm/sec if their sample mean speed is much
+        the transgenic mice equals 2~cm/sec if their sample mean speed is much
         larger than 2~cm/sec.  That is, we want to reject the null hypothesis
         if $z$ is large and positive. How large is large?
 
@@ -501,7 +568,7 @@ sample mean as our test statistic:
 
         \vspace{0.1in}
 
-        When designing a test we first decide on its significane level
+        When designing a test we first decide on its significance level
         $\alpha$.  We then reject the null hypothesis if $z$ is larger than the
         value $z_\alpha$ that leaves $\alpha$ probability to its right, We call
         this value the \textbf{critical value} of the test (see figure on next
@@ -538,7 +605,7 @@ sample mean as our test statistic:
 
         \vspace{0.1in}
 
-        We will reject the null hypothesis if the standarized mean, $z$, is
+        We will reject the null hypothesis if the standardised mean, $z$, is
         larger than the value $z_{\alpha/2}$ that leaves $\alpha/2$ probability
         to its right or smaller than the value $-z_{\alpha/2}$ that leaves
         $\alpha/2$ probability to its left (see figure on next slide).
@@ -588,11 +655,11 @@ sample mean as our test statistic:
 
         \begin{enumerate}
 
-            \item identify the null hypothesis $H_0$: \textcolor{cyan}{the average running speed of the trangenic cohort is 2 cm/sec.}
+            \item identify the null hypothesis $H_0$: \textcolor{cyan}{the average running speed of the transgenic cohort is 2 cm/sec.}
 
-            \item identify the alternative hypothesis $H_a$: \textcolor{cyan}{the average running speed of the trangenic cohort is larger than 2 cm/sec}.
+            \item identify the alternative hypothesis $H_a$: \textcolor{cyan}{the average running speed of the transgenic cohort is larger than 2 cm/sec}.
 
-            \item select a test statistic: \textcolor{cyan}{standarized sample mean $Z$}.
+            \item select a test statistic: \textcolor{cyan}{standardised sample mean $Z$}.
 
             \seti
 
@@ -637,23 +704,33 @@ sample mean as our test statistic:
     \begin{definition}[p-value]
 
         The p-value (or observed significance level of a statistical test) is
-        the probability that the test statistic is as extreme or mre than the observed
-        test statistic value, when the null hypothesis is true (see figures
-        below)..
+        the probability that the test statistic is as extreme or more extreme
+        than the observed test statistic value, when the null hypothesis is
+        true.
 
     \end{definition}
 
-    \begin{center}
-    \includegraphics[width=2in]{figures/right_sided_pvalue_colored.png}
-    \includegraphics[width=2in]{figures/two_sided_pvalue_colored.png}
-    \end{center}
+    \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=2in]{figures/right_sided_pvalue_colored.png}
+            \caption{left-sided test}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=2in]{figures/two_sided_pvalue_colored.png}
+            \caption{two-sided test}
+        \end{subfigure}
+        \caption{p-values are the area of the red-coloured regions}
+    \end{figure}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{p-value}
 
-    \begin{small}
     Notes:
 
     \begin{itemize}
@@ -665,8 +742,21 @@ sample mean as our test statistic:
         \item large p-values show that our data does not support the
             alternative hypothesis.
 
+        \item if the p-value is smaller than a pre-assigned confidence level
+            $\alpha$, then the null hypothesis can be rejected and you can say
+            that the result is statistically significant at confidence level
+            $\alpha$.
+
     \end{itemize}
-    \end{small}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Complete hypothesis test for example 2}
+
+    \begin{example2}
+        Worksheet problem 1.
+    \end{example2}
 
 \end{frame}
 
@@ -675,28 +765,52 @@ sample mean as our test statistic:
 
     \begin{itemize}
         \item The previous tests worked well because the sample statistic for
-            the sample mean was approximately normal since
+            the sample mean was approximately normal. This happens when
 
-            \begin{enumerate}
+            \begin{itemize}
 
-                \item samples were Gaussian, with known variance, with any
-                    sample size.
+                \item samples, of any size, are Gaussian, with known variance.
 
-                \item the number of samples was sufficiently large (e.g.,
-                    $n>30$) and samples were iid from any distribution
-                    with mean $\mu$ and finite variance $\sigma^2$, known or
-                    estimated by the sample variance $s^2$ (central limit
-                    theorem).
+                \item the number of samples is sufficiently large (e.g.,
+                    $n>30$) and samples are independent and identically
+                    distributed from any distribution with mean $\mu$ and
+                    finite variance $\sigma^2$, known or estimated by the
+                    sample variance $s^2$ (central limit theorem).
 
-            \end{enumerate}
+            \end{itemize}
 
-        \item but what if samples are Gaussian, with unknown variance, and a
-            small number $n$ of samples?
+        \item What if samples are Gaussian, with unknown variance and we
+            can only collect a small number $n$ of samples?
 
             Then the sample distribution of the mean follows a student-t
             distribution with n-1 degrees of freedom.
 
+        \item What if samples are non-Gaussian and we can only collect a small
+            number $n$ of samples?
+
+            Use a resampling method (e.g., bootstrap of permutation test).
     \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Student-t distribution}
+
+    The Student-t distribution:
+
+    \begin{itemize}
+
+        \item has a similar shape as the standard Normal distribution,
+
+        \item has heavier tails than the standard Normal distribution,
+
+        \item approaches the standard normal distribution as the number of
+            degrees of freedom increase.
+    \end{itemize}
+
+    \begin{center}
+        \href{https://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/htTutorial/figures/studentTVsgaussians.html}{\includegraphics[width=2.5in]{figures/studentTVsgaussians.png}}
+    \end{center}
 
 \end{frame}
 
@@ -711,78 +825,15 @@ sample mean as our test statistic:
 \end{frame}
 
 \begin{frame}
-\frametitle{Rejection region}
+    \frametitle{Lecture notes and worksheet}
 
-    \begin{description}
+    They can both be found in the class repository at
+    \href{https://github.com/joacorapela/neuroinformatics24}{https://github.com/joacorapela/neuroinformatics24}
 
-        \item[Type I error]: reject the null hypothesis when it is true.
-
-        \item[Type II error]: not reject the null hypothesis when the
-            alternative one is true.
-
-    \end{description}
-
-    Some statistical tests are designed to constrain the probability of type I
-    error, called the \emph{confidence level, $\alpha$} of the test. Most
-    commonly $\alpha=0.05$.
-
-    Other tests compute the observed value of the test statistic,
-    $t_\text{obs}$ and calculate the probability that the test statistic is
-    larger or equal than its observed value.  This probability is called the
-    \textbf{p-value} of the test.
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Steps to perform a hypothesis test}
-
-    We start assuming that we know the distribution of the experimental samples
-    and we agree on a sample size $n$ (in
-    Section~\ref{sec:selectionOfSamleSize} we discuss how to select and optimal
-    sample size). We set the confidence level $\alpha$ of the test (i.e., the
-    probability that the test statistic falls in the reject region given that
-    the null hypothesis is valid).
-
-    \begin{enumerate}
-
-        \item collect an experimental sample $x_1,\ldots,x_N$.
-
-        \item compute the value of the test statistic corresponding to the
-    collected experimental sample (e.g., sample mean, Eq.~\ref{eq:sampleMean})
-
-        \item calculate the sample statistic, $t_\text{obs}$.
-
-        \item for testing based on confidence level:
-
-            \begin{enumerate}[a]
-
-                \item divide the space of all possible values of the test statistic
-            on a reject and a non-reject regons at a confidence level $\alpha$.
-
-                \item if the value of the test statistic falls in the reject
-            region, reject the null hypothesis at a confidence $\alpha$. If it
-            does not, do not reject the null hypothesis at this confidence.
-
-            \end{enumerate}
-
-        \item for testing based on p-value:
-
-            \begin{enumerate}[a]
-
-                \item calculate the p-value (i.e., the probability that the test
-            statistic is larger than the observed one.
-
-                \item reject the null hypothesis if the p-value is lower than the
-            agreed confidence level $\alpha$, and do not reject it otherwise.
-
-            \end{enumerate}
-
-    \end{enumerate}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Central limit theorem}
+    The lecture notes appear
+    \href{https://github.com/joacorapela/neuroinformatics24/blob/master/practicals/01\_tTestAndRandomizationTests/introAndHipothesisTests.pdf}{here}
+    and the worksheets appear
+    \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worsheets/01\_tTestAndRandomizationTests/worksheet\_tTestAndRandomizationTests.pdf}{here}.
 
 \end{frame}
 
