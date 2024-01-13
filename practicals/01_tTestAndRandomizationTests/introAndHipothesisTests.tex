@@ -151,7 +151,7 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
 \end{frame}
 
-\section{Course topics}
+\section{Course notes}
 
 \begin{frame}
     \frametitle{Background}
@@ -219,6 +219,14 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
 
 
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Graded worksheets}
+
+    Every Thursday we will assign you a worksheet that is due on the second
+    Monday after the assignment.
 
 \end{frame}
 
@@ -825,6 +833,70 @@ sample mean as our test statistic:
 \end{frame}
 
 \begin{frame}
+    \frametitle{Two types of errors}
+
+    \begin{definition}[Type I error]
+
+        The error of rejecting the null hypothesis when it is true is called
+        type I error. The probability of type I error is denoted by the symbol
+        $\alpha$.
+
+    \end{definition}
+
+    \begin{definition}[Type II error]
+
+        The error of not rejecting the null hypothesis when the alternative one
+        is true is called type II error. The probability of type II error is
+        denoted by the symbol $\beta$.
+
+    \end{definition}
+
+    \begin{definition}[Power of a statistical test]
+
+        The power of a statistical test is the probability of rejecting the
+        null hypothesis when the alternative one is true and it is equal to
+        $1-\beta$.
+
+    \end{definition}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Calculation of $\beta$}
+
+    \tiny
+    \begin{example1}
+        Calculate $\beta$ for the alternative hypothesis $\mathcal{H}_a: \mu_a=2.0$.
+
+        We will first express the rejection region in terms of $\bar{X}$.
+        Before we calculated the rejection region in terms of $Z$ as $Z>z_{0.01}$ which is
+
+        \begin{align*}
+            z_{0.01}<Z=\frac{\bar{X}-\mu_0}{s/\sqrt{n}}
+        \end{align*}
+
+        Then the rejection region in therms of $\bar{X}$ is
+
+        \begin{align*}
+            \bar{X}>\mu_0+z_{0.01}\,s/\sqrt{n}
+        \end{align*}
+
+        Now
+
+        \begin{align*}
+            \beta&=P(\text{not reject}\ \mathcal{H}_0|\mathcal{H}_a\ \text{is true})=P(\bar{X}<\mu_0+z_{0.01}\,s/\sqrt{n}|\mu=\mu_a)=P(\frac{\bar{X}-\mu_a}{s/\sqrt{n}}<\frac{\mu_0-\mu_a}{s/\sqrt{n}}+z_{0.01}|\mu=\mu_a)\\
+                 &=P(Z<\frac{\mu_0-\mu_a}{s/\sqrt{n}}+z_{0.01})=P(Z<1.32)
+        \end{align*}
+
+    \end{example1}
+
+    The worksheet contains an optional exercise illustrating how $\beta$ is
+    used to compute the optimal sample size $n$ for a hypothesis test.
+
+    \normalsize
+\end{frame}
+
+\begin{frame}
     \frametitle{Lecture notes and worksheet}
 
     They can both be found in the class repository at
@@ -834,6 +906,11 @@ sample mean as our test statistic:
     \href{https://github.com/joacorapela/neuroinformatics24/blob/master/practicals/01\_tTestAndRandomizationTests/introAndHipothesisTests.pdf}{here}
     and the worksheets appear
     \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worsheets/01\_tTestAndRandomizationTests/worksheet\_tTestAndRandomizationTests.pdf}{here}.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary}
 
 \end{frame}
 
