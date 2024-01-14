@@ -1,8 +1,9 @@
 \documentclass[12pt]{article}
 
+\usepackage{graphicx}
 \usepackage[shortlabels]{enumitem}
-\usepackage{hyperref}
-\usepackage[margin=1cm]{geometry}
+\usepackage[colorlinks=]{hyperref}
+\usepackage[margin=2cm]{geometry}
 
 \title{Worksheet: hypothesis tests}
 \author{Joaquin Rapela}
@@ -10,6 +11,8 @@
 \begin{document}
 
 \maketitle
+
+Please show all your calculations required for your answers.
 
 \begin{enumerate}
 
@@ -47,6 +50,71 @@ indicate that $\mu>2.3$?
 	103.768 92.295 100.615 102.754 88.602 61.675 88.017 108.579 73.003 90.677 71.210 73.154 123.086 84.023 82.115 106.755 91.052 76.014 89.222 90.479
 
 	Do these data indicate that the mean DL reading for current smokers is signiﬁcantly lower than 100 DL, the average for nonsmokers? Use a $\alpha=.01$.
+
+    \item \textbf{Power of a test} Let $X$ be a random variable representing
+        the IQ of a randomly selected British. Assume that $X$ is normally
+        distributed with unknown mean and standard deviation 16. Take a random
+        sample of $n=16$ individuals so that at a significance level
+        $\alpha=0.01$ we can test the null hypothesis $H_0:\mu=100$ versus the
+        alternative one $H_a:\mu>100$.
+
+            \begin{enumerate}[(a)]
+                \item what is the power of the test if the population mean is
+                    $\mu=108$? (Hint: slide ``Calculation of $\beta$'' from the
+                    \href{https://github.com/joacorapela/neuroinformatics24/blob/master/practicals/01_tTestAndRandomizationTests/introAndHipothesisTests.pdf}{Hypothesis Test discussion session}).
+                    
+                    what is the power if $\mu=112$? what if $\mu=116$?
+
+                    Generate a plot of power as a function of effect size,
+                    i.e., power plot, as in Figure~\ref{fig:powerVsEffectSize}.
+
+                    \begin{figure}
+                        \begin{center}
+                            \includegraphics[width=4in]{mySolution/figures/powerVsEffectSize.png}
+                        \end{center}
+                        \caption{Power versus effect size.}
+                        \label{fig:powerVsEffectSize}
+                    \end{figure}
+
+                    In this plot you should see that power increases with the
+                    effect size.
+
+                \item (optional) show in the same figure power plots for significance
+                    levels $\alpha=0.05$ and $\alpha=0.01$.
+
+                    In this plot you should see that power decreases as our
+                    demands on type I error become more stringent.
+
+                \item (optional) show in the same figure power plots for $n=16$ vs $n=65$.
+
+                    In this plot you should see that, for a fixed significance
+                    level and effect size, power increases with
+                    sample size.
+
+                \item (optional) find the minimum sample size required to achieve a power of
+                    0.8, for a significance level $\alpha=0.05$, and for an
+                    alternative hypothesis $H_a: \mu=112$. Show a power plot
+                    for the obtained minimum sample size and check
+                    that the power for $\mu=112$ is above 0.8.
+
+                    Hints: 
+
+                    \begin{enumerate}
+                        \item derive an expression for the critical sample
+                            mean, $\bar{x}_c$ (i.e., the value of $\bar{x}$
+                            separating the non-reject and reject regions) only
+                            using the type I error. This expression should
+                            depend on $n$
+
+                        \item derive a second expression for $\bar{x}_c$ only
+                            using the type II error. This expression should
+                            also depend on $n$
+
+                        \item equate the above expressions and solve for $n$.
+
+                    \end{enumerate}
+
+            \end{enumerate}
 
     \item (optional) solve problems from Prof. Harris' worksheet on
         \href{https://drive.google.com/file/d/1nzu23HT-\_4eidWs6O29J68PxX3-eUTzI/view}{t-test
