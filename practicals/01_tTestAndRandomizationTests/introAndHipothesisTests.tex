@@ -101,6 +101,7 @@
 \usetikzlibrary{shapes.geometric}
 
 \setbeamertemplate{navigation symbols}{}%remove navigation symbols
+\setbeamertemplate{caption}[numbered]%allow figure numbers
 
 \usepackage{setspace}
 
@@ -839,7 +840,7 @@ sample mean as our test statistic:
 
         The error of rejecting the null hypothesis when it is true is called
         type I error. The probability of type I error is denoted by the symbol
-        $\alpha$.
+        $\alpha$ (Figure~\ref{fig:xBarUnderH0AndHa}).
 
     \end{definition}
 
@@ -847,7 +848,7 @@ sample mean as our test statistic:
 
         The error of not rejecting the null hypothesis when the alternative one
         is true is called type II error. The probability of type II error is
-        denoted by the symbol $\beta$.
+        denoted by the symbol $\beta$ (Figure~\ref{fig:xBarUnderH0AndHa}).
 
     \end{definition}
 
@@ -866,34 +867,54 @@ sample mean as our test statistic:
 
     \tiny
     \begin{example1}
-        Calculate $\beta$ for the alternative hypothesis $\mathcal{H}_a: \mu_a=2.0$.
+        Calculate $\beta$ for the alternative hypothesis $\mathcal{H}_a:
+        \mu_a=5.0$ (using, as before, $\mathcal{H}_0: \mu_0=1.0$, $\alpha=0.01$,
+        $\bar{x}=2.7$, $s=10$, and $n=100$). See
+        Figure~\ref{fig:xBarUnderH0AndHa}.
 
         We will first express the rejection region in terms of $\bar{X}$.
-        Before we calculated the rejection region in terms of $Z$ as $Z>z_{0.01}$ which is
+        Before we calculated the rejection region in terms of $Z$ as
+        $Z>z_{\alpha}$ which is
 
         \begin{align*}
-            z_{0.01}<Z=\frac{\bar{X}-\mu_0}{s/\sqrt{n}}
+            z_\alpha<Z=\frac{\bar{X}-\mu_0}{s/\sqrt{n}}
         \end{align*}
 
         Then the rejection region in therms of $\bar{X}$ is
 
         \begin{align*}
-            \bar{X}>\mu_0+z_{0.01}\,s/\sqrt{n}
+            \bar{X}>\mu_0+z_\alpha\,s/\sqrt{n}
         \end{align*}
 
         Now
 
         \begin{align*}
-            \beta&=P(\text{not reject}\ \mathcal{H}_0|\mathcal{H}_a\ \text{is true})=P(\bar{X}<\mu_0+z_{0.01}\,s/\sqrt{n}|\mu=\mu_a)=P(\frac{\bar{X}-\mu_a}{s/\sqrt{n}}<\frac{\mu_0-\mu_a}{s/\sqrt{n}}+z_{0.01}|\mu=\mu_a)\\
-                 &=P(Z<\frac{\mu_0-\mu_a}{s/\sqrt{n}}+z_{0.01})=P(Z<1.32)
+            \beta&=P(\text{not reject}\ \mathcal{H}_0|\mathcal{H}_a\ \text{is
+            true})=P(\bar{X}<\mu_0+z_\alpha\,s/\sqrt{n}|\mu=\mu_a)=P(\frac{\bar{X}-\mu_a}{s/\sqrt{n}}<\frac{\mu_0-\mu_a}{s/\sqrt{n}}+z_\alpha|\mu=\mu_a)\\
+                 &=P(Z<\frac{\mu_0-\mu_a}{s/\sqrt{n}}+z_\alpha)=P(Z<\frac{1.0-2.0}{10/\sqrt{100}}+2.326)=P(Z<-1.6736)=0.047
         \end{align*}
 
     \end{example1}
 
-    The worksheet contains an optional exercise illustrating how $\beta$ is
-    used to compute the optimal sample size $n$ for a hypothesis test.
+    The worksheet contains an optional exercise illustrating how to find the
+    minimum sample size $n$ to achieve a given probability of type I error
+    $\alpha$ and probability of type II error $\beta$ for a given effect size.
 
     \normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Calculation of $\beta$}
+    \begin{center}
+        \begin{figure}
+            \includegraphics[width=3in]{figures/xBarUnderH0AndHa_colored.png}
+
+             \caption{Probabilities of type I and type II errors ($\alpha$ and
+             $\beta$, respectively) for the example in the previous page.}
+             \label{fig:xBarUnderH0AndHa}
+
+        \end{figure}
+    \end{center}
 \end{frame}
 
 \begin{frame}

@@ -7,5 +7,7 @@
 *.snm
 *.toc
 *.bak
+*.bbl
+*.blg
 
 figures/

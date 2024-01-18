@@ -1,0 +1,412 @@
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+% remove title and author from left panel
+%  \makeatletter
+%   \setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
+%   {
+%     \beamer@tempdim=\beamer@sidebarwidth%
+%     \advance\beamer@tempdim by -6pt%
+%     \insertverticalnavigation{\beamer@sidebarwidth}%
+%     \vfill
+%     \ifx\beamer@sidebarside\beamer@lefttext%
+%     \else%
+%       \usebeamercolor{normal text}%
+%       \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+%       \vskip2pt%
+%     \fi%
+%   }%
+% \makeatother
+% done remove title and author from left panel 
+
+\hypersetup{colorlinks,citecolor=}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{comment}
+% \usepackage{enumitem}
+% \setlist[itemize]{topsep=0pt,before=\leavevmode\vspace{-1.5em}}
+% \setlist[description]{style=nextline}
+\usepackage{amsthm}
+\usepackage{media9}
+% \usepackage{multimedia}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{tikz}
+\tikzset{
+     arrow/.style={-{Stealth[]}}
+     }
+\usetikzlibrary{positioning,arrows.meta}
+\usetikzlibrary{shapes.geometric}
+
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+\setbeamertemplate{caption}[numbered]%allow figure numbers
+
+\usepackage{setspace}
+
+% \newtheorem{example}{Example}
+% \setbeamertemplate{theorems}[numbered]
+
+\newenvironment<>{example1}[1][Example 1]{%
+  \setbeamercolor{block title}{fg=white,bg=cyan!75!black}%
+  \begin{block}{#1}}{\end{block}}
+\newenvironment<>{example2}[1][Example 2]{%
+  \setbeamercolor{block title}{fg=white,bg=magenta!75!black}%
+  \begin{block}{#1}}{\end{block}}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\newcommand{\keepi}{\addtocounter{saveenumi}{-1}\setcounter{enumi}{\value{saveenumi}}}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Spectral analysis}
+
+\author{Joaqu\'{i}n Rapela} % Your name
+\institute[Gatsby Unit, UCL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Gatsby Computational Neuroscience Unit\\University College London % Your institution for the title page
+}
+\date{\today} % Date, can be changed to a custom date
+
+\AtBeginSection[]
+  {
+     \begin{frame}<beamer>
+     \frametitle{Contents}
+         \tableofcontents[currentsection,hideallsubsections]
+     \end{frame}
+  }
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Contents} % Table of contents slide, comment this block out to remove it
+% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+% \end{frame}
+
+\begin{frame}
+    \frametitle{Motivation}
+
+    \begin{itemize}
+
+        \item We are monitoring \textbf{continuous} signal.
+
+        \item We are saving \textbf{discrete} samples of this signal in our
+            computer.
+
+        \item \textcolor{red}{Under what conditions, and how, can we recover the continuous
+            signal $x(t)$ from the saved samples?}
+
+    \end{itemize}
+
+    \begin{center}
+        \includegraphics[width=3in]{figures/sampling.png}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Fourier Transform}
+
+    The Fourier transform allows to represent a continuous signal as a linear
+    combination of sinusoids.
+
+    \begin{center}
+        \includegraphics[height=1in]{figures/squareWave.png}\linebreak
+        \includegraphics[height=1.5in]{figures/squareWaveAsSumOfSinusoids.png}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Fourier Transform}
+
+    \begin{align*}
+        x(t)&=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\Omega)e^{j\Omega t}\
+        d\Omega=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\Omega)(\cos(\Omega
+        t)+j\sin(\Omega t))\ d\Omega\\
+            &=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\Omega)\cos(\Omega t)
+            d\Omega +
+            j\frac{1}{2\pi}\int_{-\infty}^\infty X(j\Omega)\sin(\Omega t)\
+            d\Omega\\
+            \text{where}&\\
+        x(j\Omega)&=\int_{-\infty}^\infty x(t)e^{-j\Omega t}\ dt
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sampled signal}
+
+    We sample values of a continuous function $x(t)$ at regular times $nT$,
+    where $T$ is called the \textbf{sampling interval} and its inverse $1/T$ is
+    called the \textbf{sampling frequency}.
+
+    \begin{center}
+        \includegraphics[height=2.5in]{figures/sampledSignal.png}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Continuous representation of a sampled signal}
+
+    \begin{itemize}
+
+        \item Dirac delta function ($\delta(t))$:
+
+            \begin{align*}
+                \delta(t-t_0)&=0\quad t\neq t_0\\
+                \int_{t_1}^{t_2}f(t)\delta(t-t_0)\,dt&=f(t_0)\quad t_1<t_0<t_2
+            \end{align*}
+
+        \item Thus, a sampled signal (with sample interval $T$) can be represented with
+            the function:
+
+            \begin{align*}
+                x_c(t)=\sum_{n=-\infty}^\infty x(t)\,\delta(t-nT)
+            \end{align*}
+
+            \begin{itemize}
+
+                \item $x_c(t)=0\quad t\neq nT$
+
+                \item $\int_{nT-\Delta}^{nT+\Delta}x_c(t)\,dt=x(nT)$
+
+            \end{itemize}
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sampling theorem}
+
+    \begin{theorem}[Sampling theorem \citep{shannon48}]
+
+        \small
+
+        Let $x_s(t)$ be a sampled signal, with sampling period $T$,
+        of a continuous signal $x(t)$.
+
+        Let $X(j\Omega)$ be the Fourier transform of $x(t)$.
+
+        Then the Fourier
+        transform of $x_s(t)$ is
+        $X_s(j\Omega)=\frac{1}{T}\sum_{k=-\infty}^\infty
+        X\left(j\left(\Omega-\frac{2\pi k}{T}\right)\right)$.
+
+        \normalsize
+    \end{theorem}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sampling theorem}
+
+    \begin{center}
+        \includegraphics[height=2.75in]{figures/samplingTheorem.pdf}
+        $\omega_s=\frac{2\pi}{T_s}$
+    \end{center}
+
+    \hfill\tiny Poularikas and Seely, 1994
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reconstruction procedure}
+
+    \begin{enumerate}
+
+        \item Fourier transform the sampled signal $x_s(t)$, yielding
+            $X_s(j\Omega)$.
+
+            \begin{center}
+                \includegraphics[height=.5in]{figures/originalAndFTsampled.pdf}
+            \end{center}
+
+        \item low-pass filter $X_s(j\Omega)$ between frequencies
+            $\Omega=-\frac{\pi}{T}$ and $\Omega=\frac{\pi}{T}$, yielding
+            $X_s^{LP}(j\Omega)$.
+
+            \begin{center}
+                \includegraphics[height=.5in]{figures/lpFTSampled.pdf}
+            \end{center}
+
+        \item the desired continuous signal is the inverse Fourier transform of
+            $X_s^{LP}(j\Omega)$ (i.e., $x(t)=\mathcal{IFT}\{X_s^{LP}(j\Omega)\}$).
+
+            \begin{center}
+                \includegraphics[height=.5in]{figures/iftLPFTSampled2.pdf}
+            \end{center}
+
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reconstruction requirements}
+
+    \begin{itemize}
+
+        \item we want
+
+            \begin{center}
+                \includegraphics[height=0.75in]{figures/ftSampled.pdf}
+            \end{center}
+
+        \item we do NOT want 
+
+            \begin{center}
+                \includegraphics[height=0.75in]{figures/aliasing.pdf}
+            \end{center}
+
+        \item we want $\frac{\omega_s}{2}>\omega_N$, or
+            $\frac{2\pi}{T}\frac{1}{2}=\frac{\omega_s}{2}>\omega_N=2\pi f_N$,
+            or $\frac{1}{T}\frac{1}{2}>f_N$, or
+            $f_s=\frac{1}{T}>2f_N$, or
+            $\textcolor{red}{f_s>2f_N}$.
+
+            \onslide<2->{\textcolor{red}{To reconstruct without error a
+            continuous signal from its samples we need to sample it at a
+            frequency larger than twice its maximal frequency.}}
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reconstruction example}
+
+    \begin{itemize}
+
+        \item continuous signal in time domain
+            \begin{align*}
+                x(t)&=\left(sinc(f_0 t)\right)^2\\
+                sinc(t)&=\left\{\begin{array}{l l}
+                                    \frac{sin(\pi t)}{\pi t} & t\neq 0\\
+                                    1 & t=0
+                                \end{array}\right .
+            \end{align*}
+
+        \item continuous signal in frequency domain
+            \begin{align*}
+                x(j\Omega)&=\left\{\begin{array}{l l}
+                    \frac{1}{f_0}\left(1-\frac{|\Omega|}{2\pi f_0}\right) & \Omega\leq 2\pi f_0\\
+                    0 & \Omega>\pi f_0\\
+                                   \end{array}\right .
+            \end{align*}
+            $\omega_N=2\pi f_0$, $f_N=f_0$ and by the sampling  theorem $f_s>2f_0$.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reconstruction example: sampling below the Nyquist rate}
+
+    \begin{center}
+        \includegraphics[height=3in]{figures/exampleSampledBelowNyquistRate.pdf}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reconstruction example: sampling below the Nyquist rate}
+
+    \begin{center}
+        \includegraphics[height=3in]{figures/example_NiquistFactor0.80.png}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reconstruction example: sampling at the Nyquist rate}
+
+    \begin{center}
+        \includegraphics[height=3in]{figures/example_NiquistFactor1.00.png}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bibliography}
+
+    \bibliographystyle{apalike}
+    \bibliography{communications}
+
+\end{frame}
+
+\end{document}
