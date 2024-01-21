@@ -64,14 +64,13 @@ Please show all your calculations required for your answers.
                         1~Hz (i.e., $\omega=2\pi\,f$~rad/sec, $f=1$~Hz).
                 \end{itemize}
 
-                Note: to avoid this type of problems of low-frequency
-                oscillations appearing due to frequencies in the signal above
-                the Nyquist frequency (i.e., half of the sampling frequency),
-                before sampling signals are low pass filtered with an analog
-                filter at the Nyquist frequency. This filter is called an
-                \textbf{antialiasing filter}. The sampling theorem only applies
-                to digital filters and therefore analog ones do not generate
-                aliasing.
+                Note: to avoid this type of problems where low-frequency
+                oscillations appear due to frequencies in the signal above the
+                Nyquist frequency (i.e., half of the sampling frequency),
+                signals are low pass filtered with an analog filter at the
+                Nyquist frequency before being sampled. This filter is called
+                an \textbf{antialiasing filter}. Analog filters do not
+                generate aliasing.
 
             \item use a sampling frequency above the Nyquist rate (i.e.,
                 $f_s>2f_N$ where $f_N$ is the largest frequency in the signal)
