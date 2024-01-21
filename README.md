@@ -15,8 +15,8 @@
 
        The you can run any script by (for example):
 
-           - `cd practicals/02_LFPs_spectralAnalysis/exercises/`
-           - `python doReconstructionExercise.py`
+       - `cd practicals/02_LFPs_spectralAnalysis/exercises/`
+       - `python doReconstructionExercise.py`
 
 - If you have any problem running scripts in this repo, please contact me.
 
