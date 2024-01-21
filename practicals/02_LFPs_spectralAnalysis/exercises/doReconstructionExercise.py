@@ -1,3 +1,4 @@
+import os
 import sys
 import argparse
 import numpy as np
@@ -66,7 +67,12 @@ def main(argv):
     fig.update_layout(title=f"fs={fs_factor}*Nyquist rate",
                       xaxis=dict(title="t (sec)"), yaxis=dict(title="x(t)"))
 
-    fig.write_image(fig_filename_pattern.format(fs_factor, "png"))
+    filename = fig_filename_pattern.format(fs_factor, "png")
+    dirname = os.path.dirname(filename)
+    if not os.path.exists(dirname):
+        print(f"Creating directory {dirname}")
+        os.mkdir(dirname)
+    fig.write_image(filename)
     fig.write_html(fig_filename_pattern.format(fs_factor, "html"))
 
     fig.show()
