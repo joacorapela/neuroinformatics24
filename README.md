@@ -7,7 +7,7 @@
 - running scripts: I recommend that you run the provided scripts in a conda environment. Before running any script do (only once):
 
     1. `conda create -n neuroi python`
-    2. clone this repository (`git clone https://github.com/joacorapela/neuroinformatics24.git)
+    2. clone this repository (`git clone git@github.com:joacorapela/neuroinformatics24.git`)
 
     3. change to the repository directory (`cd neuroinformatics24`)
     4. activate your conda environment (`conda activate neuroi`)
