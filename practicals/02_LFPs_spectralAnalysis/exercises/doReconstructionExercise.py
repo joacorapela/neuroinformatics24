@@ -1,46 +1,78 @@
+import sys
+import argparse
+import numpy as np
+import plotly.graph_objects as go
+
 import utils
 
-# In this Python tutorial we start with a continuous function of time from
-# which we draw samples at a uniform sampling rate.  The sampling rate is
-# chosen to be higher than the maximum appreciable frequency component
-# contained in the original function of time.  We then attempted to
-# reconstruct the original continuous function from the sampled data.
-import numpy as np
-import matplotlib.pyplot as plt
 
-def test_func(t, f0): 
+def test_func(t, f0):
     answer = np.sinc(f0 * t)**2
     return answer
-f0 = 2.0
-f_Nyquist = 2 * f0
 
-# Here's the original function from which samples will be drawn.
-ts0 = np.linspace(-2.5, 2.5, 1000)
-func_values_ts0 = test_func(t=ts0, f0=f0)
 
-# sample
-Nyquist_factor = 1.0
-# Nyquist_factor = 0.8
+def main(argv):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--f0", type=float, help="sinc maximal frequency",
+                        default=2.0)
+    parser.add_argument("--fs_factor", type=float,
+                        help="sampling frequency factor of the Nyquist rate",
+                        default=1.0)
+    parser.add_argument("--xmin", type=float, help="minimum x value",
+                        default=-2.5)
+    parser.add_argument("--nXs_fine_grained", type=int,
+                        help="number of fine grained abscissa points",
+                        default=1000)
+    parser.add_argument("--fig_filename_pattern", type=str,
+                        help="figure filename pattern",
+                        default="figures/example_fsFactor{:.2f}.{:s}")
+    args = parser.parse_args()
 
-f_sample = f_Nyquist * Nyquist_factor
-ts_sample = np.arange(-2.5, 2.5, 1/f_sample)
-func_values_sample = test_func(t=ts_sample, f0=f0)
+    f0 = args.f0
+    fs_factor = args.fs_factor
+    xmin = args.xmin
+    nXs_fine_grained = args.nXs_fine_grained
+    fig_filename_pattern = args.fig_filename_pattern
 
-# Now make some time values and plot the reconstructed signal (black line)
-# along with the origonal continuous function (yellow line).
-tt = np.linspace(-2.5, 2.5, 1000)
-plt.plot(tt, utils.wittakerShannonInterpolator(t=tt, ys=func_values_sample,
-                                               fs=f_sample),
-         'kx', linewidth=3, label="Reconstructed")
-plt.plot(ts0, func_values_ts0, 'yo', linewidth = 2, label="Original")
-plt.plot(ts_sample, func_values_sample, 'b*', label="Samples")
-plt.legend()
-plt.title(f"Nyquist factor {Nyquist_factor}")
-plt.xlabel("t")
-plt.ylabel("x(t)")
+    Nyquist_rate = 2 * f0
 
-fig_filename_pattern = "figures/example_NiquistFactor{:.2f}.png"
-plt.savefig(fig_filename_pattern.format(Nyquist_factor))
-plt.show()
+    # function from which samples will be drawn sampled at a high frequency
+    t_original = np.linspace(xmin, -xmin, nXs_fine_grained)
+    func_values_original = test_func(t=t_original, f0=f0)
 
-breakpoint()
+    # sample at Nyquist factor * Niquist rate
+    f_sample = fs_factor * Nyquist_rate
+    t_sampled = np.arange(xmin, -xmin, 1/f_sample)
+    func_values_sampled = test_func(t=t_sampled, f0=f0)
+
+    # reconstruct
+    t_reconstructed = np.linspace(xmin, -xmin, nXs_fine_grained)
+    func_values_reconstructed = utils.wittakerShannonInterpolator(
+        t=t_reconstructed, ys=func_values_sampled, fs=f_sample)
+
+    # plot
+    fig = go.Figure()
+    trace_original = go.Scatter(x=t_original, y=func_values_original,
+                                mode="lines+markers", name="original")
+    trace_sampled = go.Scatter(x=t_sampled, y=func_values_sampled,
+                               mode="markers", name="sampled")
+    trace_reconstructed = go.Scatter(x=t_reconstructed,
+                                     y=func_values_reconstructed,
+                                     mode="lines+markers",
+                                     name="reconstructed")
+    fig.add_trace(trace_original)
+    fig.add_trace(trace_sampled)
+    fig.add_trace(trace_reconstructed)
+    fig.update_layout(title=f"fs={fs_factor}*Nyquist rate",
+                      xaxis=dict(title="t (sec)"), yaxis=dict(title="x(t)"))
+
+    fig.write_image(fig_filename_pattern.format(fs_factor, "png"))
+    fig.write_html(fig_filename_pattern.format(fs_factor, "html"))
+
+    fig.show()
+
+    breakpoint()
+
+
+if __name__ == "__main__":
+    main(sys.argv)
