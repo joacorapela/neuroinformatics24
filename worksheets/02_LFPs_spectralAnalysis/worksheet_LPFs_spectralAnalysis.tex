@@ -19,21 +19,23 @@ Please show all your calculations required for your answers.
 \begin{enumerate}
 
     \item We measure the LFP in human motor cortex with an Utah array. It is
-        known that this LFP has only has an oscillation at 11~Hz (i.e.,
-        $LFP(t)=A \cos(\omega_0\,t)$ with $\omega_0=2\pi\,11\,t$). However, when
-        we sample this LFP at a frequency of 10~Hz we only observe an oscillation
-        at 1~Hz (Figure~\ref{fig:undersampledLFP}).
+        known that this LFP only has an oscillation at 11~Hz (i.e.,
+        $LFP(t)=A \cos(\omega_0\,t)$ with $\omega_0=2\pi\,f_0$~rad/sec,
+        $f_0=11$~Hz). However, when we sample this LFP at a frequency of 10~Hz
+        (i.e., $\omega_s=2\pi\,f_s$~rad/sec, $f_s=10$~Hz) we only observe an
+        oscillation at 1~Hz (Figure~\ref{fig:undersampledLFP}).
 
         \begin{figure}
             \begin{center}
                 \includegraphics[width=6in]{figures/undersampledLFP.png}
 
                 \caption{An LFP oscillating at 11~Hz (i.e., $LFP(t)=A
-                \cos(\omega_0\,t)$ with $\omega_0=2\pi\,11\,t$) when sampled at
-                a frequency of 10~Hz (i.e., $f_s=10$~Hz or
-                $\omega_s=2\pi\,10$~rad/sec) only displays an oscillation at
-                1~Hz. Use the sampling theorem to explain this observation.
-                Code to generate this figure appears \href{}{here}.}
+                \cos(\omega_0\,t)$ with $\omega_0=2\pi\,f_0$~rad/sec,
+                $f_0=11$~Hz) when sampled at a frequency of 10~Hz (i.e.,
+                $\omega_s=2\pi\,f_s$~rad/sec, $f_s=10$~Hz) only displays an
+                oscillation at 1~Hz. Use the sampling theorem to explain this
+                observation.  Code to generate this figure appears
+                \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/02_LFPs_spectralAnalysis/doExUndersampledLFP.py}{here}.}
 
             \end{center}
             \label{fig:undersampledLFP}
@@ -55,12 +57,12 @@ Please show all your calculations required for your answers.
                         \input{figFTcos}
 
                     \item replicate the above spectrum, as indicated
-                        by the sampling theorem, with new copies at multiples
+                        by the sampling theorem, with replicas at multiples
                         of the sampling frequency $\omega_s=2\pi\,f_s$
                         ($f_s=\frac{1}{T_s}=10~Hz$).
 
                     \item check if any of the above replicates adds signal at
-                        1~Hz (i.e., $\omega=2\pi\,1$~rad/sec).
+                        1~Hz (i.e., $\omega=2\pi\,f$~rad/sec, $f=1$~Hz).
                 \end{itemize}
 
                 Note: to avoid this type of problems of low-frequency
@@ -75,11 +77,14 @@ Please show all your calculations required for your answers.
             \item build another example of an LFP having an oscillation at a
                 high frequency that when sampled at a frequency below the
                 Nyquist rate generates an oscillation at a lower frequency. You
-                can use \href{}{this} code to verify that with your values of
+                can use
+                \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/02_LFPs_spectralAnalysis/doExUndersampledLFP.py}{this} code to verify that with your values of
                 the the LFP frequency and the sampling frequency an oscillation
                 at a low frequency emereges.
 
         \end{enumerate}
+
+    \item solve \href{https://drive.google.com/file/d/1DC4iRo58uZxRlX-KESSlT-861CUXQrz2/view}{Ken's worksheet on power spectra}.
 
 \end{enumerate}
 
