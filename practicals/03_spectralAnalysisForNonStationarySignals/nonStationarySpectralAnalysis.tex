@@ -1,0 +1,434 @@
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+% remove title and author from left panel
+%  \makeatletter
+%   \setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
+%   {
+%     \beamer@tempdim=\beamer@sidebarwidth%
+%     \advance\beamer@tempdim by -6pt%
+%     \insertverticalnavigation{\beamer@sidebarwidth}%
+%     \vfill
+%     \ifx\beamer@sidebarside\beamer@lefttext%
+%     \else%
+%       \usebeamercolor{normal text}%
+%       \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+%       \vskip2pt%
+%     \fi%
+%   }%
+% \makeatother
+% done remove title and author from left panel 
+
+\hypersetup{colorlinks,citecolor=red}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{comment}
+% \usepackage{enumitem}
+% \setlist[itemize]{topsep=0pt,before=\leavevmode\vspace{-1.5em}}
+% \setlist[description]{style=nextline}
+\usepackage{amsthm}
+\usepackage{media9}
+% \usepackage{multimedia}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{tikz}
+\tikzset{
+     arrow/.style={-{Stealth[]}}
+     }
+\usetikzlibrary{positioning,arrows.meta}
+\usetikzlibrary{shapes.geometric}
+
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+\setbeamertemplate{caption}[numbered]%allow figure numbers
+
+\usepackage{setspace}
+
+% \newtheorem{example}{Example}
+% \setbeamertemplate{theorems}[numbered]
+
+\newenvironment<>{example1}[1][Example 1]{%
+  \setbeamercolor{block title}{fg=white,bg=cyan!75!black}%
+  \begin{block}{#1}}{\end{block}}
+\newenvironment<>{example2}[1][Example 2]{%
+  \setbeamercolor{block title}{fg=white,bg=magenta!75!black}%
+  \begin{block}{#1}}{\end{block}}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\newcommand{\keepi}{\addtocounter{saveenumi}{-1}\setcounter{enumi}{\value{saveenumi}}}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Non-stationary spectral analysis}
+
+\author{Joaqu\'{i}n Rapela} % Your name
+\institute[Gatsby Unit, UCL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Gatsby Computational Neuroscience Unit\\University College London % Your institution for the title page
+}
+\date{\today} % Date, can be changed to a custom date
+
+\AtBeginSection[]
+  {
+     \begin{frame}<beamer>
+     \frametitle{Contents}
+         \tableofcontents[currentsection,hideallsubsections]
+     \end{frame}
+  }
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Contents} % Table of contents slide, comment this block out to remove it
+% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+% \end{frame}
+
+\section{Time-frequency uncertainty}
+
+\begin{frame}
+    \frametitle{Complex numbers}
+
+    A complex number $a+ib$ is a vector in the complex plane.
+
+    \begin{center}
+        \includegraphics[width=3in]{figures/complexNumberGraphicalRepresentation.pdf}
+    \end{center}
+
+    \begin{itemize}
+
+        \item $a$ and $b$ are the real and imaginary parts, respectively.
+
+        \item $A$ is the magnitude.
+
+        \item $\phi_X$ is the phase.
+
+        \item using the \textbf{Euler's formula}
+            $a+ib=A(\cos(\phi_X)+i\sin(\phi_X))=Ae^{i\phi_X}$.
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Four types of Fourier transforms}
+
+    \tiny
+    \begin{center}
+        \begin{tabular}{|l || l | l || l | l|}
+            \hline
+
+            FT\footnote{Fourier transform} & continuous & $x(t)=\frac{1}{2\pi}\int x(j\Omega)\ e^{j\Omega t}\ d\Omega$ & continuous & $x(j\Omega)=\int_{-\infty}^\infty x(t)\ e^{-j\Omega t}\ dt$\\\hline
+
+            FS\footnote{Fourier series} & periodic (T) &
+            $x(t)=\sum_{k=-\infty}^\infty X[k]\ e^{j\frac{2\pi}{T}kt}$ &
+            discrete (inf) & $X[k]=\int_{-T/2}^{T/2}x(t)\ e^{-j\frac{2\pi}{T}kt}\ dt$\\\hline
+
+            DTFT\footnote{discrete time Fourier transform} & discrete (inf) &
+            $x[n]=\frac{1}{2\pi}\int_{-\pi}^\pi X(\omega)\ e^{j\omega n}\
+            d\omega$ & periodic ($2\pi$) & $X(\omega)=\sum_{n=-\infty}^\infty
+            x[n]\ e^{-j\omega n}$\\\hline
+
+            DFT\footnote{discrete Fourier transform} & discrete (finite) &
+            $x[n]=\sum_{k=0}^{N-1}X[k]\ e^{j\frac{2\pi}{N}kn}$ &
+            discrete (finite) & $X[k]=\sum_{n=0}^{N-1} x[n]\
+            e^{-j\frac{2\pi}{N} nk}$\\\hline
+
+        \end{tabular}
+    \end{center}
+
+    \footnotesize
+    \begin{itemize}
+        \item how does $\omega$ of the DTFT relates to $\Omega$ of the FT?
+            \begin{align*}
+                x[n]\sim x_s(t)&=\sum_{n=-\infty}^\infty x[n]\delta(t-nT)\\
+                X_s(j\Omega)&=\int_{-\infty}^\infty x_s(t)e^{j\Omega
+                t}dt=\int_{-\infty}^\infty\left(\sum_{n=-\infty}^\infty
+                x[n]\delta(t-nT)\right)e^{j\Omega t}dt\\
+                               &=\sum_{n=-\infty}^\infty
+                               x[n]\left(\int_{-\infty}^\infty\delta(t-nT)e^{j\Omega
+                               t}dt\right)=\sum_{n=-\infty}^\infty
+                               x[n]e^{j\Omega
+                               nT}=\left.X_s(\omega)\right|_{\textcolor{red}{\omega=\Omega
+                               T}}
+            \end{align*}
+    \end{itemize}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Four types of Fourier transforms}
+
+    \tiny
+    \begin{center}
+        \begin{tabular}{|l || l | l || l | l|}
+            \hline
+
+            FT\footnote{Fourier transform} & continuous & $x(t)=\frac{1}{2\pi}\int x(j\Omega)\ e^{j\Omega t}\ d\Omega$ & continuous & $x(j\Omega)=\int_{-\infty}^\infty x(t)\ e^{-j\Omega t}\ dt$\\\hline
+
+            FS\footnote{Fourier series} & periodic (T) &
+            $x(t)=\sum_{k=-\infty}^\infty X[k]\ e^{j\frac{2\pi}{T}kt}$ &
+            discrete (inf) & $X[k]=\int_{-T/2}^{T/2}x(t)\ e^{-j\frac{2\pi}{T}kt}\ dt$\\\hline
+
+            DTFT\footnote{discrete time Fourier transform} & discrete (inf) &
+            $x[n]=\frac{1}{2\pi}\int_{-\pi}^\pi X(\omega)\ e^{j\omega n}\
+            d\omega$ & periodic ($2\pi$) & $X(\omega)=\sum_{n=-\infty}^\infty
+            x[n]\ e^{-j\omega n}$\\\hline
+
+            DFT\footnote{discrete Fourier transform} & discrete (finite) &
+            $x[n]=\sum_{k=0}^{N-1}X[k]\ e^{j\frac{2\pi}{N}kn}$ &
+            discrete (finite) & $X[k]=\sum_{n=0}^{N-1} x[n]\
+            e^{-j\frac{2\pi}{N} nk}$\\\hline
+
+        \end{tabular}
+    \end{center}
+
+    \footnotesize
+    \begin{itemize}
+
+        \item how to find the frequency in Hz corresponding to a DFT coefficient k?
+            \begin{align*}
+                \omega&=\frac{2\pi}{N}k\\
+                \Omega=\frac{\omega}{T}&=2\pi\frac{k}{NT}\\
+            \end{align*}
+            Thus, the coefficient k corresponds to the frequency
+            $\frac{k}{NT}$~Hz.
+
+        \item what is the \textbf{frequency resolution} of a Fourier transform?
+
+            It is the distance in Hz between two neighboring frequencies, i.e.,
+            $\text{frequency resolution}=\frac{1}{NT}=\frac{1}{\text{signal duration}}$.
+    \end{itemize}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Time-frequency uncertainty}
+
+    $\text{frequency resolution}=\frac{1}{NT}=\frac{1}{\text{signal duration}}$
+    \footnotesize
+    \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.35\textwidth}
+            \centering
+            \resizebox{2in}{!}{%
+                \input{figTimeFreqUncertaintyHighTemporalRes}
+            }%
+            \caption{High temporal resolution}
+        \end{subfigure}
+        \hspace{.3in}
+        \begin{subfigure}[b]{0.55\textwidth}
+            \centering
+            \resizebox{2.75in}{!}{%
+                \input{figTimeFreqUncertaintyHighFreqRes}
+            }%
+            \caption{High frequency resolution}
+        \end{subfigure}
+    \end{figure}
+
+    \textcolor{red}{Tradeoff between frequency and time resolution}.
+\end{frame}
+
+\section{Spectral coherence interpretation}
+
+\begin{frame}
+    \frametitle{Spectral measures for multiple time series}
+
+    \begin{itemize}
+
+        \item The \textbf{cross-power} is
+
+            \begin{align*}
+                S_{XY}(f)&=\sum_{\tau=-\infty}^\infty R_{XY}(\tau)e^{-i2\pi f\tau}\\
+                         &=X(f)Y^*(f)
+            \end{align*}
+
+        \item The \textbf{multi-trial spectral coherence} is
+
+            \begin{align*}
+                C_{XY}(f)&=\frac{\left|<S_{XY,k}(f)>\right|^2}{<S_{XX}(f)><S_{YY}(f)>}
+            \end{align*}
+
+        \item The \textbf{spectral coherence} is
+
+            \begin{align*}
+                C_{XY}(f)&=\frac{\left|S_{XY}(f)\right|^2}{S_{XX}(f)S_{YY}(f)}
+            \end{align*}
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Multi-trial spectral coherence: intuition}
+
+    \begin{figure}
+    \begin{center}
+
+        \includegraphics[width=3in]{figures/spectralCoherenceIntuition.pdf}
+        \caption{Spectral coherence measures constant phase difference between
+        two times series at a given frequency.}
+    \end{center}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Multi-trial spectral coherence: interpretation}
+
+    \begin{itemize}
+
+        \item define
+
+            \begin{align*}
+                X(f) & = A(f)e^{j\phi_X(f)}\\
+                Y(f) & = B(f)e^{j\phi_Y(f)}
+            \end{align*}
+
+        \item then
+
+            \begin{align*}
+                S_{XY,k}(f)&=X_kY^*_k\\
+                           &=A_ke^{j\phi_{xk}}\left(B_ke^{j\phi_{yk}}\right)^*\\
+                           &=A_ke^{j\phi_{xk}}\left(B_ke^{-j\phi_{yk}}\right)\\
+                           &=A_kB_ke^{j(\phi_{xk}-\phi_{yk})}\\
+            \end{align*}
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Multi-trial spectral coherence: interpretation}
+
+    \begin{center}
+        \begin{figure}
+            \includegraphics[width=4in]{figures/crossPowerGraphical.pdf}
+        \end{figure}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Multi-trial spectral coherence: interpretation}
+
+    Given its definition, \textbf{multi-trial spectral coherence}
+
+    \begin{align*}
+        C_{XY}(f)&=\frac{\left|<S_{XY,k}(f)>\right|^2}{<S_{XX}(f)><S_{YY}(f)>}
+    \end{align*}
+
+    corresponds to averaging the cross-power vectors and normalizing the result
+    by the corresponding power spectrum terms.
+
+    \begin{center}
+        \begin{figure}
+            \includegraphics[width=3in]{figures/averagingCrossSpectrums.pdf}
+        \end{figure}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Multi-trial spectral coherence: interpretation}
+
+    \textcolor{red}{Multi-trial spectral coherence at frequency $f$ is large
+    when the phase difference at frequency $f$ is approximately constant across
+    trials.}
+
+\end{frame}
+
+\section{Understanding the plots we will generate in the next worksheet}
+
+\begin{frame}
+    \frametitle{Understanding the plots we will generate in the next worksheet}
+
+    Please refer to the plots in the
+    \href{https://drive.google.com/file/d/1l9bymhvPO8CdKJZgVTbJih2JIliLG9mm/view}{next worksheet}.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bibliography}
+
+    \bibliographystyle{apalike}
+%     \bibliography{communications,signalProcessing}
+
+\end{frame}
+
+\end{document}

@@ -78,7 +78,7 @@
 % \makeatother
 % done remove title and author from left panel 
 
-\hypersetup{colorlinks,citecolor=}
+\hypersetup{colorlinks,citecolor=red}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 \usepackage{natbib}
@@ -190,15 +190,15 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     \frametitle{The Fourier Transform}
 
     \begin{align*}
-        x(t)&=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\Omega)e^{j\Omega t}\
-        d\Omega=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\Omega)(\cos(\Omega
-        t)+j\sin(\Omega t))\ d\Omega\\
-            &=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\Omega)\cos(\Omega t)
-            d\Omega +
-            j\frac{1}{2\pi}\int_{-\infty}^\infty X(j\Omega)\sin(\Omega t)\
-            d\Omega\\
+        x(t)&=\frac{1}{2\pi}\int_{-\infty}^\infty X(\omega)e^{\omega t}\
+        d\omega=\frac{1}{2\pi}\int_{-\infty}^\infty X(\omega)(\cos(\omega
+        t)+j\sin(\omega t))\ d\omega\\
+            &=\frac{1}{2\pi}\int_{-\infty}^\infty X(\omega)\cos(\omega t)
+            d\omega +
+            j\frac{1}{2\pi}\int_{-\infty}^\infty X(\omega)\sin(\omega t)\
+            d\omega\\
             \text{where}&\\
-        x(j\Omega)&=\int_{-\infty}^\infty x(t)e^{-j\Omega t}\ dt
+        x(\omega)&=\int_{-\infty}^\infty x(t)e^{-j\omega t}\ dt
     \end{align*}
 
 \end{frame}
@@ -211,8 +211,9 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     called the \textbf{sampling frequency}.
 
     \begin{center}
-        \includegraphics[height=2.5in]{figures/sampledSignal.png}
+        \includegraphics[height=2.0in]{figures/sampledSignal.png}
     \end{center}
+    \hfill\small\citet{porat97}
 
 \end{frame}
 
@@ -232,19 +233,18 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
             the function:
 
             \begin{align*}
-                x_c(t)=\sum_{n=-\infty}^\infty x(t)\,\delta(t-nT)
+                x_s(t)=\sum_{n=-\infty}^\infty x(t)\,\delta(t-nT)
             \end{align*}
 
             \begin{itemize}
 
-                \item $x_c(t)=0\quad t\neq nT$
+                \item $x_s(t)=0\quad t\neq nT$
 
-                \item $\int_{nT-\Delta}^{nT+\Delta}x_c(t)\,dt=x(nT)$
+                \item $\int_{nT-\Delta}^{nT+\Delta}x_s(t)\,dt=x(nT)$
 
             \end{itemize}
 
     \end{itemize}
-
 \end{frame}
 
 \begin{frame}
@@ -257,12 +257,12 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
         Let $x_s(t)$ be a sampled signal, with sampling period $T$,
         of a continuous signal $x(t)$.
 
-        Let $X(j\Omega)$ be the Fourier transform of $x(t)$.
+        Let $X(\omega)$ be the Fourier transform of $x(t)$.
 
         Then the Fourier
         transform of $x_s(t)$ is
-        $X_s(j\Omega)=\frac{1}{T}\sum_{k=-\infty}^\infty
-        X\left(j\left(\Omega-\frac{2\pi k}{T}\right)\right)$.
+        $X_s(\omega)=\frac{1}{T}\sum_{k=-\infty}^\infty
+        X\left(\omega-\frac{2\pi k}{T}\right)$.
 
         \normalsize
     \end{theorem}
@@ -277,7 +277,7 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
         $\omega_s=\frac{2\pi}{T_s}$
     \end{center}
 
-    \hfill\tiny Poularikas and Seely, 1994
+    \hfill\small\citet{poularikasAndSeely94}
 
 \end{frame}
 
@@ -287,22 +287,22 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     \begin{enumerate}
 
         \item Fourier transform the sampled signal $x_s(t)$, yielding
-            $X_s(j\Omega)$.
+            $X_s(\omega)$.
 
             \begin{center}
                 \includegraphics[height=.5in]{figures/originalAndFTsampled.pdf}
             \end{center}
 
-        \item low-pass filter $X_s(j\Omega)$ between frequencies
-            $\Omega=-\frac{\pi}{T}$ and $\Omega=\frac{\pi}{T}$, yielding
-            $X_s^{LP}(j\Omega)$.
+        \item low-pass filter $X_s(\omega)$ between frequencies
+            $\omega=-\frac{\pi}{T}$ and $\omega=\frac{\pi}{T}$, yielding
+            $X_s^{LP}(\omega)$.
 
             \begin{center}
                 \includegraphics[height=.5in]{figures/lpFTSampled.pdf}
             \end{center}
 
         \item the desired continuous signal is the inverse Fourier transform of
-            $X_s^{LP}(j\Omega)$ (i.e., $x(t)=\mathcal{IFT}\{X_s^{LP}(j\Omega)\}$).
+            $X_s^{LP}(\omega)$ (i.e., $x(t)=\mathcal{IFT}\{X_s^{LP}(\omega)\}$).
 
             \begin{center}
                 \includegraphics[height=.5in]{figures/iftLPFTSampled2.pdf}
@@ -359,9 +359,9 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
         \item continuous signal in frequency domain
             \begin{align*}
-                x(j\Omega)&=\left\{\begin{array}{l l}
-                    \frac{1}{f_0}\left(1-\frac{|\Omega|}{2\pi f_0}\right) & \Omega\leq 2\pi f_0\\
-                    0 & \Omega>\pi f_0\\
+                x(\omega)&=\left\{\begin{array}{l l}
+                    \frac{1}{f_0}\left(1-\frac{|\omega|}{2\pi f_0}\right) & \omega\leq 2\pi f_0\\
+                    0 & \omega>\pi f_0\\
                                    \end{array}\right .
             \end{align*}
             $\omega_N=2\pi f_0$, $f_N=f_0$ and by the sampling  theorem $f_s>2f_0$.
@@ -373,26 +373,27 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     \frametitle{Reconstruction example: sampling below the Nyquist rate}
 
     \begin{center}
-        \includegraphics[height=3in]{figures/exampleSampledBelowNyquistRate.pdf}
+        \includegraphics[height=2.5in]{figures/exampleSampledBelowNyquistRate.pdf}
     \end{center}
-
+    \hfill\small\citet{porat97}
 \end{frame}
 
 \begin{frame}
     \frametitle{Reconstruction example: sampling below the Nyquist rate}
 
     \begin{center}
-        \includegraphics[height=3in]{figures/example_NiquistFactor0.80.png}
+        \href{https://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/powerSpectrumTutorial/figures/example_fsFactor0.80.html}{\includegraphics[height=2.5in]{figures/example_fsFactor0.80.png}}
     \end{center}
-
+    \hfill\href{https://github.com/joacorapela/neuroinformatics24/tree/master/practicals/02_LFPs_spectralAnalysis/exercises}{code}
 \end{frame}
 
 \begin{frame}
     \frametitle{Reconstruction example: sampling at the Nyquist rate}
 
     \begin{center}
-        \includegraphics[height=3in]{figures/example_NiquistFactor1.00.png}
+        \href{https://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/powerSpectrumTutorial/figures/example_fsFactor1.00.html}{\includegraphics[height=2.5in]{figures/example_fsFactor1.00.png}}
     \end{center}
+    \hfill\href{https://github.com/joacorapela/neuroinformatics24/tree/master/practicals/02_LFPs_spectralAnalysis/exercises}{code}
 
 \end{frame}
 
@@ -412,7 +413,7 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     \frametitle{Bibliography}
 
     \bibliographystyle{apalike}
-    \bibliography{communications}
+    \bibliography{communications,signalProcessing}
 
 \end{frame}
 
