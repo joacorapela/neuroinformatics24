@@ -47,7 +47,7 @@ def main(argv):
     fig.write_image(filename)
     fig.write_html(fig_filename_pattern.format("html"))
 
-    fig.show()
+    # fig.show()
 
     breakpoint()
 
