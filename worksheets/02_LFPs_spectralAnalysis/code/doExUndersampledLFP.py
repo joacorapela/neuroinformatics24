@@ -49,8 +49,6 @@ def main(argv):
 
     # fig.show()
 
-    breakpoint()
-
 
 if __name__ == "__main__":
     main(sys.argv)
