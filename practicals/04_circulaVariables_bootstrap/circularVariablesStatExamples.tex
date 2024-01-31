@@ -1,0 +1,235 @@
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+% remove title and author from left panel
+%  \makeatletter
+%   \setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
+%   {
+%     \beamer@tempdim=\beamer@sidebarwidth%
+%     \advance\beamer@tempdim by -6pt%
+%     \insertverticalnavigation{\beamer@sidebarwidth}%
+%     \vfill
+%     \ifx\beamer@sidebarside\beamer@lefttext%
+%     \else%
+%       \usebeamercolor{normal text}%
+%       \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+%       \vskip2pt%
+%     \fi%
+%   }%
+% \makeatother
+% done remove title and author from left panel 
+
+\hypersetup{colorlinks,citecolor=red}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{comment}
+% \usepackage{enumitem}
+% \setlist[itemize]{topsep=0pt,before=\leavevmode\vspace{-1.5em}}
+% \setlist[description]{style=nextline}
+\usepackage{amsthm}
+\usepackage{media9}
+% \usepackage{multimedia}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{tikz}
+\tikzset{
+     arrow/.style={-{Stealth[]}}
+     }
+\usetikzlibrary{positioning,arrows.meta}
+\usetikzlibrary{shapes.geometric}
+
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+\setbeamertemplate{caption}[numbered]%allow figure numbers
+
+\usepackage{setspace}
+
+% \newtheorem{example}{Example}
+% \setbeamertemplate{theorems}[numbered]
+
+\newenvironment<>{example1}[1][Example 1]{%
+  \setbeamercolor{block title}{fg=white,bg=cyan!75!black}%
+  \begin{block}{#1}}{\end{block}}
+\newenvironment<>{example2}[1][Example 2]{%
+  \setbeamercolor{block title}{fg=white,bg=magenta!75!black}%
+  \begin{block}{#1}}{\end{block}}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\newcommand{\keepi}{\addtocounter{saveenumi}{-1}\setcounter{enumi}{\value{saveenumi}}}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Circular variables for speech production data analysis}
+
+\author{Joaqu\'{i}n Rapela} % Your name
+\institute[Gatsby Unit, UCL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Gatsby Computational Neuroscience Unit\\University College London % Your institution for the title page
+}
+\date{\today} % Date, can be changed to a custom date
+
+\AtBeginSection[]
+  {
+     \begin{frame}<beamer>
+     \frametitle{Contents}
+         \tableofcontents[currentsection,hideallsubsections]
+     \end{frame}
+  }
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Contents} % Table of contents slide, comment this block out to remove it
+% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+% \end{frame}
+
+\begin{frame}{Behaviour: production of consonant-vowel syllables}
+
+    \begin{center}
+        \href{sounds/analog1From391To451.wav}{
+            \includegraphics[width=4in]{figures/cvsListPage1Clipped.pdf}
+        }
+    \end{center}
+
+\end{frame}
+
+\begin{frame}{Recordings: high-density and large coverage ECoG}
+
+    \begin{center}
+        \includegraphics[width=4.8in]{figures/grid_layout_clipped_withAreas.eps}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}{Phase relationships across trials: inter-trial coherence (ITC)}
+
+    ITC plots: Figures~1 and~2 in \href{https://arxiv.org/abs/1606.02372}{Entrainment of travelling waves to rhythmic motor
+    acts} (page 3).
+
+    Steps to compute the Inter-Trial Coherence (ITC):
+
+    \begin{enumerate}
+        \item perform time-frequency decompositions of several trials,
+        \item for each time and frequency bin, build a circular histogram of
+            phases
+        \item plot the mean resultant length from the previous histogram.
+    \end{enumerate}
+
+    Circular statistics methods: Section A.1.1 Circular statistics concepts in
+    \href{https://arxiv.org/abs/1606.02372}{Entrainment of travelling waves to
+    rhythmic motor acts}.
+
+\end{frame}
+
+\begin{frame}{Phase relationships across electrodes: travelling waves (TWs)}
+
+    TWs in time: Figure~6 in
+    \href{https://arxiv.org/abs/1606.02372}{Entrainment of travelling waves to
+    rhythmic motor acts} (page 9).
+
+    Steps to finds travelling waves (TWs):
+
+    \begin{enumerate}
+        \item narrow bandpass LFPs around a frequency of interest (e.g.,
+            0.62~Hz in the speech production examples).
+        \item extract phases from the Hilbert transform the filtered LFPs as
+            all electrodes.
+        \item check if there exist a linear relationship between phases and
+            electrode locations (see next point).
+    \end{enumerate}
+
+    Detection of travelling waves events: Figure~5 in
+    \href{https://arxiv.org/pdf/1806.09559}{Travelling waves appear and
+    disappear in unison with produced speech}.
+
+\end{frame}
+
+\begin{frame}{Phase relationships across electrodes: travelling waves (TWs)}
+
+    Phase relations across all grid electrodes: Figure~16 in
+    \href{https://arxiv.org/pdf/1705.01615}{Rhythmic production of
+    consonant-vowel syllables synchronises travelling waves in speech-processing
+    brain regions} (page 27, note caption).
+
+    Phase alignment with the initiation of the production of a consonant-vowel
+    syllable: Figure~10 in \href{https://arxiv.org/pdf/1705.01615}{Rhythmic
+    production of consonant-vowel syllables synchronises travelling waves in
+    speech-processing brain regions} (page 21, note caption).
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary}
+
+\end{frame}
+
+\end{document}
