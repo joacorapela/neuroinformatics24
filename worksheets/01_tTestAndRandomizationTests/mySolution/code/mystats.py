@@ -1,6 +1,7 @@
 import math
 import scipy.stats
 
+
 def z_test(mu0, sample_mean, sample_std, n, alpha, test_type):
     z_obs = (sample_mean-mu0)/(sample_std/math.sqrt(n))
 
@@ -15,6 +16,7 @@ def z_test(mu0, sample_mean, sample_std, n, alpha, test_type):
         z_critical = -scipy.stats.norm.ppf(1-alpha)
 
     return z_obs, z_critical, p_value
+
 
 def t_test(mu0, sample_mean, sample_std, n, alpha, test_type):
     t_obs = (sample_mean-mu0)/(sample_std/math.sqrt(n))
@@ -31,3 +33,7 @@ def t_test(mu0, sample_mean, sample_std, n, alpha, test_type):
 
     return t_obs, t_critical, p_value
 
+
+def compute_beta(mu_Ha, critical_value, ste_mean):
+    beta = scipy.stats.norm.cdf((critical_value - mu_Ha) / ste_mean)
+    return beta
