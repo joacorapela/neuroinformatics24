@@ -40,7 +40,6 @@ def main(argv):
     fig.write_html(fig_filename_pattern.format(mu_Ha, "html"))
 
     fig.show()
-    breakpoint()
 
 
 if __name__ == "__main__":
