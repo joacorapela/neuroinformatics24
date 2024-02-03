@@ -1,10 +1,9 @@
 import sys
 import warnings
 import argparse
-import math
 import numpy as np
-import scipy.stats
 import mystats
+
 
 def main(argv):
     parser = argparse.ArgumentParser()
@@ -15,10 +14,13 @@ def main(argv):
     parser.add_argument("--data_filename", type=str,
                         help="data filename (csv format)",
                         default=None)
-    parser.add_argument("mu0", type=float, help="null hypothesis mean")
-    parser.add_argument("alpha", type=float, help="confidence level")
-    parser.add_argument("test_type", type=str,
-                        help="test type (left-sided, right-sided, two-sided)")
+    parser.add_argument("--mu0", type=float, help="null hypothesis mean",
+                        required=True)
+    parser.add_argument("--alpha", type=float, help="confidence level",
+                        required=True)
+    parser.add_argument("--test_type", type=str,
+                        help="test type (left-sided, right-sided, two-sided)",
+                        required=True)
     args = parser.parse_args()
 
     xbar = args.xbar
@@ -40,8 +42,8 @@ def main(argv):
                           "calculated from the data")
         s = np.std(data)
         if n is not None:
-            warnings.warn("Overriding the provided sample sample size with that "
-                          "calculated from the data")
+            warnings.warn("Overriding the provided sample size with "
+                          "that calculated from the data")
         n = len(data)
 
     t_obs, t_critical, p_value = mystats.t_test(mu0=mu0, sample_mean=xbar,
@@ -50,8 +52,6 @@ def main(argv):
     print(f"t_obs = {t_obs}")
     print(f"t_critical = {t_critical}")
     print(f"p_value = {p_value}")
-
-    breakpoint()
 
 
 if __name__ == "__main__":
