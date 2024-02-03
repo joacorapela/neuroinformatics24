@@ -1,10 +1,9 @@
 import sys
 import warnings
 import argparse
-import math
 import numpy as np
-import scipy.stats
 import mystats
+
 
 def main(argv):
     parser = argparse.ArgumentParser()
@@ -15,10 +14,14 @@ def main(argv):
     parser.add_argument("--data_filename", type=str,
                         help="data filename (csv format)",
                         default=None)
-    parser.add_argument("mu0", type=float, help="null hypothesis mean")
-    parser.add_argument("alpha", type=float, help="confidence level")
-    parser.add_argument("test_type", type=str,
-                        help="test type (left-sided, right-sided, two-sided)")
+    parser.add_argument("--mu0", type=float, help="null hypothesis mean",
+                        required=True)
+    parser.add_argument("--alpha", type=float, help="confidence level",
+                        required=True)
+    parser.add_argument("--test_type", type=str,
+                        help=("--test type (left-sided, right-sided, "
+                              "two-sided)"),
+                        required=True)
     args = parser.parse_args()
 
     xbar = args.xbar
@@ -40,7 +43,7 @@ def main(argv):
                           "calculated from the data")
         s = np.std(data)
         if n is not None:
-            warnings.warn("Overriding the provided sample sample size with that "
+            warnings.warn("Overriding the provided sample size with that "
                           "calculated from the data")
         n = len(data)
 
