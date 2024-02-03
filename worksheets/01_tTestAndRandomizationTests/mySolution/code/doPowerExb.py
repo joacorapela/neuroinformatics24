@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 
 import mystats
 
+
 def main(argv):
     n = 16
     alpha = .05
@@ -30,10 +31,10 @@ def main(argv):
 
     fig = go.Figure()
     trace = go.Scatter(x=mu_Has, y=power, mode="lines+markers",
-                       name=r"\alpha={:.2f}".format(alpha))
+                       name=r"$\alpha={:.2f}$".format(alpha))
     fig.add_trace(trace)
     trace = go.Scatter(x=mu_Has, y=power2, mode="lines+markers",
-                       name=r"\alpha={:.2f}".format(alpha2))
+                       name=r"$\alpha={:.2f}$".format(alpha2))
     fig.add_trace(trace)
     # fig.add_hline(y=alpha)
     fig.update_layout(xaxis=dict(title=r"$\mu$"), yaxis=dict(title="power"))
@@ -43,8 +44,6 @@ def main(argv):
     fig.write_html(fig_filename_pattern.format("html"))
 
     fig.show()
-
-    breakpoint()
 
 
 if __name__ == "__main__":
