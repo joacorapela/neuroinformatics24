@@ -1,0 +1,175 @@
+
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage[shortlabels]{enumitem}
+\usepackage[colorlinks=]{hyperref}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath}
+
+\title{Worksheet: hypothesis tests}
+\author{Joaquin Rapela}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+    \item \textbf{Detailed hypothesis test for example 2 in discussion notes}
+
+        \begin{description}
+
+            \item [Identify the null hypothesis $\mathcal{H}_0$:] the mean peak
+                visual ERP in medicated subjects is 2~mV
+
+            \item [Identify the alternative hypothesis $\mathcal{H}_a$:] the
+                mean peak visual ERP in medicated subjects is different from
+                2~mV.
+
+            \item [Select a test statistic:] standarized sample mean $Z$.
+
+            \item [Calculate the observed value of the test statistic:]
+                $z=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{1.3-2}{2.6/\sqrt{50}}=-1.9$
+
+            \item [Calculate the p-value:]
+                $\text{p\_value}=P(-|z|>Z)+P(Z>|z|)=2 P(Z>|z|)=0.57$.
+
+            \item [Draw our conclusion:] $\text{p\_value}=0.57>0.05$ then
+                \textbf{do not reject $\mathcal{H}_0$}.
+
+        \end{description}
+
+    \item 
+        \begin{enumerate}[(a)]
+            \item
+                \begin{description}
+                    \item[$\mathcal{H}_0$:] the population mean is $\mu_0=2.3$
+                    \item[$\mathcal{H}_a$:] the population mean is $\mu_0>2.3$
+                \end{description}
+
+            \item Because $n>30$ it is reasonable to assume that
+                $Z\sim\mathcal{N}(0,1)$. Then the rejection region is
+                $z>z_\alpha$, with $\alpha=0.05$.
+
+            \item Roughly, for $Y\sim\mathcal{N}(\mu,\sigma^2)$ there is a considerable
+                probability of obtaining a sample in the range $[\mu,
+                \mu+2\sigma]$. Because under the null hypothesis
+                $\bar{X}\sim\mathcal{N}(\mu_0,s/\sqrt{n})$, there is a
+                considerable probabability of obtaining a sample of $\bar{X}$
+                in the range $[\mu_0,\mu_0+2s/\sqrt{n}]$.
+
+                $s/\sqrt{n}\sim 0.3/6\sim 0.05$. Thus, there is a
+                considerable probability of obtaining by chance a sample of
+                $\bar{X}$ in the range $[2.3, 2.3+2\ 0.05]=[2.3,2.4]$. Because
+                2.4 is in the boundary of this interval, it is not obvious if
+                a hypothesis test will reject or not the null hypothesis.
+
+                Lets do the test. We first compute the observed test statistic:
+
+                \begin{align*}
+                    z&=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{2.4-2.3}{0.29/\sqrt{35}}=2.04
+                \end{align*}
+
+                The p-value corresponding to this observed statistic is
+                $p=0.02$, so we reject the
+                null hypothesis with a confidence level $\alpha=0.05$.
+
+        \end{enumerate}
+
+    \item \textbf{Potency of an antibiotic}
+        \begin{enumerate}[(a)]
+            \item $\mathcal{H}_0$: the mean potency of the antibiotic is $\mu_0=80\%$.
+            \item $\mathcal{H}_a$: the mean potency of the antibiotic is $\mu_0<80\%$.
+            \item because $n=100$ it is sensible to  assume
+                $Z\sim\mathcal{N}(0,1)$. I will perform a right-tailed z-test
+                with $\bar{x}=79.7\%, \mu_0=80.0\%, n=100, s=0.8$ and
+                $\alpha=.05$. Lets compute the observed statistic.
+
+                \begin{align*}
+                    z &= \frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{29.7-80}{0.8/\sqrt{100}}=-3.75
+                \end{align*}
+
+                The p-value corresponding to this observed statistic is
+                $p<0.0001$, so we reject the
+                null hypothesis with a confidence level $\alpha=0.05$.
+
+        \end{enumerate}
+
+    \item \textbf{Smoking and lung capacity}
+        Because $n=20$ it is not safe to assume $\bar{Z}~\mathcal{N}(0,1)$. We
+        will perform a right-tailed t-test instead. Lets compute the observed
+        statistic.
+
+        \begin{align*}
+            t &= \frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{89.85-100}{14.53/\sqrt{20}}=-3.12
+        \end{align*}
+
+        The p-value corresponding to this observed statistic is
+        $p<0.003$, so we reject the
+        null hypothesis with a confidence level $\alpha=0.01$.
+
+    \item \textbf{Power of a test}
+
+        % \begin{enumerate}[(a)]
+        \begin{enumerate}
+            \item the calculated powers are:
+                \begin{description}
+                    \item[$\mu_\text{Ha}=108$:] power=0.64
+                    \item[$\mu_\text{Ha}=112$:] power=0.91
+                    \item[$\mu_\text{Ha}=116$:] power=0.99
+                \end{description}
+
+                Power versus effect size is shown in
+                Figure~\ref{fig:powerVsEffectSize}.
+
+                \begin{figure}
+                    \begin{center}
+                        \includegraphics[width=4in]{../figures/powerVsEffectSize.png}
+                    \end{center}
+                    \caption{Power versus effect size.}
+                    \label{fig:powerVsEffectSize}
+                \end{figure}
+
+            \item Figure~\ref{fig:powerAtSignificanceLevels} shows power plots for
+                $\alpha=0.01$ and $\alpha=0.05$.
+
+                \begin{figure}
+                    \begin{center}
+                        \includegraphics[width=4in]{../figures/powerAtSignificanceLevels.png}
+                    \end{center}
+                    \caption{Power plots for significance levels $\alpha=0.01$ and
+                    $\alpha=0.05$.}
+                    \label{fig:powerAtSignificanceLevels}
+                \end{figure}
+
+            \item Figure~\ref{fig:powerAtNs} shows power plots for
+                $n=16$ and $n=64$.
+
+                \begin{figure}
+                    \begin{center}
+                        \includegraphics[width=4in]{../figures/powerAtNs.png}
+                    \end{center}
+                    \caption{Power plots for $n=16$ and $n=64$.}
+                    \label{fig:powerAtNs}
+                \end{figure}
+
+            \item the minimum sample size to achieve significance level of
+                $\alpha=0.01$ and power of $1-\beta=0.8$ for $\mathcal{H}_a:
+                \mu_a=112$ is $n=18$. Figure~\ref{fig:powerPlotForMinN} shows the
+                power plot for this sample size.
+
+                \begin{figure}
+                    \begin{center}
+                        \includegraphics[width=4in]{../figures/powerForMinN_muHa112.00.png}
+                    \end{center}
+                    \caption{Power plots for $n=18$, $\alpha=0.01$, and
+                    $\beta=0.2$. As required for $\mu_a=112$ the power of the
+                    test is $1-\beta=0.8$.}
+                    \label{fig:powerPlotForMinN}
+                \end{figure}
+
+
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}
