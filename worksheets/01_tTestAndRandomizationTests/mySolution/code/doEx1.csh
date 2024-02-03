@@ -1,4 +1,4 @@
 #!/bin/csh
 
-# usage: doZTest.py [-h]    xbar s   mu0 n  alpha test_type
-ipython --pdb doZTest.py -- 1.3  2.6 2.0 50 0.05  two-sided
+# usage: doZTest.py [-h] [--xbar XBAR] [--s S] [--n N] [--data_filename DATA_FILENAME] --mu0 MU0 --alpha ALPHA --test_type TEST_TYPE
+ipython --pdb doZTest.py -- --xbar=1.3 --s=2.6 --n=50 --mu0=2.0 --alpha=0.05 --test_type=two-sided
