@@ -1,0 +1,262 @@
+
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage[shortlabels]{enumitem}
+\usepackage[colorlinks=]{hyperref}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{listings,lstautogobble}
+
+\lstset{language=Java,
+    autogobble=true
+ }
+
+\title{Worksheet: hypothesis tests}
+\author{Joaquin Rapela}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+    \item \textbf{Detailed hypothesis test for example 2 in discussion notes}
+
+        \begin{description}
+
+            \item [Identify the null hypothesis $\mathcal{H}_0$:] the mean peak
+                visual ERP in medicated subjects is 2~mV
+
+            \item [Identify the alternative hypothesis $\mathcal{H}_a$:] the
+                mean peak visual ERP in medicated subjects is different from
+                2~mV.
+
+            \item [Select a test statistic:] standarized sample mean $Z$.
+
+            \item [Calculate the observed value of the test statistic:]
+                $z=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{1.3-2}{2.6/\sqrt{50}}=-1.9$
+
+            \item [Calculate the p-value:]
+                $\text{p\_value}=P(-|z|>Z)+P(Z>|z|)=2 P(Z>|z|)=0.057$.
+
+            \item [Draw our conclusion:] $\text{p\_value}=0.057>0.05$ then
+                \textbf{do not reject $\mathcal{H}_0$}.
+
+        \end{description}
+
+        A Python script to solve this exercise can be found
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doZTest.py}{here}
+        and a shell script with the corresponding parameters can be found
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doEx1.csh}{here}.
+
+    \item 
+        \begin{enumerate}[(a)]
+            \item
+                \begin{description}
+                    \item[$\mathcal{H}_0$:] the population mean is $\mu_0=2.3$
+                    \item[$\mathcal{H}_a$:] the population mean is $\mu_0>2.3$
+                \end{description}
+
+            \item Because $n>30$ it is reasonable to assume that
+                $Z\sim\mathcal{N}(0,1)$. Then the rejection region is
+                $z>z_\alpha$, with $\alpha=0.05$.
+
+            \item Roughly, for $Y\sim\mathcal{N}(\mu,\sigma^2)$ there is a considerable
+                probability of obtaining a sample in the range $[\mu,
+                \mu+2\sigma]$. Because under the null hypothesis
+                $\bar{X}\sim\mathcal{N}(\mu_0,s/\sqrt{n})$, there is a
+                considerable probabability of obtaining a sample of $\bar{X}$
+                in the range $[\mu_0,\mu_0+2s/\sqrt{n}]$.
+
+                $s/\sqrt{n}\sim 0.3/6\sim 0.05$. Thus, there is a
+                considerable probability of obtaining by chance a sample of
+                $\bar{X}$ in the range $[2.3, 2.3+2\ 0.05]=[2.3,2.4]$. Because
+                2.4 is in the boundary of this interval, it is not obvious if
+                a hypothesis test will reject or not the null hypothesis.
+
+                Lets do the test. We first compute the observed test statistic:
+
+                \begin{align*}
+                    z&=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{2.4-2.3}{0.29/\sqrt{35}}=2.04
+                \end{align*}
+
+                The p-value corresponding to this observed statistic is
+                $p=0.02$, so we reject the
+                null hypothesis with a confidence level $\alpha=0.05$.
+
+        \end{enumerate}
+
+        A Python script to solve this exercise can be found
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doZTest.py}{here}
+        and a shell script with the corresponding parameters can be found
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doEx2.csh}{here}.
+
+    \item \textbf{Potency of an antibiotic}
+        \begin{enumerate}[(a)]
+            \item $\mathcal{H}_0$: the mean potency of the antibiotic is $\mu_0=80\%$.
+            \item $\mathcal{H}_a$: the mean potency of the antibiotic is $\mu_0<80\%$.
+            \item because $n=100$ it is sensible to  assume
+                $Z\sim\mathcal{N}(0,1)$. I will perform a right-tailed z-test
+                with $\bar{x}=79.7\%, \mu_0=80.0\%, n=100, s=0.8$ and
+                $\alpha=.05$. Lets compute the observed statistic.
+
+                \begin{align*}
+                    z &= \frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{29.7-80}{0.8/\sqrt{100}}=-3.75
+                \end{align*}
+
+                The p-value corresponding to this observed statistic is
+                $p<0.0001$, so we reject the
+                null hypothesis with a confidence level $\alpha=0.05$.
+
+        \end{enumerate}
+
+        A Python script to solve this exercise can be found
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doZTest.py}{here}
+        and a shell script with the corresponding parameters can be found
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doEx3.csh}{here}.
+
+    \item \textbf{Smoking and lung capacity}
+        Because $n=20$ it is not safe to assume $\bar{Z}~\mathcal{N}(0,1)$. We
+        will perform a right-tailed t-test instead. Lets compute the observed
+        statistic.
+
+        \begin{align*}
+            t &= \frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{89.85-100}{14.53/\sqrt{20}}=-3.12
+        \end{align*}
+
+        The p-value corresponding to this observed statistic is
+        $p<0.003$, so we reject the
+        null hypothesis with a confidence level $\alpha=0.01$.
+
+        A Python script to solve this exercise can be found
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doZTest.py}{here}
+        and a shell script with the corresponding parameters can be found
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doEx4.csh}{here}.
+
+    \item \textbf{Power of a test}
+
+        The power of a statistical test is $1-\beta$, where $\beta$ is the
+        probability of type II error (i.e., the probability that the null
+        hypothesis is not rejected given that an alternative hypothesis is
+        true).
+
+        To calculate $\beta$ for a right-tailed test, I first find the critical value of the sample
+        mean, $\bar{x}_c$, such that
+        $P(\bar{X}>\bar{x}_c|\mathcal{H}_0)=\alpha$ (note that for a
+        right-tailed test
+        $\alpha=P(Z>z_\alpha|\mathcal{H}_0)=P(\frac{\bar{X}-\mu_0}{s/\sqrt{n}}>z_\alpha|\mathcal{H}_0)=P(\bar{X}>\mu_0+z_\alpha\ s/\sqrt{n}|\mathcal{H}_0)$, so that $\bar{x}_c=\mu_0+z_\alpha\ s/\sqrt{n}$).
+        Then $\beta=P(\bar{X}<\bar{x}_c|\mathcal{H}_a)$. The power of the test
+        is $1-\beta$. $\beta$ is the the red area under in Figure~2 of the
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/practicals/01_tTestAndRandomizationTests/introAndHipothesisTests.pdf}{discusion
+        slides}. Code to compute $\beta$ is given in the listing below.
+
+        \begin{lstlisting}[language=Python]
+            def compute_beta(mu_Ha, critical_value, ste_mean):
+                beta = scipy.stats.norm.cdf((critical_value - mu_Ha) / ste_mean)
+                return beta
+        \end{lstlisting}
+
+        \begin{enumerate}
+            \item the calculated powers are:
+                \begin{description}
+                    \item[$\mu_\text{Ha}=108$:] power=0.64
+                    \item[$\mu_\text{Ha}=112$:] power=0.91
+                    \item[$\mu_\text{Ha}=116$:] power=0.99
+                \end{description}
+
+                Power versus effect size is shown in
+                Figure~\ref{fig:powerVsEffectSize}.
+
+                \begin{figure}
+                    \begin{center}
+                        \includegraphics[width=4in]{../figures/powerVsEffectSize.png}
+                    \end{center}
+                    \caption{Power versus effect size.}
+                    \label{fig:powerVsEffectSize}
+                \end{figure}
+
+                A Python script solving this item appears
+                \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doPowerExa.py}{here}.
+
+            \item Figure~\ref{fig:powerAtSignificanceLevels} shows power plots for
+                $\alpha=0.01$ and $\alpha=0.05$.
+
+                \begin{figure}
+                    \begin{center}
+                        \includegraphics[width=4in]{../figures/powerAtSignificanceLevels.png}
+                    \end{center}
+                    \caption{Power plots for significance levels $\alpha=0.01$ and
+                    $\alpha=0.05$.}
+                    \label{fig:powerAtSignificanceLevels}
+                \end{figure}
+
+                A Python script solving this item appears
+                \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doPowerExb.py}{here}.
+
+            \item Figure~\ref{fig:powerAtNs} shows power plots for
+                $n=16$ and $n=64$.
+
+                \begin{figure}
+                    \begin{center}
+                        \includegraphics[width=4in]{../figures/powerAtNs.png}
+                    \end{center}
+                    \caption{Power plots for $n=16$ and $n=64$.}
+                    \label{fig:powerAtNs}
+                \end{figure}
+
+                A Python script solving this item appears
+                \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doPowerExc.py}{here}.
+
+            \item following the exercise hints I first derived an expression
+                for the critical value of the sample mean only considering the
+                type I error, as we did above.
+
+                \begin{align}
+                    \alpha=P(Z>z_\alpha|\mathcal{H}_0)&=P(\frac{\bar{X}-\mu_0}{s/\sqrt{n}}>z_\alpha|\mathcal{H}_0)=P(\bar{X}>\mu_0+z_\alpha\
+                    s/\sqrt{n}|\mathcal{H}_0)\nonumber\\
+                    \text{then}&\quad\bar{x}_{c0}=\mu_0+z_\alpha\ s/\sqrt{n}\label{eq:nullCritical}
+                \end{align}
+
+                then I derived another expression for the critical value of the
+                sample mean only considering the type II error
+
+                \begin{align}
+                    \beta=P(Z<-z_\beta|\mathcal{H}_a)&=P(\frac{\bar{X}-\mu_a}{s/\sqrt{n}}<-z_\beta|\mathcal{H}_a)=P(\bar{X}<\mu_a-z_\beta\
+                    s/\sqrt{n}|\mathcal{H}_a)\nonumber\\
+                    \text{then}&\quad\bar{x}_{ca}=\mu_0-z_\beta\ s/\sqrt{n}\label{eq:altCritical}
+                \end{align}
+
+                Finally I equate $\bar{x}_{c0}$ in Eq.~\ref{eq:nullCritical}
+                with $\bar{x}_{ca}$ in Eq.~\ref{eq:altCritical} and solve for
+                $n$
+
+                \begin{align*}
+                    \bar{x}_{c0}&=\bar{x}_{ca}\quad\text{iff}\\
+                    \mu_0+z_\alpha\ s/\sqrt{n}&=\mu_0-z_\beta\ s/\sqrt{n}\quad\text{iff}\\
+                    n&=\left(s\frac{z_\beta-z_\alpha}{\mu_a-\mu_a}\right)^2
+                \end{align*}
+
+                the minimum sample size to achieve significance level of
+                $\alpha=0.01$ and power of $1-\beta=0.8$ for $\mathcal{H}_a:
+                \mu_a=112$ is $n=18$. Figure~\ref{fig:powerPlotForMinN} shows
+                the power plot for this sample size. As required for
+                $\mu_a=112$ the power of the test is $1-\beta=0.8$.
+
+                A Python script solving this item appears
+                \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/01_tTestAndRandomizationTests/mySolution/code/doPowerExd.py}{here}.
+
+                \begin{figure}
+                    \begin{center}
+                        \includegraphics[width=4in]{../figures/powerForMinN_muHa112.00.png}
+                    \end{center}
+                    \caption{Power plots for $n=18$, $\alpha=0.01$, and
+                    $\beta=0.2$. As required for $\mu_a=112$ the power of the
+                    test is $1-\beta=0.8$.}
+                    \label{fig:powerPlotForMinN}
+                \end{figure}
+
+
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}
