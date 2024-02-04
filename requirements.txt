@@ -1,3 +1,5 @@
 numpy
 plotly
 kaleido
+pynwb
+dandi
