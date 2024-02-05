@@ -11,14 +11,14 @@ import mystats
 def main(argv):
     n = 16
     sigma = 16
-    alpha = 0.01
+    alpha = 0.05
     beta = 0.2
     mu_H0 = 100
     mu_Ha = 112
 
     z_alpha = scipy.stats.norm.ppf(1-alpha)
-    z_1mBeta = scipy.stats.norm.ppf(beta)
-    n = math.ceil((sigma / (mu_Ha - mu_H0) * (z_alpha - z_1mBeta))**2)
+    z_beta = scipy.stats.norm.ppf(1-beta)
+    n = math.ceil((sigma / (mu_Ha - mu_H0) * (z_alpha + z_beta))**2)
 
     print(f"minimum n={n}")
 
