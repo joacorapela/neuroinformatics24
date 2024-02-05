@@ -19,7 +19,7 @@ def main(argv):
     critical_value = mu_H0 + ste_mean * z_alpha
     mu_Has = np.arange(mu_H0, mu_H0 + 20, 1)
 
-    n2 = 64
+    n2 = 65
     ste_mean2 = sigma / math.sqrt(n2)
     critical_value2 = mu_H0 + ste_mean2 * z_alpha
 
