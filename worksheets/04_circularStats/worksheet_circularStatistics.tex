@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{apalike}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage[colorlinks=]{hyperref}
+\usepackage[margin=2cm]{geometry}
+
+\title{Worksheet: Circular statistics}
+\author{Joaquin Rapela}
+
+\begin{document}
+
+\maketitle
+
+In this worksheets you will practice:
+
+\begin{itemize}
+
+    \item accesing electrophysilogy data from
+        \href{https://dandiarchive.org/}{Dandi},
+
+    \item bandpass filtering a signal,
+
+    \item calculating the instantaneous amplitude and phase of a signal with
+        the Hilbert transform,
+
+    \item computing the circular mean of a set of phases,
+
+    \item testing for non-uniformity in a set of circular variables with the
+        Rayleigh test,
+
+    \item detecting traveling waves in local field potentials,
+
+    \item performing a linear regression analysis.
+
+\end{itemize}
+
+You will quantitatively characterize traveling waves in human electro
+corticographic recording from humans during the production of consonant vowel
+syllables, as described in
+\citet{rapelaInPrepTWsInSpeech,rapelaInPrepSyncTWs,rapelaInPrepSyncTWsII}. A video
+illustrating these traveling waves can be found
+\href{https://www.youtube.com/watch?v=6QYUGRqZ7Hc}{here}. This video shows the
+local field potential (LFP) voltages bandpass filtered between 0.4 and 0.8~Hz, around the mean
+frequency of consontant-vowel syllable production of 0.62~Hz.
+
+\section{Install the Python packages required to obtain data from Dandi}
+
+\section{Calculate the mean frequency of consonant-vowel syllable production}
+
+\section{Bandpass filter the raw voltages}
+
+Reproduce Figure~6 from \citet{rapelaInPrepTWsInSpeech}.
+
+\section{Compute the Hilbert transform of the filtered voltages}
+
+\section{Calculate phase histograms and test for circular non-uniformity}
+
+Reproduce Figure~17 from \citet{rapelaInPrepSyncTWs}.
+
+\section{Find traveling waves events}
+
+Reproduce Figure~15 from \citet{rapelaInPrepSyncTWsII}.
+
+\bibliographystyle{apalike}
+\bibliography{travelingWaves}
+
+\end{document}
