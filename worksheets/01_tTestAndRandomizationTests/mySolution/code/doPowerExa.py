@@ -10,7 +10,7 @@ import mystats
 
 def main(argv):
     n = 16
-    alpha = .05
+    alpha = .01
     sigma = 16
     mu_H0 = 100
 
@@ -47,6 +47,8 @@ def main(argv):
     fig.write_html(fig_filename_pattern.format("html"))
 
     fig.show()
+
+    breakpoint()
 
 
 if __name__ == "__main__":
