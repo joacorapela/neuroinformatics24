@@ -1,4 +1,5 @@
 import sys
+import os
 import argparse
 import numpy as np
 import plotly.graph_objects as go
@@ -38,12 +39,15 @@ def main(argv):
     fig.add_trace(trace)
     fig.update_layout(xaxis=dict(title="t"), yaxis=dict(title="LFP"))
 
-    fig.write_image(fig_filename_pattern.format("png"))
+    filename = fig_filename_pattern.format("png")
+    dirname = os.path.dirname(filename)
+    if not os.path.exists(dirname):
+        print(f"Creating directory {dirname}")
+        os.mkdir(dirname)
+    fig.write_image(filename)
     fig.write_html(fig_filename_pattern.format("html"))
 
-    fig.show()
-
-    breakpoint()
+    # fig.show()
 
 
 if __name__ == "__main__":
