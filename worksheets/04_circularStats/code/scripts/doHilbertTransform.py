@@ -31,8 +31,6 @@ def main(argv):
              ht_filtered_voltages=ht_filtered_voltages)
     print(f"Hilbert transformed data saved to {results_filename}")
 
-    breakpoint()
-
 
 if __name__ == "__main__":
     main(sys.argv)

@@ -58,8 +58,6 @@ def main(argv):
              srate=srate, voltages=voltages.T, electrodes=electrodes)
     print(f"Data downloaded to {data_filename}")
 
-    breakpoint()
-
 
 if __name__ == "__main__":
     main(sys.argv)

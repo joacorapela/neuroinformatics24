@@ -56,8 +56,6 @@ def main(argv):
              filtered_voltages=filtered_voltages)
     print(f"Filtered data saved to {results_filename}")
 
-    breakpoint()
-
 
 if __name__ == "__main__":
     main(sys.argv)
