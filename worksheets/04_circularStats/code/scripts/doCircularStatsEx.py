@@ -1,5 +1,5 @@
 import sys
-# import argparse
+import argparse
 import numpy as np
 import scipy.signal
 import astropy.stats
@@ -15,8 +15,11 @@ def calculateMeanResultantVector(angles):
 
 
 def main(argv):
-    dandiset_id = "000019"
-    filepath = "sub-EC2/sub-EC2_ses-EC2-B105.nwb"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dandiset_id", type="str", help="Dandiset ID",
+                        default="000019")
+    parser.add_argument("--filepath", type="str", help="Dandiset path",
+                        default="sub-EC2/sub-EC2_ses-EC2-B105.nwb")
     electrode = 144
     low_cutoff = 0.4
     high_cutoff = 0.8
