@@ -13,19 +13,16 @@ def main(argv):
     parser.add_argument("--dandiset_filepath", type=str,
                         help="Dandiset path",
                         default="sub-EC2/sub-EC2_ses-EC2-B105.nwb")
-    parser.add_argument("--downsample_factor", type=int,
-                        help="downsample factor", default=8)
     parser.add_argument("--electrodes", type=str,
                         help="Electrodes to download",
                         default="[135,136,137,138,139,140,141,142]")
     parser.add_argument("--data_filename_pattern", type=str,
                         help="data filename pattern",
-                        default="../../data/{:s}_{:s}_{:s}_{:s}.npz")
+                        default="../../data/{:s}_{:s}_{:s}.npz")
     args = parser.parse_args()
 
     dandiset_id = args.dandiset_id
     dandiset_filepath = args.dandiset_filepath
-    downsample_factor = args.downsample_factor
     electrodes_str = args.electrodes
     data_filename_pattern = args.data_filename_pattern
 
@@ -52,8 +49,7 @@ def main(argv):
 
     dandiset_path = os.path.splitext(os.path.basename(dandiset_filepath))[0]
     data_filename = data_filename_pattern.format(dandiset_id, dandiset_path,
-                                                 electrodes_str,
-                                                 f"DS{downsample_factor}")
+                                                 electrodes_str)
     dirname = os.path.dirname(data_filename)
     if not os.path.exists(dirname):
         print(f"Creating directory {dirname}")
