@@ -23,7 +23,7 @@
 - lectures schedule:
 
 | Week | Date  | Topic | Lecturers | Type |
-------------------------------------------
-| 1 | Jan 11 | The t-test and randomization tests | [Joaquin Rapela](mailto:j.rapela@ucl.ac.uk) |
-| 2 | Jan 18 | Power spectra | [Joaquin Rapela](mailto:j.rapela@ucl.ac.uk) [Yousef Mohammadi](y.mohammadi@ucl.ac.uk) [Joe Ziminski](j.ziminski@ucl.ac.uk)|
+|------|-------|-------|-----------|------|
+| 1 | Jan 11 | The t-test and randomization tests | [Joaquin Rapela](mailto:j.rapela@ucl.ac.uk) | practical |
+| 2 | Jan 18 | Power spectra | [Joaquin Rapela](mailto:j.rapela@ucl.ac.uk) [Yousef Mohammadi](y.mohammadi@ucl.ac.uk) [Joe Ziminski](j.ziminski@ucl.ac.uk)| practical |
 
