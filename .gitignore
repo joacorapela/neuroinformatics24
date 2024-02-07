@@ -9,9 +9,16 @@
 *.bak
 *.bbl
 *.blg
+checkSpelling*
+*.dic
 
 __pycache__/
 kensLectures/
 figures/
 old/
 practicals/02_LFPs_spectralAnalysis/notes/
+data/
+results/
+notes/
+sounds/
+mySolution/
