@@ -37,5 +37,5 @@
     - `cd practicals/02_LFPs_spectralAnalysis/exercises/`
     - `python doReconstructionExercise.py`
 
-- If you have any problem running scripts in this repo, please contact [Joaquin Rapela](mailto:j.rapela@ucl.ac.uk).
+- If you have any problem running scripts in this repo, please contact [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela).
 
