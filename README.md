@@ -18,5 +18,12 @@
     - `cd practicals/02_LFPs_spectralAnalysis/exercises/`
     - `python doReconstructionExercise.py`
 
-- If you have any problem running scripts in this repo, please contact me.
+- If you have any problem running scripts in this repo, please contact [Joaquin Rapela](mailto:j.rapela@ucl.ac.uk).
+
+- lectures schedule:
+
+| Week | Date  | Topic | Lecturers | Type |
+------------------------------------------
+| 1 | Jan 11 | The t-test and randomization tests | [Joaquin Rapela](mailto:j.rapela@ucl.ac.uk) |
+| 2 | Jan 18 | Power spectra | [Joaquin Rapela](mailto:j.rapela@ucl.ac.uk) [Yousef Mohammadi](y.mohammadi@ucl.ac.uk) [Joe Ziminski](j.ziminski@ucl.ac.uk)|
 
