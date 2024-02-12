@@ -1,0 +1,9 @@
+all: worksheet_SVD.pdf
+
+%.pdf: %.tex
+	pdflatex $<*
+
+	# bibtex $*.aux
+	# pdflatex $<*
+	# pdflatex $<*
+

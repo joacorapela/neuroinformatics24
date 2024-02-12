@@ -1,0 +1,329 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage[colorlinks]{hyperref}
+\usepackage[margin=2cm]{geometry}
+
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{Worksheet: Singular Value Decomposition}
+\author{Joaquin Rapela}
+
+\begin{document}
+
+\maketitle
+
+\section{Ken's worksheet}
+
+\begin{enumerate}
+
+    \item Solve
+        \href{https://drive.google.com/file/d/1r90rlJpFKilQmNj1h27gmZdyi-RJeCq_/view}{Ken's
+        worksheet on the SVD}.
+
+        For the pseudocolor image I recommend to use a blue-white-red
+        colorscale, as in Figure~\ref{fig:zscores_vh0Sorted}, instead of the
+        blue-green colorscale used in Ken's worksheet.
+
+        \begin{figure}[H]
+            \begin{center}
+                \href{https://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2023/ws5/figures/binned_spikes_svd_binSize_1.00_vh0Sorted.html}{\includegraphics[width=5.5in]{figures/binned_spikes_svd_binSize_1.00_vh0Sorted.png}}
+
+                \caption{z-scores of binned spikes times of all neurons (bin
+                size=1~sec, unsorted neurons).  Neurons have been sorted according to
+                their weight along the first left singular vector.}
+
+                \label{fig:zscores_vh0Sorted}
+            \end{center}
+        \end{figure}
+
+    \item Explore the relation between neurons' activities and subject'
+        responses by plotting the first left singular vector (i.e., first
+        column of matrix $U$ of the SVD $U\Sigma V^\intercal$) superimposed
+        with vertical lines at the times of the subject's responses.
+
+\end{enumerate}
+
+\section{A few informative notes on the SVD (no exercises in this section)}
+\label{sec:notesOnTheSVD}
+
+    \begin{definition}[The SVD]
+        Given $M\in\mathbb{C}^{m\times n}$, a singular value decomposition (SVD)
+        of $M$ is a factorisation:
+
+        \begin{align*}
+            M = USV^*
+        \end{align*}
+
+        where
+
+        \begin{align*}
+            U &\in \mathbb{C}^{m\times m}\quad\text{is unitary,}\\
+            V &\in \mathbb{C}^{n\times n}\quad\text{is unitary,}\\
+            S &\in \mathbb{C}^{m\times n}\quad\text{is diagonal.}
+        \end{align*}
+
+        In addition, it is assumed that the diagonal entries $s_k$ of $S$ are
+        nonnegative and in nonincreasing order; that is, $s_1\ge
+        s_2\ge\ldots\ge s_p\ge 0$, where $p=\min(m, n)$.
+    \end{definition}
+
+    \begin{definition}[Rank of a matrix]
+
+        The column rank of a matrix is the dimension of the space spanned by
+        its columns. Similarly, the row rank of a matrix is the dimension of
+        the space spanned by its rows. The column rank of a matrix is always
+        equal to its row rank. This is a corollary of the SVD. So we refer to
+        this number simply as the rank of a matrix.
+
+        \label{def:rank}
+    \end{definition}
+
+    The rank of a matrix can be interpreted as a measure of the complexity of
+    the matrix. Matrices with lower rank are simpler than those with larger
+    rank.
+
+    The SVD decomposes a matrix as a sum of rank-one (i.e., very simple)
+    matrices.
+
+    \begin{align*}
+        M = \sum_{k=1}^rs_k\mathbf{u}_k\mathbf{v}_k^*
+    \end{align*}
+
+    There are multiple other decompositions as sums of rank-one matrices. If
+    $M\in\mathbb{C}^{m\times n}$, then it can be decomposed as a sum of $m$
+    rank-one matrices given by its rows (i.e.,
+    $M=\sum_{i=1}^m\mathbf{e}_i\mathbf{m}_{i,\cdot}^*$, where $\mathbf{e}_i$ is
+    the m-dimensional canonical unit vector, and $\mathbf{m}_{i,\cdot}$ is the ith row
+    of $M$), or as a sum of $n$ rank-one matrices given by its columns (i.e.,
+    $M=\sum_{j=1}^n\mathbf{m}_{\cdot,j}\mathbf{e}_j^*$, where $\mathbf{e}_j$ is
+    the n-dimensional canonical unit vector, and $\mathbf{m}_{\cdot,j}$ is the jth
+    column of $M$), or a sum of $mn$ rank-one matrices each containing only one
+    non-zero element (i.e., $M=\sum_{i=1}^m\sum_{j=1}^nm_{ij}E_{ij}$, where
+    $E_{ij}$ is the matrix with all entries equal to zero, except the $ij$
+    entry that is one, and $m_{ij}$ is the entry of $M$ at position ij).
+
+    A unique characteristic of the SVD compared to these other decompositions
+    is that, if the rank of a matrix is $r$, then its SVD yields optimal
+    approximations of lower rank $\nu$, for $\nu=1,\ldots,r$, as shown by
+    Theorem~\ref{thm:eckart-young-mirsky}.
+
+    \begin{definition}[Frobenius norm]
+        The Frobenius norm of matrix $M\in\mathbb{C}^{m\times n}$ is
+
+        \begin{align*}
+            \|M\|_F=\left(\sum_{i=1}^m\sum_{j=1}^nm_{ij}^2\right)^{1/2}
+        \end{align*}
+
+    \end{definition}
+
+    Note that
+
+    \begin{align}
+        \|M\|_F=\sqrt{tr(M^*M)}=\sqrt{tr(MM^*)}
+        \label{eq:frobeniusAsTrace}
+    \end{align}
+
+    \begin{lemma}[Orthogonal matrices preserve the Frobenius norm]
+        Let $M\in\mathbb{C}^{m\times n}$ and let $P\in\mathbb{C}^{m\times m}$
+        and $Q\in\mathbb{C}^{n\times n}$ be orthogonal matrices. Then
+
+        \begin{align*}
+            \|PMQ\|_F=\|M\|_F
+        \end{align*}
+
+        \label{lemma:orthogonalPreserveF}
+    \end{lemma}
+
+    \begin{proof}
+        \begin{align}
+            \|PMQ\|_F&=\sqrt{tr((PMQ)(PMQ)^*)}=\sqrt{tr(PMQQ^*M^*P^*)}=\sqrt{tr(PMM^*P^*)\label{eq:frobInvLine1}}\\
+                     &=\sqrt{tr(P^*PMM^*)}=\sqrt{tr(MM^*)}=\|M\|_F\label{eq:frobInvLine2}
+        \end{align}
+        Notes:
+        \begin{enumerate}
+            \item The first equality in Eq.~\ref{eq:frobInvLine1} follows
+                Eq.~\ref{eq:frobeniusAsTrace}.
+            \item The second equality in Eq.~\ref{eq:frobInvLine1} uses the fact
+                that $(AB)^*=B^*A^*$.
+            \item The third equality in Eq.~\ref{eq:frobInvLine1} holds because
+                $Q$ is orthogonal (i.e., $QQ^*=I$).
+            \item The first equality in Eq.~\ref{eq:frobInvLine2} uses the
+                cyclic property of the trace (i.e., tr(ABC)=tr(CAB)).
+            \item The first equality in Eq.~\ref{eq:frobInvLine2} holds by the
+                orthogonality of $P$.
+            \item The last equality in Eq.~\ref{eq:frobInvLine2} again applies
+                Eq.~\ref{eq:frobeniusAsTrace}.
+        \end{enumerate}
+    \end{proof}
+
+    A direct consequence of Lemma~\ref{lemma:orthogonalPreserveF} is that the
+    Frobenius norm of any matrix $M=USV^*$ is
+
+    \begin{align*}
+        \|M\|_F=\|USV^*\|_F=\|S\|_F=\sqrt{\sum_{k=1}^rs_k^2}
+    \end{align*}
+
+    Another consequence of Lemma~\ref{lemma:orthogonalPreserveF} is 
+    the error in approximating a matrix $M$ of rank $r$ with its truncated
+    SVD of rank $\nu$ (i.e., $M_\nu=\sum_{k=1}^\nu s_k\mathbf{u}_k\mathbf{v}_k^*$) is
+
+    \begin{align}
+        \|M-M_\nu\|_F=\|\sum_{k=1}^rs_k\mathbf{u}_k\mathbf{v}_k^*-\sum_{k=1}^\nu
+        s_k\mathbf{u}_k\mathbf{v}_k^*\|_F=\|\sum_{k={\nu+1}}^rs_k\mathbf{u}_k\mathbf{v}_k^*\|_F=\sqrt{\sum_{k=\nu+1}^rs_k^2}\label{eq:truncSVDerror}
+    \end{align}
+
+    \begin{theorem}[Eckart-Young-Mirsky]
+
+        Let $M\in\mathbb{C}^{m\times n}$ be of rank r with singular value
+        decomposition $M=\sum_{k=1}^rs_k\mathbf{u}_k\mathbf{v}_k^*$. For any
+        $\nu$ with $0\leq\nu\leq r$, define the \textbf{truncated SVD} as
+
+        \begin{align}
+            M_\nu=\sum_{k=1}^\nu s_k\mathbf{u}_k\mathbf{v}_k^*
+            \label{eq:truncatedSVD}
+        \end{align}
+
+        Then
+
+        \begin{align}
+            \|M-M_\nu\|_F=\inf_{\substack{\tilde{M}\in\mathbb{C}^{m\times n}\\\text{rank}(\tilde{M})\leq\nu}}\|M-\tilde{M}\|_F=\sqrt{\sum_{k=\nu+1}^rs_k^2}\label{eq:errorFNorm}
+        \end{align}
+
+        \label{thm:eckart-young-mirsky}
+    \end{theorem}
+
+    \begin{proof}
+        We use the Weyl's inequality that relates the singular values of a sum
+        of two matrices to the singular values of each of these matrices.
+        Precisely, if $X,Y\in\mathbb{C}^{m\times n}$ and $s_i(X)$ is the ith
+        singular value of $X$, then
+
+        \begin{align}
+            s_{i+j-1}(X+Y)\leq s_i(X)+s_j(Y)
+            \label{eq:weylsInequality}
+        \end{align}
+
+        Let $\tilde{M}$ be a matrix of rank at most $\nu$. Applying
+        Eq.~\ref{eq:weylsInequality} to $X=M-\tilde{M}$, $Y=\tilde{M}$ and
+        $j-1=\nu$ we obtain
+
+        \begin{align}
+            s_{i+\nu}(M)\leq s_i(M-\tilde{M})+s_{\nu+1}(\tilde{M})=s_i(M-\tilde{M})\label{eq:svMandMerror}
+        \end{align}
+
+        The last equality in Eq.~\ref{eq:svMandMerror} holds because $\tilde{M}$
+        has rank less or equal to $\nu$, and therefore its $\nu+1$ singular value is zero.
+
+        \begin{align}
+            \|M-M_\nu\|_F^2&=\sum_{j=\nu+1}^rs_j^2(M)=\sum_{i=1}^{r-\nu}s_{i+\nu}^2(M)\leq\sum_{i=1}^{r-\nu}s_i^2(M-\tilde{M})\leq\sum_{i=1}^{\min(m,n)}s_i^2(M-\tilde{M})\label{eq:final1}\\
+                           &=\|M-\tilde{M}\|_F^2\label{eq:final2}
+        \end{align}
+
+        Notes:
+        \begin{enumerate}
+            \item The first equality in Eq.~\ref{eq:final1} holds by
+                Eq.~\ref{eq:truncSVDerror}.
+            \item The second equality in Eq.~\ref{eq:final1} used the change of
+                variables $i=j-\nu$.
+            \item The first inequality in Eq.~\ref{eq:final1} used
+                Eq.~\ref{eq:svMandMerror}
+            \item The last inequality in Eq.~\ref{eq:final1} is true because
+                $r-\nu\leq\min(m,n)$ and adding squared singular values to the sum in
+                the left hand side only increases this sum.
+            \item The equality in Eq.~\ref{eq:final2} again holds by
+                Eq.~\ref{eq:errorFNorm} and by the fact that singular values of
+                index larger than the rank of a matrix are zero.
+        \end{enumerate}
+
+        The last equality in Eq.~\ref{eq:errorFNorm} follows from
+        Eq.~\ref{eq:truncSVDerror}.
+
+    \end{proof}
+
+\section{Verification of the Eckart-Young-Mirsky theorem}
+\label{sec:verificationEckartYoungMirsky}
+
+It is remarkable that Theorem~\ref{thm:eckart-young-mirsky} allows us to
+compute a lower bound on the error that will be achieved by any low-rank
+approximation by just using the singular values of the matrix to be
+approximated.
+
+Verify Theorem~\ref{thm:eckart-young-mirsky}, for different ranks
+$\nu\in\{1,\ldots,10\}$, by computing truncated SVD approximations of rank
+$\nu$ (Eq.~\ref{eq:truncatedSVD}) to the
+matrix shown in Figure~\ref{fig:zscores_vh0Sorted}. For each of these
+approximations, plot the approximation and insert in the title the emprical and
+analytical error.  The empirical error is the Frobenius norm of the difference
+between the matrix if Figure~\ref{fig:zscores_vh0Sorted} and its approximation
+of rank $\nu$. The analytical error is the sum of singular values in
+Eq.~\ref{eq:errorFNorm}. Figure~\ref{fig:truncatedSVD-rank1} shows such a
+plot for a rank $\nu=1$.
+
+You should also observe that as the rank of the approximation increases, the
+approximation becomes more similar to the original matrix in
+Figure~\ref{fig:zscores_vh0Sorted}.
+
+\begin{figure}
+    \begin{center}
+
+        \href{http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2023/ws5/figures/binned_spikes_truncatedSVD_binSize_1.00_nComponents_1.html}{\includegraphics[width=5in]{figures/binned_spikes_truncatedSVD_binSize_1.00_nComponents_1.png}}
+
+        \caption{Low-rank approximation of the image in
+        Figure~\ref{fig:zscores_vh0Sorted} using a truncated SVD or rank 1. The
+        title reports the empirical and analytical errors of the
+        reconstruction. The empirical error is the Frobenius norm of the
+        difference between the low-rank approximation and the image in
+        Figure~\ref{fig:zscores_vh0Sorted}. The analytical error is computed
+        from the singular values of the image in
+        Figure~\ref{fig:zscores_vh0Sorted} using Eq.~\ref{eq:errorFNorm}.
+        Click on the image to access its interactive version.}
+
+        \label{fig:truncatedSVD-rank1}
+
+    \end{center}
+\end{figure}
+
+% \bibliographystyle{plainnat}
+% \bibliography{travelingWaves}
+
+\end{document}
