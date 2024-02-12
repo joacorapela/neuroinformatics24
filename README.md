@@ -19,7 +19,7 @@
     | 10 | Mar 14 | Experimental Control with Bonsai | [Goncalo Lopez](https://neurogears.org/about-us/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | lecture |
     | 10 | Mar 15 | Reinforcement learning | [Jesse Gerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) | lecture |
     | 11 | Mar 22 | Experimental Control with Bonsai | [Goncalo Lopez](https://neurogears.org/about-us/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | practical |
-    | 11 | Mar 23 | Reinforcement learning | [Jesse Gerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) | practical |
+    | 11 | Mar 23 | Reinforcement learning | [Jesse Gerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) (unconfirmed) | practical |
 
 - lecture notes for discussion sessions can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/practicals)
 
