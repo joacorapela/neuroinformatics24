@@ -1,6 +1,6 @@
 # Neuroinformatics for SWC PhD students 2024 repository (under construction)
 
-- lectures schedule:
+- <a name="lecturesSchedule"></a>lectures schedule:
 
     | Week | Date  | Topic | Lecturers | Type |
     |------|-------|-------|-----------|------|
