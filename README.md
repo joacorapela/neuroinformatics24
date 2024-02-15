@@ -9,7 +9,7 @@
     | 03 | Jan 25 | [Spectrogram and coherence](https://github.com/joacorapela/neuroinformatics24/blob/master/practicals/03_spectralAnalysisForNonStationarySignals) | [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) [Yousef Mohammadi](y.mohammadi@ucl.ac.uk) [Joe Ziminski](https://www.sainsburywellcome.org/web/people/joe-ziminski)| practical |
     | 04 | Feb 01 | [Circular statistics](https://github.com/joacorapela/neuroinformatics24/blob/master/practicals/04_circulaVariables_bootstrap) | [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) [Yousef Mohammadi](y.mohammadi@ucl.ac.uk)| practical |
     | 05 | Feb 08 | Singular Value Decomposition | [Will Dorrell](https://www.williamdorrell.co.uk/)| practical |
-    | 06 | Feb 16 | Linear Regression | [Lior Fox](https://liorfox.github.io/) | lecture |
+    | 06 | Feb 16 | [Linear Regression](https://github.com/joacorapela/neuroinformatics24/blob/master/lectures/linearRegression/swc_neuroinformatics_linreg.pdf) | [Lior Fox](https://liorfox.github.io/) | lecture |
     | 06 | Feb 17 | Linear Regression | [Lior Fox](https://liorfox.github.io/) | practical |
     | 07 | Feb 22 | Linear Dynamical Systems | [Aniruddh Galgali](https://www.linkedin.com/in/anirgalgali/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | lecture |
     | 07 | Feb 23 | Linear Dynamical Systems | [Aniruddh Galgali](https://www.linkedin.com/in/anirgalgali/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | practical |
