@@ -1,0 +1,4 @@
+projection-pursuit
+pandas
+scikit-learn
+scipy
