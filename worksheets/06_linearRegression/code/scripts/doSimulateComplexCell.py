@@ -1,5 +1,6 @@
 
 import sys
+import os
 import argparse
 import numpy as np
 import pandas as pd
@@ -16,7 +17,7 @@ def main(argv):
                         default=1.0)
     parser.add_argument("--images_filename", type=str,
                         help="images filename",
-                        default="../..//data/equalpower_C2_25hzPP.dat")
+                        default="http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearRegression/data/equalpower_C2_25hzPP.dat")
     parser.add_argument("--responses_filename", type=str,
                         help="simulated responses filename",
                         default="../../results/ySimCC.dat")
@@ -30,6 +31,17 @@ def main(argv):
     images_filename = args.images_filename
     responses_filename = args.responses_filename
     figures_filename_pattern = args.figures_filename_pattern
+
+    # create figures and results directory, if necessary
+    dirname = os.path.dirname(responses_filename)
+    if not os.path.exists(dirname):
+        print(f"Creating figures directory {dirname}")
+        os.mkdir(dirname)
+    fig_filename = figures_filename_pattern.format("RDs", "png")
+    dirname = os.path.dirname(fig_filename)
+    if not os.path.exists(dirname):
+        print(f"Creating figures directory {dirname}")
+        os.mkdir(dirname)
 
     # get data
     images = pd.read_csv(images_filename, sep="\s+", header=None).to_numpy()
