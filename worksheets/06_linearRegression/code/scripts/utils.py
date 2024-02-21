@@ -10,7 +10,7 @@ def computeBootstrapCIs(resamples, alpha):
 
     :type resamples: list like
 
-    :parm alpha: signifcance level
+    :parm alpha: significance level
 
     :type float
 
