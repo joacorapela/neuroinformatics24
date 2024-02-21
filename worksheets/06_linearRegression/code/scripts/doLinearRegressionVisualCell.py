@@ -75,18 +75,18 @@ def main(argv):
     rds = np.linalg.svd(alphas)[0]
     px = np.matmul(images, rds)  # projecting images onto RDs
 
-    # calculate regression coefficients with train data
+    # calculate regression coefficients with train data using L2 regularization
     X = utils.buildDataMatrix(px=px, order=order, nRDs=n_RDs)
     X_train, X_test, Y_train, Y_test = \
         sklearn.model_selection.train_test_split(X, Y,
                                                  test_size=test_percentage)
-    I = np.eye(X.shape[1])
-    coefs = np.linalg.solve(np.matmul(X_train.T, X_train) + reg_coef * I,
-                            np.matmul(X_train.T, Y_train))
+    coefs = ...
 
     # compute coefficients bootstrap confidence intervals
-    # b_coefs[i,j] is the jth coefficient obtained from the jth bootstrap
-    # resample
+    #
+    # First resample regression coefficients. But a matrix of bootstrapped
+    # regression coeffcients b_coefs. b_coefs[i,j] should be the jth
+    # coefficient obtained from the jth bootstrap resample
     b_coefs = utils.bootstrapRegressionCoefs(X=X_train, Y=Y_train,
                                              reg_coef=reg_coef,
                                              n_resamples=ci_nresamples)
@@ -98,11 +98,11 @@ def main(argv):
                                                       alpha=ci_alpha)
 
     # calculate residuals
-    fitted_train = np.matmul(X_train, coefs)
+    fitted_train = ...
     residuals_train = Y_train - fitted_train
 
     # compute correlation coefficient on test data
-    fitted_test = np.matmul(X_test, coefs)
+    fitted_test = ...
     rho_test = np.corrcoef(Y_test, fitted_test)[0, 1]
 
     # Plots
