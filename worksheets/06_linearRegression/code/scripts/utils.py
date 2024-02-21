@@ -17,9 +17,9 @@ def computeBootstrapCIs(resamples, alpha):
     :return: a 2-tuple containing the lower and upper bound of the confidence interval.
     :rtype: tuple
     """
-    ...
-    lower = ...
-    upper = ...
+    sorted_resamples = np.sort(resamples)
+    lower = sorted_resamples[int(alpha/2*len(resamples))]
+    upper = sorted_resamples[int((1-alpha/2)*len(resamples))]
     return lower, upper
 
 
