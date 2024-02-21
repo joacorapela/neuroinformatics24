@@ -3,6 +3,20 @@ import numpy as np
 
 
 def computeBootstrapCIs(resamples, alpha):
+    """Computes bootstrap confidence intervals at a significance level alpha
+    from bootstrap resamples.
+
+    :param resamples: bootstrap resamples
+
+    :type resamples: list like
+
+    :parm alpha: signifcance level
+
+    :type float
+
+    :return: a 2-tuple containing the lower and upper bound of the confidence interval.
+    :rtype: tuple
+    """
     sorted_resamples = np.sort(resamples)
     lower = sorted_resamples[int(alpha/2*len(resamples))]
     upper = sorted_resamples[int((1-alpha/2)*len(resamples))]
