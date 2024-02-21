@@ -58,7 +58,7 @@ def main(argv):
     noise = np.random.normal(loc=0, scale=std_noise, size=images.shape[0])
 
     responses = noiseless_responses + noise
-    responses[responses < 0] = 0.0
+    # responses[responses < 0] = 0.0
 
     # save responses
     df = pd.DataFrame(responses)
