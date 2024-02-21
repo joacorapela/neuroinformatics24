@@ -15,8 +15,8 @@ import utils
 
 def main(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--cellType", type=str,
-                        help="S (simple_cell) | C (complex_cell)", default="C")
+    parser.add_argument("--label", type=str, help="results label",
+                        default="simCC")
     parser.add_argument("--order", type=int, help="model order", default=2)
     parser.add_argument("--regCoef", type=float,
                         help="L2 regularization coefficient", default=0.0)
@@ -30,35 +30,30 @@ def main(argv):
     parser.add_argument("--ciNResamples", type=float,
                         help=("number of resamples for coefficients bootstrap "
                               "confidence interval"), default=1000)
-    parser.add_argument("--images_filename_pattern", type=str,
+    parser.add_argument("--images_filename", type=str,
                         help="images filename",
-                        default="http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearRegression/data/x{:s}C.dat")
-    parser.add_argument("--responses_filename_pattern", type=str,
+                        default="http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearRegression/data/xCC.dat")
+    parser.add_argument("--responses_filename", type=str,
                         help="responses filename pattern",
-                        default="http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearRegression/data/y{:s}C_5spi.dat")
+                        default="http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearRegression/data/yCC_5spi.dat")
     parser.add_argument("--figures_filename_pattern", type=str,
                         help="figures filename pattern",
                         default="../../figures/{:s}_{:s}.{:s}")
     args = parser.parse_args()
 
     # get command line parameters
-    cell_type = args.cellType
+    label = args.label
     order = args.order
     reg_coef = args.regCoef
     n_RDs = args.nRDs
     test_percentage = args.test_percentage
     ci_alpha = args.ciAlpha
     ci_nresamples = args.ciNResamples
-    images_filename_pattern = args.images_filename_pattern
-    responses_filename_pattern = args.responses_filename_pattern
+    images_filename = args.images_filename
+    responses_filename = args.responses_filename
     figures_filename_pattern = args.figures_filename_pattern
 
-    if cell_type != "S" and cell_type != "C":
-        raise ValueError(f"cell_type={cell_type}, but it should be S or C")
-    images_filename = images_filename_pattern.format(cell_type)
-    responses_filename = responses_filename_pattern.format(cell_type)
-
-    prefix = f"cellType{cell_type}_order{order}_nRDs{n_RDs}_regCoef{reg_coef}"
+    prefix = f"{label}_order{order}_nRDs{n_RDs}_regCoef{reg_coef}"
 
     # create figures dirname, if necessary
     fig_filename = figures_filename_pattern.format(prefix, "RDs", "png")
@@ -68,7 +63,7 @@ def main(argv):
         os.mkdir(dirname)
 
     # get data
-    images = pd.read_csv(images_filename, sep=" ", header=None).to_numpy()
+    images = pd.read_csv(images_filename, sep="\s+", header=None).to_numpy()
     Y = pd.read_csv(responses_filename, sep=" ", header=None).to_numpy().\
         squeeze()
     image_width = image_height = int(np.sqrt(images.shape[1]))
@@ -129,6 +124,7 @@ def main(argv):
                                     array=b_coefs_cis[0, :]-coefs,
                                     arrayminus=coefs-b_coefs_cis[1, :]))
     fig.add_trace(trace)
+    fig.add_hline(y=0)
     fig.update_layout(xaxis=dict(title="Coefficient Index"),
                       yaxis=dict(title="Coefficient Value"))
     fig.write_image(figures_filename_pattern.format(prefix, "coefs", "png"))
