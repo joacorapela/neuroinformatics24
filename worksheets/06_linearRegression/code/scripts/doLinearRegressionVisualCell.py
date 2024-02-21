@@ -55,7 +55,7 @@ def main(argv):
 
     prefix = f"{label}_order{order}_nRDs{n_RDs}_regCoef{reg_coef}"
 
-    # create figures dirname, if necessary
+    # create figures directory, if necessary
     fig_filename = figures_filename_pattern.format(prefix, "RDs", "png")
     dirname = os.path.dirname(fig_filename)
     if not os.path.exists(dirname):
