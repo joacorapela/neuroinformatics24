@@ -18,21 +18,21 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
+    backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
     basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
 
@@ -78,6 +78,9 @@ local field potential (LFP) voltages bandpass filtered between 0.4 and 0.8~Hz,
 around the mean frequency of consonant-vowel syllable production of 0.62~Hz.
 
 \section{Install the Python packages required to obtain data from Dandi}
+
+Do the following installations in the order specified (i.e., first the conda
+and later the pip installs).
 
 \begin{verbatim}
 # functionality to manipulate data in the NWB format
