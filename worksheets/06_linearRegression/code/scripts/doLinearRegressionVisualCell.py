@@ -68,7 +68,19 @@ def main(argv):
         squeeze()
     image_width = image_height = int(np.sqrt(images.shape[1]))
 
-    # compute basis functions and projections of images onto them
+    # estimate basis functions and calculate projections of images onto them
+    # for the estimaton of basis functions we use the Projection Pursuit
+    # estimaton algorithm
+	#
+    # @ARTICLE(friedmanAndStuetzle81,
+    # AUTHOR      = {J.H. Friedman and W. Stuetzle},
+    # TITLE       = {Projection pursuit regression},
+    # JOURNAL     = {Journal of the American Statistical Association},
+    # VOLUME      = {76},
+    # NUMBER      = {376},
+    # PAGES       = {817-823},
+    # YEAR        = {1981}
+    # )
     ppr = skpp.ProjectionPursuitRegressor(r=n_RDs)
     ppr_res = ppr.fit(X=images, Y=Y)
     alphas = ppr_res._alpha
