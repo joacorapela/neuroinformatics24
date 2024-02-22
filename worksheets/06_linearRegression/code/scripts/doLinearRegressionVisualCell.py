@@ -113,9 +113,13 @@ def main(argv):
         alpha = np.reshape(rds[:, i], newshape=(image_width, image_height))
         trace = go.Heatmap(z=alpha)
         fig.add_trace(trace, row=1, col=i+1)
-    fig.write_image(figures_filename_pattern.format(prefix, "RDs", "png"))
-    fig.write_html(figures_filename_pattern.format(prefix, "RDs", "html"))
-    fig.show()
+    png_filename = figures_filename_pattern.format(prefix, "RDs", "png")
+    html_filename = figures_filename_pattern.format(prefix, "RDs", "html")
+    fig.write_image(png_filename)
+    fig.write_html(html_filename)
+    print(f"Saved image {png_filename}")
+    print(f"Saved image {html_filename}")
+    # fig.show()
 
     # coefs
     fig = go.Figure()
@@ -127,9 +131,13 @@ def main(argv):
     fig.add_hline(y=0)
     fig.update_layout(xaxis=dict(title="Coefficient Index"),
                       yaxis=dict(title="Coefficient Value"))
-    fig.write_image(figures_filename_pattern.format(prefix, "coefs", "png"))
-    fig.write_html(figures_filename_pattern.format(prefix, "coefs", "html"))
-    fig.show()
+    png_filename = figures_filename_pattern.format(prefix, "coefs", "png")
+    html_filename = figures_filename_pattern.format(prefix, "coefs", "html")
+    fig.write_image(png_filename)
+    fig.write_html(html_filename)
+    print(f"Saved image {png_filename}")
+    print(f"Saved image {html_filename}")
+    # fig.show()
 
     # train residuals
     x_residuals_dense = np.linspace(min(residuals_train), max(residuals_train),
@@ -148,11 +156,13 @@ def main(argv):
     fig.add_trace(trace)
     fig.update_layout(xaxis=dict(title="Train Residuals"),
                       yaxis=dict(title="Count"))
-    fig.write_image(figures_filename_pattern.format(prefix, "residuals",
-                                                    "png"))
-    fig.write_html(figures_filename_pattern.format(prefix, "residuals",
-                                                   "html"))
-    fig.show()
+    png_filename = figures_filename_pattern.format(prefix, "residuals", "png")
+    html_filename = figures_filename_pattern.format(prefix, "residuals", "html")
+    fig.write_image(png_filename)
+    fig.write_html(html_filename)
+    print(f"Saved image {png_filename}")
+    print(f"Saved image {html_filename}")
+    # fig.show()
 
     # predicted test responses
     fig = go.Figure()
@@ -169,9 +179,14 @@ def main(argv):
                                                     "png"))
     fig.write_html(figures_filename_pattern.format(prefix, "predictions",
                                                    "html"))
-    fig.show()
-
-    breakpoint()
+    png_filename = figures_filename_pattern.format(prefix, "predictions", "png")
+    html_filename = figures_filename_pattern.format(prefix, "predictions",
+                                                    "html")
+    fig.write_image(png_filename)
+    fig.write_html(html_filename)
+    print(f"Saved image {png_filename}")
+    print(f"Saved image {html_filename}")
+    # fig.show()
 
 
 if __name__ == "__main__":
