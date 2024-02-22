@@ -56,8 +56,9 @@ field models}
 
 Following~\citet{rapelaEtAl06}, to model responses of visual cell in animals to
 stimulation with natural images, we
-project these images into a small number of (learned) basis
-functions, $\bm{\alpha}_1,\ldots,\bm{\alpha}_L$. Below we call \emph{relevant
+project these images into a small number of basis
+functions (learned using the projection pursuit regression
+algorithm~\citep{friedmanAndStuetzle81}), $\bm{\alpha}_1,\ldots,\bm{\alpha}_L$. Below we call \emph{relevant
 dimensions} to these basis functions. We denote the projections of the nth
 image, $\mathbf{v}_n$, into the lth relevant dimension, $\bm{\alpha}_l$, by
 $x_{nl}=\bm{\alpha}_l^\intercal\mathbf{v}_n$. Then we model the number of spikes produced by the cell
@@ -127,17 +128,23 @@ All the code for this worksheet appears in the subdirectory
 \href{https://github.com/joacorapela/neuroinformatics24}{repo}. In particular,
 the code to simulate a complex cells is in script
 \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/06_linearRegression/code/scripts/doSimulateComplexCell.py}{doSimulateComplexCell.py}.
-Prior to running this code install the required dependencies by running
 
-\texttt{pip install -r requirements.txt}
+Prior to running this code install the required dependencies by running, from the subdirectory
+\href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/06_linearRegression/code/scripts}{worksheets/06\_linearRegression/code/scripts},
+the following commands:
 
-\noindent from the subdirectory
-\href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/06_linearRegression/code/scripts}{worksheets/06\_linearRegression/code/scripts}.
+\noindent\texttt{pip install -r requirements.txt}\linebreak
+\noindent\texttt{pip install -r requirements2.txt}
 
 The script
 \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/06_linearRegression/code/scripts/doLinearRegressionVisualCell.py}{doLinearRegressionVisualCell.py}
 implements all the functionality required for this worksheet, but it has a few
-lines that you will need to complete to make it work.
+lines that you will need to complete to make it work. In this exercise you will
+perform all the mathematical operations required to estimate the regression
+coefficients (e.g., matrix inversions, tranposes, and multiplications).
+However, it is better to use numerical packages (e.g.,
+\href{https://scipy.org/}{scipy}) as they take care of important numerical
+details.
 
 The first section you will have to complete is on file
 \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/06_linearRegression/code/scripts/https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/06_linearRegression/code/scripts/doLinearRegressionVisualCell.py}{doLinearRegressionVisualCell.py}:
@@ -239,7 +246,11 @@ Figure~\ref{fig:analysis_simCC_fittedRes}.
     \begin{center}
         \href{https://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2023/ws6/figures/simCC_order2_nRDs2_regCoef0.0_coefs.html}{\includegraphics[width=5.5in]{figures/simCC_order2_nRDs2_regCoef0.0_coefs.png}}
 
-        \caption{Coefficients estimated for simulated data of a complex cell. Only the coefficient 2 and 4, corresponding to $\beta_{11}$ and $\beta_{22}$ (Eq.~\ref{eq:2RDsOrder3}) are significantly different from zero.}
+        \caption{Coefficients estimated for simulated data of a complex cell.
+        Only the coefficients with indices 2 and 4 in the plot, corresponding to $\beta_{11}$ and
+        $\beta_{22}$ in Eq.~\ref{eq:2RDsOrder3}, are significantly different from
+        zero. This is the correct solution, as it can be seen from the model in
+        Eq.~\ref{eq:energyModel}}
 
         \label{fig:analysis_simCC_coefs}
     \end{center}
@@ -285,6 +296,6 @@ best and a poor set of parameters.
 
 
 \bibliographystyle{plainnat}
-\bibliography{receptiveFields}
+\bibliography{receptiveFields,stats}
 
 \end{document}
