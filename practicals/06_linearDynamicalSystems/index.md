@@ -6,4 +6,4 @@
 
 ## [Notes and kinematics examples on LDS inference](https://github.com/joacorapela/lds_python/blob/master/docs/inference/inference.pdf)
 
-## [An excellent paper on inferring latent structure on neural populations](
+## [An excellent paper on inferring latent structure on neural populations](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2712272/)
