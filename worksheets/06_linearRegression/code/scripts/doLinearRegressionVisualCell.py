@@ -32,10 +32,10 @@ def main(argv):
                               "confidence interval"), default=1000)
     parser.add_argument("--images_filename", type=str,
                         help="images filename",
-                        default="http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearRegression/data/xCC.dat")
+                        default="http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearRegression/data/equalpower_C2_25hzPP.dat")
     parser.add_argument("--responses_filename", type=str,
                         help="responses filename pattern",
-                        default="http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearRegression/data/yCC_5spi.dat")
+                        default="http://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearRegression/data/ySimCC.dat")
     parser.add_argument("--figures_filename_pattern", type=str,
                         help="figures filename pattern",
                         default="../../figures/{:s}_{:s}.{:s}")
@@ -68,37 +68,25 @@ def main(argv):
         squeeze()
     image_width = image_height = int(np.sqrt(images.shape[1]))
 
-    # estimate basis functions and calculate projections of images onto them
-    # for the estimaton of basis functions we use the Projection Pursuit
-    # estimaton algorithm
-	#
-    # @ARTICLE(friedmanAndStuetzle81,
-    # AUTHOR      = {J.H. Friedman and W. Stuetzle},
-    # TITLE       = {Projection pursuit regression},
-    # JOURNAL     = {Journal of the American Statistical Association},
-    # VOLUME      = {76},
-    # NUMBER      = {376},
-    # PAGES       = {817-823},
-    # YEAR        = {1981}
-    # )
+    # compute basis functions and projections of images onto them
     ppr = skpp.ProjectionPursuitRegressor(r=n_RDs)
     ppr_res = ppr.fit(X=images, Y=Y)
     alphas = ppr_res._alpha
     rds = np.linalg.svd(alphas)[0]
     px = np.matmul(images, rds)  # projecting images onto RDs
 
-    # calculate regression coefficients with train data using L2 regularization
+    # calculate regression coefficients with train data
     X = utils.buildDataMatrix(px=px, order=order, nRDs=n_RDs)
     X_train, X_test, Y_train, Y_test = \
         sklearn.model_selection.train_test_split(X, Y,
                                                  test_size=test_percentage)
-    coefs = ...
+    I = np.eye(X.shape[1])
+    coefs = np.linalg.solve(np.matmul(X_train.T, X_train) + reg_coef * I,
+                            np.matmul(X_train.T, Y_train))
 
     # compute coefficients bootstrap confidence intervals
-    #
-    # First resample regression coefficients. But a matrix of bootstrapped
-    # regression coeffcients b_coefs. b_coefs[i,j] should be the jth
-    # coefficient obtained from the jth bootstrap resample
+    # b_coefs[i,j] is the jth coefficient obtained from the jth bootstrap
+    # resample
     b_coefs = utils.bootstrapRegressionCoefs(X=X_train, Y=Y_train,
                                              reg_coef=reg_coef,
                                              n_resamples=ci_nresamples)
@@ -110,11 +98,11 @@ def main(argv):
                                                       alpha=ci_alpha)
 
     # calculate residuals
-    fitted_train = ...
+    fitted_train = np.matmul(X_train, coefs)
     residuals_train = Y_train - fitted_train
 
     # compute correlation coefficient on test data
-    fitted_test = ...
+    fitted_test = np.matmul(X_test, coefs)
     rho_test = np.corrcoef(Y_test, fitted_test)[0, 1]
 
     # Plots
@@ -125,13 +113,9 @@ def main(argv):
         alpha = np.reshape(rds[:, i], newshape=(image_width, image_height))
         trace = go.Heatmap(z=alpha)
         fig.add_trace(trace, row=1, col=i+1)
-    png_filename = figures_filename_pattern.format(prefix, "RDs", "png")
-    html_filename = figures_filename_pattern.format(prefix, "RDs", "html")
-    fig.write_image(png_filename)
-    fig.write_html(html_filename)
-    print(f"Saved image {png_filename}")
-    print(f"Saved image {html_filename}")
-    # fig.show()
+    fig.write_image(figures_filename_pattern.format(prefix, "RDs", "png"))
+    fig.write_html(figures_filename_pattern.format(prefix, "RDs", "html"))
+    fig.show()
 
     # coefs
     fig = go.Figure()
@@ -143,13 +127,9 @@ def main(argv):
     fig.add_hline(y=0)
     fig.update_layout(xaxis=dict(title="Coefficient Index"),
                       yaxis=dict(title="Coefficient Value"))
-    png_filename = figures_filename_pattern.format(prefix, "coefs", "png")
-    html_filename = figures_filename_pattern.format(prefix, "coefs", "html")
-    fig.write_image(png_filename)
-    fig.write_html(html_filename)
-    print(f"Saved image {png_filename}")
-    print(f"Saved image {html_filename}")
-    # fig.show()
+    fig.write_image(figures_filename_pattern.format(prefix, "coefs", "png"))
+    fig.write_html(figures_filename_pattern.format(prefix, "coefs", "html"))
+    fig.show()
 
     # train residuals
     x_residuals_dense = np.linspace(min(residuals_train), max(residuals_train),
@@ -168,13 +148,11 @@ def main(argv):
     fig.add_trace(trace)
     fig.update_layout(xaxis=dict(title="Train Residuals"),
                       yaxis=dict(title="Count"))
-    png_filename = figures_filename_pattern.format(prefix, "residuals", "png")
-    html_filename = figures_filename_pattern.format(prefix, "residuals", "html")
-    fig.write_image(png_filename)
-    fig.write_html(html_filename)
-    print(f"Saved image {png_filename}")
-    print(f"Saved image {html_filename}")
-    # fig.show()
+    fig.write_image(figures_filename_pattern.format(prefix, "residuals",
+                                                    "png"))
+    fig.write_html(figures_filename_pattern.format(prefix, "residuals",
+                                                   "html"))
+    fig.show()
 
     # predicted test responses
     fig = go.Figure()
@@ -191,14 +169,9 @@ def main(argv):
                                                     "png"))
     fig.write_html(figures_filename_pattern.format(prefix, "predictions",
                                                    "html"))
-    png_filename = figures_filename_pattern.format(prefix, "predictions", "png")
-    html_filename = figures_filename_pattern.format(prefix, "predictions",
-                                                    "html")
-    fig.write_image(png_filename)
-    fig.write_html(html_filename)
-    print(f"Saved image {png_filename}")
-    print(f"Saved image {html_filename}")
-    # fig.show()
+    fig.show()
+
+    breakpoint()
 
 
 if __name__ == "__main__":

@@ -17,9 +17,9 @@ def computeBootstrapCIs(resamples, alpha):
     :return: a 2-tuple containing the lower and upper bound of the confidence interval.
     :rtype: tuple
     """
-    ...
-    lower = ...
-    upper = ...
+    sorted_resamples = np.sort(resamples)
+    lower = sorted_resamples[int(alpha/2*len(resamples))]
+    upper = sorted_resamples[int((1-alpha/2)*len(resamples))]
     return lower, upper
 
 
@@ -58,7 +58,7 @@ def buildDataMatrix(px, order, nRDs):
         return dataMatrix
 
     # second order terms
-    items = np.empty(shape=(2,), dtype=np.int32)
+    items = np.empty(shape=(2,), dtype=np.int)
     for j0 in range(nRDs):
         items[0] = j0
         for j1 in range(j0, nRDs):
@@ -71,7 +71,7 @@ def buildDataMatrix(px, order, nRDs):
         return dataMatrix
 
     # third order terms
-    items = np.empty(shape=(3,), dtype=np.int32)
+    items = np.empty(shape=(3,), dtype=np.int)
     for j0 in range(nRDs):
         items[0] = j0
         for j1 in (j0, nRDs):
@@ -86,7 +86,7 @@ def buildDataMatrix(px, order, nRDs):
         return dataMatrix
 
     # fourth order terms
-    items = np.empty(shape=(4,), dtype=np.int32)
+    items = np.empty(shape=(4,), dtype=np.int)
     for j0 in range(nRDs):
         items[0] = j0
         for j1 in range(j0, nRDs):
