@@ -11,7 +11,7 @@
     | 05 | Feb 08 | Singular Value Decomposition | [Will Dorrell](https://www.williamdorrell.co.uk/)| practical |
     | 06 | Feb 16 | [Linear Regression](https://github.com/joacorapela/neuroinformatics24/blob/master/lectures/linearRegression/swc_neuroinformatics_linreg.pdf) | [Lior Fox](https://liorfox.github.io/) | lecture |
     | 06 | Feb 17 | Linear Regression | [Lior Fox](https://liorfox.github.io/) | practical |
-    | 07 | Feb 22 | [Linear Dynamical Systems(lectures/07_linearDynamicalSystems) | [Aniruddh Galgali](https://www.linkedin.com/in/anirgalgali/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | lecture |
+    | 07 | Feb 22 | [Linear Dynamical Systems](lectures/07_linearDynamicalSystems) | [Aniruddh Galgali](https://www.linkedin.com/in/anirgalgali/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | lecture |
     | 07 | Feb 23 | [Linear Dynamical Systems](practicals/06_linearDynamicalSystems/README.md) | [Aniruddh Galgali](https://www.linkedin.com/in/anirgalgali/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | practical |
     | 08 | Feb 29 | No class (CoSyNe) | | |
     | 09 | Mar 07 | Artificial Neural Networks | [Erin Grant](https://eringrant.github.io/) | lecture |
