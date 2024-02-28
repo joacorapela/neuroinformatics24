@@ -23,8 +23,6 @@
 
 - lecture notes for discussion sessions can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/practicals)
 
-- lecture notes for discussion sessions can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/practicals)
-
 - worksheets can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/worksheets)
 
 - running scripts: we recommend that you run the provided scripts in a conda environment. Before running any script do (only once):
