@@ -1,0 +1,110 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage[colorlinks=]{hyperref}
+\usepackage[margin=2cm]{geometry}
+
+\title{Worksheet: Linear Dynamical Systems}
+\author{Joaquin Rapela and Aniruddh Galgali}
+
+\begin{document}
+
+\maketitle
+
+Please show all your calculations required for your answers.
+
+\begin{enumerate}
+
+    \item Sample (i.e., simulate) observations from a linear dynamical system
+        for tracking.
+        Follow the equations on slide 16 of the
+        \href{https://github.com/joacorapela/neuroinformatics24/blob/master/lectures/07_linearDynamicalSystems/LDS_SWCNeuroinf2024.pdf}{Linear
+        Dynamical Systems} lecture. That is, first sample an initial state
+        $\mathbf{x}_1$, then sample the remaining states
+        $\mathbf{x}_2},\ldots,\mathbf{x}_N$, and finally simple the
+        observations $\mathbf{y}_1,\ldots,\mathbf{y}_N$.
+
+        You may use the script \href{}{doSimulateTrajectoryDWPA.py} in the class repository, but you will
+        need to complete a few missing parts in the module
+        \href{}{simulation.py}. 
+
+\begin{lstlisting}[language=python]
+\end{lstlisting}
+
+        known that this LFP only has an oscillation at 11~Hz (i.e.,
+        $LFP(t)=\cos(\omega_0\,t)$ with $\omega_0=2\pi\,f_0$~rad/sec,
+        $f_0=11$~Hz). However, when we sample this LFP at a frequency of 10~Hz
+        (i.e., $\omega_s=2\pi\,f_s$~rad/sec, $f_s=10$~Hz) we only observe an
+        oscillation at 1~Hz (Figure~\ref{fig:undersampledLFP}).
+
+        \begin{figure}
+            \begin{center}
+                \includegraphics[width=6in]{figures/undersampledLFP.png}
+
+                \caption{An LFP oscillating at 11~Hz (i.e., $LFP(t)=\cos(\omega_0\,t)$ with $\omega_0=2\pi\,f_0$~rad/sec,
+                $f_0=11$~Hz) when sampled at a frequency of 10~Hz (i.e.,
+                $\omega_s=2\pi\,f_s$~rad/sec, $f_s=10$~Hz) only displays an
+                oscillation at 1~Hz. Use the sampling theorem to explain this
+                observation.  Code to generate this figure appears
+                \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/02_LFPs_spectralAnalysis/code/doExUndersampledLFP.py}{here}.}
+
+            \end{center}
+            \label{fig:undersampledLFP}
+        \end{figure}
+
+        \begin{enumerate}[(a)]
+
+            \item explain the appearance of the 1~Hz oscillation using the
+                sampling theorem.
+
+                Hints:
+
+                \begin{itemize}
+
+                    \item the Fourier transform of a cosine is
+                        $\mathcal{FT}\{\cos(\omega_0 t)\}=\frac{1}{2}[\delta(\omega-\omega_0)+\delta(\omega+\omega_0)]$
+                        and has the spectrum in the figure below.
+                        \input{figFTcos}
+
+                    \item replicate the above spectrum, as indicated
+                        by the sampling theorem, with replicas at multiples
+                        of the sampling frequency $\omega_s=2\pi\,f_s$
+                        ($f_s=\frac{1}{T_s}=10~Hz$).
+
+                    \item check if any of the above replicates adds signal at
+                        1~Hz (i.e., $\omega=2\pi\,f$~rad/sec, $f=1$~Hz).
+                \end{itemize}
+
+                Note: to avoid this type of problems where low-frequency
+                oscillations appear due to frequencies in the signal above the
+                Nyquist frequency (i.e., half of the sampling frequency),
+                signals are low pass filtered with an analog filter at the
+                Nyquist frequency before being sampled. This filter is called
+                an \textbf{antialiasing filter}. Analog filters do not
+                generate aliasing.
+
+            \item use a sampling frequency above the Nyquist rate (i.e.,
+                $f_s>2f_N$ where $f_N$ is the largest frequency in the signal)
+                and check that oscillations at 11~Hz appear in the sampled
+                signal. You may want to use 
+                \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/02_LFPs_spectralAnalysis/code/doExUndersampledLFP.py}{this}
+                code.
+
+            \item build another example of an LFP having an oscillation at a
+                high frequency that when sampled at a frequency below the
+                Nyquist rate generates an oscillation at a lower frequency. You
+                can use
+                \href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/02_LFPs_spectralAnalysis/code/doExUndersampledLFP.py}{this} code to verify that with your values of
+                the LFP frequency and the sampling frequency an oscillation
+                at a low frequency emerges.
+
+        \end{enumerate}
+
+    \item solve \href{https://drive.google.com/file/d/1DC4iRo58uZxRlX-KESSlT-861CUXQrz2/view}{Ken's worksheet on power spectra}.
+
+\end{enumerate}
+
+\end{document}
