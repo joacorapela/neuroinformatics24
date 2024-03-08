@@ -4,9 +4,9 @@ import scipy.stats
 import cv2
 import argparse
 import ast
-
-import lds.tracking.utils
-import lds.inference
+sys.path.append("../src")
+import tracking_utils
+import inference
 import computer_vision
 
 
@@ -62,13 +62,13 @@ def main(argv):
         "--sigma_y", type=float, help="y measurement standard deviation",
         default=1e1)
     parser.add_argument(
-        "--m0_x", type=float,
+        "--mu0_x", type=float,
         help="x coordinate of position initial condition", default=100)
     parser.add_argument(
-        "--m0_y", type=float,
+        "--mu0_y", type=float,
         help="y coordinate of position initial condition", default=100)
     parser.add_argument(
-        "--sqrt_diag_V0_value", type=float,
+        "--sqrt_diag_Q0_value", type=float,
         help="standard deviation of initial state component", default=100)
     parser.add_argument(
         "--ellipse_thickness", type=int,
@@ -97,9 +97,9 @@ def main(argv):
     sigma_a = args.sigma_a
     sigma_x = args.sigma_x
     sigma_y = args.sigma_y
-    m0_x = args.m0_x
-    m0_y = args.m0_y
-    sqrt_diag_V0_value = args.sqrt_diag_V0_value
+    mu0_x = args.mu0_x
+    mu0_y = args.mu0_y
+    sqrt_diag_Q0_value = args.sqrt_diag_Q0_value
     ellipse_thickness = args.ellipse_thickness
     ellipse_quantile = args.ellipse_quantile
     ellipse_start_angle = args.ellipse_start_angle
@@ -117,13 +117,14 @@ def main(argv):
 
     # get LDS matrices for tracking
     dt = 1.0 / fps
-    B, Q, Z, R, Qe = lds.tracking.utils.getLDSmatricesForTracking(
+    A, Q, H, R, Qe = tracking_utils.getLDSmatricesForTracking(
         dt=dt, sigma_a=sigma_a, sigma_x=sigma_x, sigma_y=sigma_y)
-    m0 = np.array([[m0_x, 0, 0, m0_y, 0, 0]], dtype=np.double).T
-    V0 = np.diag(np.ones(len(m0))*sqrt_diag_V0_value**2)
-    onlineKF = lds.inference.OnlineKalmanFilter(B=B, Q=Q, m0=m0, V0=V0, Z=Z,
-                                                R=R)
+    mu0 = np.array([[mu0_x, 0, 0, mu0_y, 0, 0]], dtype=np.double).T
+    Q0 = np.diag(np.ones(len(mu0))*sqrt_diag_Q0_value**2)
+    onlineKF = inference.OnlineKalmanFilter(A=A, Q=Q, mu0=mu0, Q0=Q0, H=H, R=R)
 
+    # dirty hack to compute the background by taking the median of three
+    # frames where the mouse is on different positions
     background = computer_vision.get_background(
         cap=cap, frame_indices=[10000, 29000, 25000])
     while cap.isOpened():
