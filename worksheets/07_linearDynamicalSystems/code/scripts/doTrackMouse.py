@@ -12,7 +12,8 @@ import computer_vision
 
 def update_frame(frame, cx, cy, f_mean, f_cov, ellipse_quantile,
                  centroid_color, ellipse_start_angle, ellipse_end_angle,
-                 filtered_color, ellipse_thickness):
+                 filtered_mean_color, filtered_ellipse_color,
+                 ellipse_thickness):
     quantile_value = scipy.stats.chi2.ppf(q=ellipse_quantile, df=2)
     eig_val, eig_vec = np.linalg.eig(f_cov)
     if eig_val[0] < eig_val[1]:
@@ -30,10 +31,10 @@ def update_frame(frame, cx, cy, f_mean, f_cov, ellipse_quantile,
         frame = cv2.circle(frame, (cx, cy), radius=0, color=centroid_color,
                            thickness=3)
     frame = cv2.circle(frame, f_mean, radius=0,
-                       color=filtered_color, thickness=3)
+                       color=filtered_mean_color, thickness=3)
     frame = cv2.ellipse(frame, f_mean, ellipse_axes_len,
                         ellipse_angle, ellipse_start_angle,
-                        ellipse_end_angle, filtered_color,
+                        ellipse_end_angle, filtered_ellipse_color,
                         ellipse_thickness)
     return frame
 
@@ -88,6 +89,9 @@ def main(argv):
     parser.add_argument(
         "--filtered_color", type=str,
         help="filtered_color", default="(0, 255, 0)")
+    parser.add_argument(
+        "--max_speed", type=float,
+        help="maximum speed to consider for plotting", default=548.0)
     args = parser.parse_args()
 
     video_filename = args.video_filename
@@ -106,6 +110,7 @@ def main(argv):
     ellipse_end_angle = args.ellipse_end_angle
     centroid_color = ast.literal_eval(args.centroid_color)
     filtered_color = ast.literal_eval(args.filtered_color)
+    max_speed = args.max_speed
 
     # get video
     cap = cv2.VideoCapture(video_filename)
@@ -143,21 +148,37 @@ def main(argv):
         # estimate the filtered state
         _, _ = onlineKF.predict()
         f_mean, f_cov = onlineKF.update(y=np.array([cx, cy]))
+        speed = np.sqrt(f_mean[1]**2 + f_mean[4]**2)[0]
+        acceleration = np.sqrt(f_mean[2]**2 + f_mean[5]**2)[0]
 
         # update frame with centroid and filter confidence ellipse
         f_mean_pos = np.array([f_mean[0], f_mean[3]])
         f_mean_pos_int = f_mean_pos.flatten().astype(int)
         f_cov_pos = np.array([[f_cov[0, 0], f_cov[0, 3]],
                               [f_cov[3, 0], f_cov[3, 3]]], dtype=np.double)
+        filtered_ellipse_color = tuple([int(filtered_color[i]*speed/max_speed)
+                                        for i in range(len(filtered_color))])
         frame = update_frame(frame=frame, cx=cx, cy=cy, f_mean=f_mean_pos_int,
                              f_cov=f_cov_pos,
                              ellipse_quantile=ellipse_quantile,
                              centroid_color=centroid_color,
                              ellipse_start_angle=ellipse_start_angle,
                              ellipse_end_angle=ellipse_end_angle,
-                             filtered_color=filtered_color,
+                             filtered_mean_color=filtered_color,
+                             filtered_ellipse_color=filtered_ellipse_color,
                              ellipse_thickness=ellipse_thickness)
+        # draw annotations
+        annotation_color = (250, 225, 100)
+        annotation_loc = (10, 50)
+        annotation_font_scale = 0.75
+        annotation = f"speed={speed:3.0f}, accel={acceleration:3.0f}"
+        cv2.putText(frame, annotation, annotation_loc,
+                    fontFace=cv2.FONT_HERSHEY_COMPLEX,
+                    fontScale=annotation_font_scale, color=annotation_color)
+        #
+
         cv2.imshow("", frame)
+
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break
 
