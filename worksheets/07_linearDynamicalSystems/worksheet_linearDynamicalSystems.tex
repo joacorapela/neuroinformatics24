@@ -111,7 +111,10 @@ open-source platform to study the neural basis of ethological behaviours over
 naturalistic timescales, \url{https://doi.org/10.5281/zenodo.8413142}.
 
 To infer mouse kinematics from this video you may want to use the script
-\href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/07_linearDynamicalSystems/code/scripts/doTrackMouse.py}{doTrackMouse.py}.
+\href{https://github.com/joacorapela/neuroinformatics24/blob/master/worksheets/07_linearDynamicalSystems/code/scripts/doTrackMouse.py}{doTrackMouse.py}\footnote{If
+the video frame is too large for your screen run the script with the option
+\texttt{--video\_zoom\_out\_factor=2} (i.e., run \texttt{python
+doTrackMouse.py --video\_zoom\_out\_factor=2}).}.
 This script reads a video file and using the \href{https://opencv.org/}{OpenCV}
 library, it estimates the centre of mass
 of the mouse and plots a red point at the position of this estimate.
