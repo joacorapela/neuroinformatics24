@@ -15,6 +15,7 @@ checkSpelling*
 __pycache__/
 kensLectures/
 figures/
+videos/
 old/
 practicals/02_LFPs_spectralAnalysis/notes/
 data/
