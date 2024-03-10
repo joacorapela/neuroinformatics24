@@ -2,6 +2,7 @@
 import sys
 import argparse
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import joacorapela_common.stats.bayesianLinearRegression as blr
 
@@ -34,8 +35,8 @@ def main(argv):
     images_filename = args.images_filename
     responses_filename = args.responses_filename
 
-    images = np.genfromtxt(images_filename)
-    responses = np.genfromtxt(responses_filename)
+    images = pd.read_csv(images_filename, sep="\s+").to_numpy()
+    responses = pd.read_csv(responses_filename, sep="\s+").to_numpy().flatten()
     Phi = np.column_stack((np.ones(len(images)), images))
     image_width = int(np.sqrt(images.shape[1]))
     image_height = image_width
