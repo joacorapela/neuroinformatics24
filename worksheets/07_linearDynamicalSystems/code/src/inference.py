@@ -49,9 +49,9 @@ class OnlineKalmanFilter:
         self.I = np.eye(M)
 
     def predict(self):
-        """Predicts the next state.
+        """Caclulates the predicted mean and covariance.
 
-        :return: (state, covariance): tuple containing the predicted state vector and covariance matrix.
+        :return: (mean, covariance): tuple containing the predicted mean vector and covariance matrix.
 
         """
         # When calling this method self.x contains the filtered mean at time
@@ -66,10 +66,10 @@ class OnlineKalmanFilter:
         return self.x, self.P
 
     def update(self, y):
-        """Updates the current state and covariance.
+        """Caclulates the filtered mean and covariance.
 
         :param y: observation :math:`\in\Re^M`
-        :return: (state, covariance): tuple containing the updated state vector and covariance matrix.
+        :return: (state, covariance): tuple containing the filtered mean vector and covariance matrix.
 
         """
         # When calling this method self.x contains the predicted mean at time
