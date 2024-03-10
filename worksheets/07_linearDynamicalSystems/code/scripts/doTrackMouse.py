@@ -125,8 +125,7 @@ def main(argv):
     # get video
     cap = cv2.VideoCapture(video_filename)
     if not cap.isOpened():
-        print(f"Error: {video_filename} could not be opened")
-        return 1
+        raise RuntimeError(f"Error: {video_filename} could not be opened")
     (major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')
     if int(major_ver) < 3:
         fps = cap.get(cv2.cv.CV_CAP_PROP_FPS)
