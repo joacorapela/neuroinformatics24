@@ -11,6 +11,7 @@
 *.blg
 checkSpelling*
 *.dic
+.nfs*
 
 __pycache__/
 kensLectures/
