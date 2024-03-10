@@ -14,7 +14,7 @@ import computer_vision
 def update_frame(frame, cx, cy, f_mean, f_cov, ellipse_quantile,
                  centroid_color, ellipse_start_angle, ellipse_end_angle,
                  filtered_mean_color, filtered_ellipse_color,
-                 ellipse_thickness):
+                 ellipse_thickness, video_zoom_out_factor):
     quantile_value = scipy.stats.chi2.ppf(q=ellipse_quantile, df=2)
     eig_val, eig_vec = np.linalg.eig(f_cov)
     if eig_val[0] < eig_val[1]:
@@ -26,7 +26,8 @@ def update_frame(frame, cx, cy, f_mean, f_cov, ellipse_quantile,
         eig_vec[:, 1] = tmp
     major_axis_len = 2 * np.sqrt(quantile_value * eig_val[0])
     minor_axis_len = 2 * np.sqrt(quantile_value * eig_val[1])
-    ellipse_axes_len = (int(major_axis_len), int(minor_axis_len))
+    ellipse_axes_len = (int(major_axis_len/video_zoom_out_factor),
+                        int(minor_axis_len/video_zoom_out_factor))
     ellipse_angle = np.arctan(eig_vec[1, 0]/eig_vec[0, 0]) * 180 / np.pi
     if not np.isnan(cx) and not np.isnan(cy):
         frame = cv2.circle(frame, (cx, cy), radius=0, color=centroid_color,
@@ -42,6 +43,9 @@ def update_frame(frame, cx, cy, f_mean, f_cov, ellipse_quantile,
 
 def main(argv):
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--video_zoom_out_factor", type=float, help="video zoom out factor",
+        default=1.0)
     parser.add_argument(
         "--video_filename", type=str, help="video filename",
         default="../../data/FrameTop_2021-06-03T17-00-00_end001000.avi")
@@ -99,6 +103,7 @@ def main(argv):
         default="../../videos/{:s}")
     args = parser.parse_args()
 
+    video_zoom_out_factor = args.video_zoom_out_factor
     video_filename = args.video_filename
     pixel_thr_value = args.pixel_thr_value
     pixel_max_value = args.pixel_max_value
@@ -157,10 +162,14 @@ def main(argv):
     # frames where the mouse is on different positions
     background = computer_vision.get_background(
         cap=cap, frame_indices=[10000, 29000, 25000])
+    background = cv2.resize(background, (int(frame_width/video_zoom_out_factor),
+                                         int(frame_height/video_zoom_out_factor)))
     while cap.isOpened():
         # get new video frame
         ret, frame = cap.read()
         if ret:
+            frame = cv2.resize(frame, (int(frame_width/video_zoom_out_factor),
+                                       int(frame_height/video_zoom_out_factor)))
             # get mouse centroid (cx, cy)
             cx, cy = computer_vision.get_moving_object_centroid(
                 frame=frame, background=background,
@@ -191,7 +200,8 @@ def main(argv):
                              ellipse_end_angle=ellipse_end_angle,
                              filtered_mean_color=filtered_color,
                              filtered_ellipse_color=filtered_ellipse_color,
-                             ellipse_thickness=ellipse_thickness)
+                             ellipse_thickness=ellipse_thickness,
+                             video_zoom_out_factor=video_zoom_out_factor)
         # draw annotations
         annotation_color = (250, 225, 100)
         annotation_loc = (10, 50)
