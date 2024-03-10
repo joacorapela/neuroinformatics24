@@ -116,6 +116,17 @@ This script reads a video file and using the \href{https://opencv.org/}{OpenCV}
 library, it estimates the centre of mass
 of the mouse and plots a red point at the position of this estimate.
 
+Before running this script install OpenCV by running the following command from the
+root directory of your repository
+
+\noindent\texttt{cd worksheets/07\_linearDynamicalSystems/code/scripts}
+
+\noindent\texttt{pip install -r requirements.txt}
+
+You also need to download this
+\href{https://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearDynamicalSystems/videos/raw/FrameTop_2021-06-03T17-00-00_end001000.avi}{video}
+to the folder \texttt{worksheets/07\_linearDynamicalSystems/data} of your repo.
+
 The OpenCV estimates are noisy and sometimes they are not available due to occlusions.
 Here we use the Kalman filter to remove this noise, to fill the
 missing position values, and to estimate mouse velocities and accelerations.
@@ -222,14 +233,6 @@ covariance in line 18.
         return self.x, self.P
 
 \end{lstlisting}
-
-To run this script you need the OpenCV library. Installation instructions for
-Linux, Mac and Windows can be found
-\href{https://opencv.org/get-started/}{here}.
-
-You also need to download this
-\href{https://www.gatsby.ucl.ac.uk/~rapela/neuroinformatics/2024/worksheets/linearDynamicalSystems/videos/raw/FrameTop_2021-06-03T17-00-00_end001000.avi}{video}
-to the folder \texttt{worksheets/07\_linearDynamicalSystems/data} of your repo.
 
 \section{Adjusting the parameters of the kinematics model (optional)}
 
