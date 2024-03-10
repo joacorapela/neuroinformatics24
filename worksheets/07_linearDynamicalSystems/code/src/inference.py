@@ -61,8 +61,8 @@ class OnlineKalmanFilter:
         # respectievly. See slide 25 from
         # https://github.com/joacorapela/neuroinformatics24/blob/master/lectures/07_linearDynamicalSystems/LDS_SWCNeuroinf2024.pdf
 
-        self.x = ...
-        self.P = ...
+        self.x = self.A @ self.x
+        self.P = self.A @ self.P @ self.A.T + self.Q
         return self.x, self.P
 
     def update(self, y):
@@ -92,8 +92,8 @@ class OnlineKalmanFilter:
             S = (Stmp + Stmp.T) / 2
             Sinv = np.linalg.inv(S)
             K = self.P @ self.H.T @ Sinv
-            self.x = ...
-            self.P = ...
+            self.x = self.x + K @ residual
+            self.P = (self.I - K @ self.H) @ self.P
         return self.x, self.P
 
     @property

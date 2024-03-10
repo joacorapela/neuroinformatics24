@@ -1,4 +1,5 @@
 import sys
+import os.path
 import numpy as np
 import scipy.stats
 import cv2
@@ -92,6 +93,10 @@ def main(argv):
     parser.add_argument(
         "--max_speed", type=float,
         help="maximum speed to consider for plotting", default=548.0)
+    parser.add_argument(
+        "--output_video_filename_pattern", type=str,
+        help="filename pattern for the output video",
+        default="../../videos/{:s}")
     args = parser.parse_args()
 
     video_filename = args.video_filename
@@ -111,6 +116,11 @@ def main(argv):
     centroid_color = ast.literal_eval(args.centroid_color)
     filtered_color = ast.literal_eval(args.filtered_color)
     max_speed = args.max_speed
+    output_video_filename_pattern = args.output_video_filename_pattern
+
+    video_filename_proper = os.path.basename(video_filename)
+    output_video_filename = output_video_filename_pattern.format(
+        video_filename_proper)
 
     # get video
     cap = cv2.VideoCapture(video_filename)
@@ -119,6 +129,19 @@ def main(argv):
         fps = cap.get(cv2.cv.CV_CAP_PROP_FPS)
     else:
         fps = cap.get(cv2.CAP_PROP_FPS)
+
+    # build video writer
+    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    size = (frame_width, frame_height)
+
+    output_video_dirname = os.path.dirname(output_video_filename)
+    if not os.path.exists(output_video_dirname):
+        print(f"Creating directory {output_video_dirname}")
+        os.mkdir(output_video_dirname)
+    writer = cv2.VideoWriter(output_video_filename,
+                             cv2.VideoWriter_fourcc(*'MJPG'),
+                             fps, size)
 
     # get LDS matrices for tracking
     dt = 1.0 / fps
@@ -177,12 +200,16 @@ def main(argv):
                     fontScale=annotation_font_scale, color=annotation_color)
         #
 
+        # save frame
+        writer.write(frame)
+
         cv2.imshow("", frame)
 
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break
 
     cap.release()
+    writer.release()
     cv2.destroyAllWindows()
 
 
