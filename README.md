@@ -17,7 +17,7 @@
     | 09 | Mar 07 | Artificial Neural Networks | [Erin Grant](https://eringrant.github.io/) | lecture |
     | 09 | Mar 08 | Artificial Neural Networks | [Erin Grant](https://eringrant.github.io/) | practical |
     | 10 | Mar 14 | [Experimental Control with Bonsai](https://neurogears.org/neuroinformatics-2024/) | [Goncalo Lopez](https://neurogears.org/about-us/) [Nicholas Guilbeault](https://www.linkedin.com/in/ncguilbeault/) | lecture |
-    | 10 | Mar 15 | Reinforcement learning | [Jesse Geerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) | lecture |
+    | 10 | Mar 15 | [Reinforcement learning](lectures/10_reinforcementLearning/RLinTheBrain_SWC_2024.pdf) | [Jesse Geerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) | lecture |
     | 11 | Mar 22 | Experimental Control with Bonsai | [Nicholas Guilbeault](https://www.linkedin.com/in/ncguilbeault/) [Goncalo Lopez](https://neurogears.org/about-us/) | practical |
     | 11 | Mar 23 | Reinforcement learning | [Jesse Geerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) (unconfirmed) | practical |
 
