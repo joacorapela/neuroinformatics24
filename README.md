@@ -14,7 +14,7 @@
     | 07 | Feb 22 | [Linear Dynamical Systems](lectures/07_linearDynamicalSystems) | [Aniruddh Galgali](https://www.linkedin.com/in/anirgalgali/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | lecture |
     | 07 | Feb 23 | [Linear Dynamical Systems](practicals/06_linearDynamicalSystems/README.md) | [Aniruddh Galgali](https://www.linkedin.com/in/anirgalgali/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | practical |
     | 08 | Feb 29 | No class (CoSyNe) | | |
-    | 09 | Mar 07 | Artificial Neural Networks | [Erin Grant](https://eringrant.github.io/) | lecture |
+    | 09 | Mar 07 | [Artificial Neural Networks](https://slides.com/eringrant/2024-03-07-swc-neural-nets-lecture/fullscreen?token=Gq60IrMy) | [Erin Grant](https://eringrant.github.io/) | lecture |
     | 09 | Mar 08 | Artificial Neural Networks | [Erin Grant](https://eringrant.github.io/) | practical |
     | 10 | Mar 14 | [Experimental Control with Bonsai](https://neurogears.org/neuroinformatics-2024/) | [Goncalo Lopez](https://neurogears.org/about-us/) [Nicholas Guilbeault](https://www.linkedin.com/in/ncguilbeault/) | lecture |
     | 10 | Mar 15 | [Reinforcement learning](lectures/10_reinforcementLearning/RLinTheBrain_SWC_2024.pdf) | [Jesse Geerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) | lecture |
