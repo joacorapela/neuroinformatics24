@@ -26,7 +26,10 @@
     | 11 | Mar 21 | Experimental Control with Bonsai | [Goncalo Lopez](https://neurogears.org/about-us/) [Nick Guilbeault](https://www.linkedin.com/in/ncguilbeault/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | practical |
     | 11 | Mar 22 | Reinforcement learning | [Jesse Geerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) | practical |
 
-- lecture notes for discussion sessions can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/practicals)
+- material related to lectures can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/lectures)
+
+- material related to discussion sessions can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/practicals)
+
 
 - worksheets can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/worksheets)
 
