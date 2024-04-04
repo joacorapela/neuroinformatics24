@@ -1,5 +1,11 @@
 # Neuroinformatics for SWC PhD students 2024 repository
 
+- material related to lectures can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/lectures)
+
+- material related to discussion sessions can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/practicals)
+
+- worksheets can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/worksheets)
+
 - <a name="lecturesSchedule"></a>lectures schedule:
 
     | Week | Date  | Topic | Lecturers | Type |
@@ -25,13 +31,6 @@
     | 10 | Mar 15 | [Reinforcement learning](lectures/10_reinforcementLearning/RLinTheBrain_SWC_2024.pdf) | [Jesse Geerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) | lecture |
     | 11 | Mar 21 | Experimental Control with Bonsai | [Goncalo Lopez](https://neurogears.org/about-us/) [Nick Guilbeault](https://www.linkedin.com/in/ncguilbeault/) [Joaquin Rapela](https://www.gatsby.ucl.ac.uk/~rapela) | practical |
     | 11 | Mar 22 | Reinforcement learning | [Jesse Geerts](https://scholar.google.com/citations?user=4xusDVAAAAAJ&hl=en) | practical |
-
-- material related to lectures can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/lectures)
-
-- material related to discussion sessions can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/practicals)
-
-
-- worksheets can be found [here](https://github.com/joacorapela/neuroinformatics24/tree/master/worksheets)
 
 - running scripts: we recommend that you run the provided scripts in a conda environment. Before running any script do (only once):
 
