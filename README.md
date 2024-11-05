@@ -41,7 +41,7 @@
     4. activate your conda environment (`conda activate neuroi`)
     5. type `pip install -r requirements.txt`
 
-    The you can run any script by (for example):
+    Then you can run any script by (for example):
 
     - `cd practicals/02_LFPs_spectralAnalysis/exercises/`
     - `python doReconstructionExercise.py`
